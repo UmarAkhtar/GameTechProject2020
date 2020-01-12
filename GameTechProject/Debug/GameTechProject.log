@@ -1,0 +1,12 @@
+﻿  GameTechProject.cpp
+D:\GameTechProject\GameTechProject\GameTechProject.cpp(106,40): warning C4305: '+=': truncation from 'double' to 'T'
+D:\GameTechProject\GameTechProject\GameTechProject.cpp(106,40): warning C4305:         with
+D:\GameTechProject\GameTechProject\GameTechProject.cpp(106,40): warning C4305:         [
+D:\GameTechProject\GameTechProject\GameTechProject.cpp(106,40): warning C4305:             T=float
+D:\GameTechProject\GameTechProject\GameTechProject.cpp(106,40): warning C4305:         ]
+D:\GameTechProject\GameTechProject\GameTechProject.cpp(107,40): warning C4305: '-=': truncation from 'double' to 'T'
+D:\GameTechProject\GameTechProject\GameTechProject.cpp(107,40): warning C4305:         with
+D:\GameTechProject\GameTechProject\GameTechProject.cpp(107,40): warning C4305:         [
+D:\GameTechProject\GameTechProject\GameTechProject.cpp(107,40): warning C4305:             T=float
+D:\GameTechProject\GameTechProject\GameTechProject.cpp(107,40): warning C4305:         ]
+  GameTechProject.vcxproj -> D:\GameTechProject\Debug\GameTechProject.exe
