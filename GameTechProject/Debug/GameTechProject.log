@@ -1,0 +1,44 @@
+﻿  main.cpp
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\md2model.h(40,1): warning C4005: 'WIN32': macro redefinition
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp : message : see previous definition of 'WIN32'
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(278,42): warning C4305: '+=': truncation from 'double' to 'T'
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(278,42): warning C4305:         with
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(278,42): warning C4305:         [
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(278,42): warning C4305:             T=float
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(278,42): warning C4305:         ]
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(279,42): warning C4305: '-=': truncation from 'double' to 'T'
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(279,42): warning C4305:         with
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(279,42): warning C4305:         [
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(279,42): warning C4305:             T=float
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(279,42): warning C4305:         ]
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(281,48): warning C4305: '-=': truncation from 'double' to 'T'
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(281,48): warning C4305:         with
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(281,48): warning C4305:         [
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(281,48): warning C4305:             T=float
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(281,48): warning C4305:         ]
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(282,48): warning C4305: '-=': truncation from 'double' to 'T'
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(282,48): warning C4305:         with
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(282,48): warning C4305:         [
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(282,48): warning C4305:             T=float
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(282,48): warning C4305:         ]
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(283,48): warning C4305: '+=': truncation from 'double' to 'T'
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(283,48): warning C4305:         with
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(283,48): warning C4305:         [
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(283,48): warning C4305:             T=float
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(283,48): warning C4305:         ]
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(284,48): warning C4305: '+=': truncation from 'double' to 'T'
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(284,48): warning C4305:         with
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(284,48): warning C4305:         [
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(284,48): warning C4305:             T=float
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(284,48): warning C4305:         ]
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(285,46): warning C4305: '+=': truncation from 'double' to 'T'
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(285,46): warning C4305:         with
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(285,46): warning C4305:         [
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(285,46): warning C4305:             T=float
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(285,46): warning C4305:         ]
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(286,46): warning C4305: '-=': truncation from 'double' to 'T'
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(286,46): warning C4305:         with
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(286,46): warning C4305:         [
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(286,46): warning C4305:             T=float
+C:\Users\Umar\Desktop\GameTechProject\GameTechProject\main.cpp(286,46): warning C4305:         ]
+  GameTechProject.vcxproj -> C:\Users\Umar\Desktop\GameTechProject\Debug\GameTechProject.exe
