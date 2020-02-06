@@ -15,8 +15,10 @@
 #include <gtc/type_ptr.hpp>
 #include <stack>
 #include <Windows.h>
-#include "md2model.h"
+
+#include "SoundManager.h"
 #include "main.h"
+#include "Wall.h"
 //
 //#include <SDL_ttf.h>
 
@@ -27,14 +29,8 @@ using namespace std;
 // Globals
 // Real programs don't use globals :-D
 
-GLfloat health = 100;
 GLfloat yoffset= 2.0f;
 GLfloat yoffset1 = 2.0f;
-bool doorMove = false;
-bool doorMove1 = false;
-bool hasKey = false;
-bool hasEndKey = false;
-bool inGas = false;
 GLfloat offset;
 
 GLuint meshIndexCount = 0;
@@ -46,11 +42,13 @@ GLuint skyboxProgram;
 
 GLuint reflectProgram;
 
+Wall walls;
+ 
+SoundManager* sm;
+
+HSAMPLE* samples = NULL;
 
 
-
-
-GLfloat specular2[4] = { 4.0f, 4.0f, 4.0f, 1.0f };
 
 GLfloat r = 0.0f;
 
@@ -229,7 +227,13 @@ void init(void) {
 	glUniform1f(uniformIndex, attQuadratic);
 	
 	
-
+	sm = new SoundManager(1);
+	sm->init();
+	samples = new HSAMPLE[1];
+	// Following comment is from source basstest file!
+	/* Load a sample from "file" and give it a max of 3 simultaneous
+	playings using playback position as override decider */
+	samples[0] = sm->loadSample("spaceship.wav");
 	
 const char *cubeTexFiles[6] = {
 		"Town-skybox1/back.bmp", "Town-skybox1/front.bmp", "Town-skybox1/right.bmp", "Town-skybox1/left.bmp", "Town-skybox1/top.bmp", "Town-skybox1/bottom.bmp"
@@ -237,15 +241,8 @@ const char *cubeTexFiles[6] = {
 	loadCubeMap(cubeTexFiles, &skybox[0]);
 
 
-	vector<GLfloat> verts;
-	vector<GLfloat> norms;
-	vector<GLfloat> tex_coords;
-	vector<GLuint> indices;
-	rt3d::loadObj("cube.obj", verts, norms, tex_coords, indices);
-	meshIndexCount = indices.size();
-	textures[0] = loadBitmap("alienShipWalls.bmp");
-	meshObjects[0] = rt3d::createMesh(verts.size()/3, verts.data(), nullptr, norms.data(), tex_coords.data(), meshIndexCount, indices.data());
-
+	walls = *new Wall(mvStack, textures[1], glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), shaderProgram, glm::vec3(10, 10, 10));
+	walls.loadWall();
 
 	textures[2] = loadBitmap("alienDoor.bmp");
 
@@ -256,9 +253,15 @@ const char *cubeTexFiles[6] = {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
-	
+	HCHANNEL ch = BASS_SampleGetChannel(samples[0], FALSE);
+sm->setAttributes(0, &ch, 0, 0.02, 0);
+if (!BASS_ChannelPlay(ch, FALSE))
+cout << "Can't play sample" << endl;
 	
 }
+
+
+
 
 
 glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d) {
@@ -341,546 +344,12 @@ glCullFace(GL_BACK);
 
 
 
-	groundDraw();
+	//groundDraw();
 
-
-	//right walls
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(0.0f, 2.0f, -3.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(0.0f, 2.0f, -7.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-	//left walls
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-7.0f, 2.0f, -3.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-7.0f, 2.0f, -7.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-	//Exit wall and partner
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-2.0f, 2.0f, -9.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[2]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-6.0f, yoffset, -9.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-	//Walls player faces when starting
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-2.0f, 2.0f, -1.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-6.0f, 2.0f, -1.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	//Right corridor
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-4.0f, 2.0f, -11.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-4.0f, 2.0f, -15.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	//Left corridor
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-7.0f, 2.0f, -11.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-7.0f, 2.0f, -15.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-5.5f, 0.3f, -4.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.7, 0.5f, 0.5));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-5.5f, 0.3f, -6.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.7, 0.5f, 0.5));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-1.5f, 0.3f, -4.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.7, 0.5f, 0.5));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-7.0f, 2.0f, -10.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.5, 0.5f, 0.5));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-2.0f, 2.0f, -17.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-	
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(2.0f, 2.0f, -17.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(4.0f, 2.0f, -16.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 1.0f));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(2.0f, 2.0f, -15.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-2.0f, 2.0f, -12.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(2.0f, 2.0f, -12.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-2.0f, 2.0f, -15.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(4.0f, 2.0f, -6.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 6.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(7.0f, 2.0f, -10.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 10.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-3.0f, 2.0f, -20.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(10.0, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-13.0f, 2.0f, -18.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-10.0f, 2.0f, -7.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 10.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-13.0f, 2.0f, -3.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 10.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-8.5f, 2.0f, -17.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(1.5, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-15.0f, 2.0f, -16.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(2.0, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-17.0f, 2.0f, -18.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-17.0f, 2.0f, -22.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-7.0f, 2.0f, -24.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(10.0, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-9.0f, 2.0f, -27.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(12.0f, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-21.0f, 2.0f, -25.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-21.0f, 2.0f, -21.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-21.0f, 2.0f, -17.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 2.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-3.0f, 2.0f, 7.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(10.0f, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-3.0f, 2.0f, 3.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(7.0f, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(7.0f, 2.0f, 3.5f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2f, 2.0f, 3.5));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(4.0f, 2.0f, 1.5f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2f, 2.0f, 1.5));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-17.0f, 2.0f, -6.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2f, 2.0f, 7.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-17.0f, 2.0f, 5.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2f, 2.0f, 5.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-10.0f, 2.0f, 10.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(20.0f, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(10.0f, 2.0f, 0.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 10.0f));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(10.0f, 2.0f, -20.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2, 2.0f, 10.0f));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(7.0f, 2.0f, -27.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(4.0f, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-21.0f, 2.0f, -13.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(4.0f, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-25.0f, 2.0f, -19.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2f, 2.0f, 6.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-30.0f, 2.0f, -10.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.2f, 2.0f, 20.0));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-10.0f, 2.0f, -30.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(20.0f, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
-
-	glBindTexture(GL_TEXTURE_2D, textures[2]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-28.0f, yoffset1, -15.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(3.0f, 2.0f, 0.2));
-
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
 
 	
-	/*glDepthMask(GL_FALSE);
-
-	glBindTexture(GL_TEXTURE_2D, textures[2]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(eye.x, eye.y,eye.z -1.5f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(0.5f, 0.5f, 0.2f));
-	mvStack.top() = glm::rotate(mvStack.top(), 0.0f, glm::vec3(r,r,r));
-	rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::setMaterial(shaderProgram, material1);
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	glDepthMask(GL_TRUE);
-	mvStack.pop();*/
-
 	
+	walls.draw();
 
 
 	
@@ -893,19 +362,19 @@ glCullFace(GL_BACK);
 	
 
 
-	glUseProgram(textureProgram);
-	rt3d::setUniformMatrix4fv(textureProgram, "projection", glm::value_ptr(projection));
-	glDepthMask(GL_FALSE); // make sure writing to update depth test is off
-	// draw a cube block on top of ground plane
-	// with text texture 
-	//Keep the texture-only shader
-	glBindTexture(GL_TEXTURE_2D, labels[0]);
-	mvStack.push(mvStack.top());
-	mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-3.0f, 2.0f, -7.0f));
-	mvStack.top() = glm::scale(mvStack.top(), glm::vec3(1.0f, 1.0f, 0.0f));
-	rt3d::setUniformMatrix4fv(textureProgram, "modelview", glm::value_ptr(mvStack.top()));
-	rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-	mvStack.pop();
+	//glUseProgram(textureProgram);
+	//rt3d::setUniformMatrix4fv(textureProgram, "projection", glm::value_ptr(projection));
+	//glDepthMask(GL_FALSE); // make sure writing to update depth test is off
+	//// draw a cube block on top of ground plane
+	//// with text texture 
+	////Keep the texture-only shader
+	//glBindTexture(GL_TEXTURE_2D, labels[0]);
+	//mvStack.push(mvStack.top());
+	//mvStack.top() = glm::translate(mvStack.top(), glm::vec3(-3.0f, 2.0f, -7.0f));
+	//mvStack.top() = glm::scale(mvStack.top(), glm::vec3(1.0f, 1.0f, 0.0f));
+	//rt3d::setUniformMatrix4fv(textureProgram, "modelview", glm::value_ptr(mvStack.top()));
+	//rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
+	//mvStack.pop();
 
 
 	// remember to use at least one pop operation per push...
@@ -914,7 +383,7 @@ glCullFace(GL_BACK);
 
 	
 
-	//pboDraw(projection, modelview);
+	
 
 
 

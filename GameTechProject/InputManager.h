@@ -5,7 +5,7 @@
 #include <gtc/type_ptr.hpp>
 #include <stack>
 #include <Windows.h>
-#include "md2model.h"
+
 #include "main.h"
 
 class InputManager

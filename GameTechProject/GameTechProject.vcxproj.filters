@@ -30,21 +30,47 @@
     <ClInclude Include="rt3dObjLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WallManager.h">
+    <ClInclude Include="SoundManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cubeMap.frag" />
-    <None Include="cubeMap.vert" />
-    <None Include="phong-tex.frag" />
-    <None Include="phong-tex.vert" />
-    <None Include="reflect.frag" />
-    <None Include="reflect.vert" />
-    <None Include="textured.frag" />
-    <None Include="textured.vert" />
-    <None Include="toon.frag" />
-    <None Include="toon.vert" />
+    <None Include="cubeMap.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cubeMap.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="phong-tex.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="phong-tex.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="reflect.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="reflect.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="textured.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="textured.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="toon.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="toon.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -59,7 +85,10 @@
     <ClCompile Include="rt3dObjLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WallManager.cpp">
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
