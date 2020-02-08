@@ -23,10 +23,14 @@
     <ClInclude Include="bass.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="rt3d.h" />
     <ClInclude Include="rt3dObjLoader.h" />
     <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +40,7 @@
     <None Include="phong-tex.vert" />
     <None Include="reflect.frag" />
     <None Include="reflect.vert" />
+    <None Include="shader.fs" />
     <None Include="textured.frag" />
     <None Include="textured.vert" />
     <None Include="toon.frag" />
@@ -44,9 +49,12 @@
   <ItemGroup>
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="rt3d.cpp" />
     <ClCompile Include="rt3dObjLoader.cpp" />
     <ClCompile Include="sceneManager.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
@@ -123,13 +131,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>..\dev\SDL2-2.0.10\include;..\dev\glm\glm;..\dev\glew-2.1.0\include\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\dev\SDL2-2.0.10\include;..\dev\glm\glm;..\dev\glew-2.1.0\include\GL;$(SolutionDir)/ExternalLibraries/assimp/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\dev\SDL2_ttf-2.0.15\VisualC\Win32\Debug;..\dev\glew-2.1.0\lib\Debug\Win32;..\dev\SDL2-2.0.10\VisualC\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2main.lib;bass.lib;opengl32.lib;SDL2_ttf.lib;glew32d.lib;SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\dev\SDL2_ttf-2.0.15\VisualC\Win32\Debug;..\dev\glew-2.1.0\lib\Debug\Win32;..\dev\SDL2-2.0.10\VisualC\Win32\Debug;$(SolutionDir)/ExternalLibraries/assimp/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;bass.lib;opengl32.lib;SDL2_ttf.lib;glew32d.lib;SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -141,10 +149,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>\dev\SDL2_ttf-2.0.15;\dev\SDL2-2.0.10\include;dev\glm;\dev\glew-2.1.0\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>dev\glm\glm;\dev\SDL2-2.0.10\VisualC\Win32\Debug;\dev\SDL2_ttf-2.0.15\VisualC\Win32\Debug;\dev\glew-2.1.0\lib\Debug\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32d.lib;opengl32.lib;sdl2.lib;sdl2main.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

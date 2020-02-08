@@ -1,4 +1,5 @@
 #include "sceneManager.h"
+#define DEG_TO_RADIAN 0.017453293
 
 void sceneManager::glewInitilisation()
 {
@@ -14,10 +15,12 @@ void sceneManager::glewInitilisation()
 
 void sceneManager::loadModel()
 {
+	ourModel = make_shared<Model>("../GameTechProject/models/Barracks/ALLIED_Barracks.obj");
 }
 
 void sceneManager::loadShader()
 {
+	ourShader = make_shared<Shader>("shader.vs", "shader.fs");
 }
 
 void sceneManager::update()
@@ -36,6 +39,34 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 sceneManager::~sceneManager()
 {
 
+}
+
+void sceneManager::draw()
+{
+	glEnable(GL_CULL_FACE);
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+
+	glm::mat4 projection(1.0);
+	projection = glm::perspective(float(60.0f * DEG_TO_RADIAN), 800.0f / 600.0f, 1.0f, 150.0f);
+
+	glm::mat4 view(1.0);
+
+	ourShader->use();
+	ourShader->setMat4("projection", projection);
+	ourShader->setMat4("view", view);
+
+	// render the loaded model
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(0.0f, -10.0f, -30.0f));
+	model = glm::scale(model, glm::vec3(20.5f, 20.5f, 20.5f));	
+	ourShader->setMat4("model", model);
+	ourModel->modelDraw(*ourShader);
+
+
+
+	SDL_GL_SwapWindow(window);  //Swap buffers
 }
 
 SDL_Window* sceneManager::setupRC(SDL_GLContext& context)

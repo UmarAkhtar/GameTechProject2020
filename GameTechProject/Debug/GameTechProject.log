@@ -1,51 +1,15 @@
 ﻿  InputManager.cpp
   main.cpp
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\main.cpp(281,42): warning C4305: '+=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\main.cpp(282,42): warning C4305: '-=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\main.cpp(284,48): warning C4305: '-=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\main.cpp(285,48): warning C4305: '-=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\main.cpp(286,48): warning C4305: '+=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\main.cpp(287,48): warning C4305: '+=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\main.cpp(288,46): warning C4305: '+=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\main.cpp(289,46): warning C4305: '-=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
+  Mesh.cpp
+  Model.cpp
   rt3d.cpp
   rt3dObjLoader.cpp
 C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\rt3dObjLoader.cpp(196,22): warning C4018: '<': signed/unsigned mismatch
 C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\rt3dObjLoader.cpp(134,15): warning C4101: 'z': unreferenced local variable
 C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\rt3dObjLoader.cpp(134,13): warning C4101: 'y': unreferenced local variable
 C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\rt3dObjLoader.cpp(134,11): warning C4101: 'x': unreferenced local variable
+  sceneManager.cpp
+  Shader.cpp
   SoundManager.cpp
 C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\SoundManager.cpp(38,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\SoundManager.cpp(39,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
