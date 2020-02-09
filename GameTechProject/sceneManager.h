@@ -9,6 +9,7 @@
 #include <glew.h>
 #include "Shader.h"
 #include "Model.h"
+#include <stack>
 
 
 
@@ -32,12 +33,30 @@ public:
 
 	void draw();
 
+
+	stack<glm::mat4> model;			// Stack
+
+
 	SDL_GLContext context;
 	SDL_Window* window;
 	SDL_Window* setupRC(SDL_GLContext& context);
 
 	shared_ptr<Shader> ourShader;
 	shared_ptr<Model> ourModel;
+
+	shared_ptr<Model> skyboxModel;
+	shared_ptr<Shader> skyboxShader;
+
+	GLuint skybox;
+	GLuint loadSkybox(const char* fname[6], GLuint* texID);
+	const char* cubeTexFiles[6] = {
+			"../GameTechProject/skybox/back.bmp",
+			"../GameTechProject/skybox/front.bmp",
+			"../GameTechProject/skybox/right.bmp",
+			"../GameTechProject/skybox/left.bmp",
+			"../GameTechProject/skybox/top.bmp",
+			"../GameTechProject/skybox/bottom.bmp"
+	};
 
 };
 
