@@ -53,6 +53,14 @@ void sceneManager::update()
 	{
 		rotation += 1.0f;
 	}
+	if (keys[SDL_SCANCODE_E])
+	{
+		eye.y += 0.1;
+	}
+	if (keys[SDL_SCANCODE_F])
+	{
+		eye.y -= 0.1;
+	}
 }
 
 glm::vec3 sceneManager::moveForward(glm::vec3 pos, GLfloat angle, GLfloat d)

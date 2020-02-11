@@ -52,12 +52,12 @@ public:
 	GLuint skybox;
 	GLuint loadSkybox(const char* fname[6], GLuint* texID);
 	const char* cubeTexFiles[6] = {
-			"../GameTechProject/skybox/back.bmp",
-			"../GameTechProject/skybox/front.bmp",
-			"../GameTechProject/skybox/right.bmp",
-			"../GameTechProject/skybox/left.bmp",
-			"../GameTechProject/skybox/top.bmp",
-			"../GameTechProject/skybox/bottom.bmp"
+			"../GameTechProject/skybox/town-skybox/back.bmp",
+			"../GameTechProject/skybox/town-skybox/front.bmp",
+			"../GameTechProject/skybox/town-skybox/right.bmp",
+			"../GameTechProject/skybox/town-skybox/left.bmp",
+			"../GameTechProject/skybox/town-skybox/top.bmp",
+			"../GameTechProject/skybox/town-skybox/bottom.bmp"
 	};
 
 	glm::vec3 eye;
