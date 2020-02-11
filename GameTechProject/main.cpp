@@ -428,7 +428,8 @@ int main(int argc, char* argv[]) {
 		}
 		//NEED EQUIVALENT OF THE DRAW FUNCTION
 		s.draw();
-		//s.update();
+		s.update();
+		
 	}
 
 

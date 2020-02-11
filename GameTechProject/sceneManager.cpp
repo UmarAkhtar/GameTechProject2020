@@ -25,12 +25,57 @@ void sceneManager::loadShader()
 	skyboxShader = make_shared<Shader>("cubeMap.vert", "cubeMap.frag");
 }
 
+
 void sceneManager::update()
 {
+	const Uint8* keys = SDL_GetKeyboardState(NULL);
+	if (keys[SDL_SCANCODE_W])
+	{
+		eye = moveForward(eye, rotation, 0.1f);
+	}
+	if (keys[SDL_SCANCODE_S])
+	{
+		eye = moveForward(eye, rotation, -0.1f);
+	}
+	if (keys[SDL_SCANCODE_A])
+	{
+		eye = moveRight(eye, rotation, -0.1f);
+	}
+	if (keys[SDL_SCANCODE_D])
+	{
+		eye = moveRight(eye, rotation, 0.1f);
+	}
+	if (keys[SDL_SCANCODE_K])
+	{
+		rotation -= 1.0f;
+	}
+	if (keys[SDL_SCANCODE_L])
+	{
+		rotation += 1.0f;
+	}
+}
+
+glm::vec3 sceneManager::moveForward(glm::vec3 pos, GLfloat angle, GLfloat d)
+{
+	return glm::vec3(pos.x + d * std::sin(rotation * DEG_TO_RADIAN), pos.y, pos.z - d * std::cos(rotation * DEG_TO_RADIAN));
+}
+
+glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
+{
+	return glm::vec3(pos.x + d * std::cos(rotation * DEG_TO_RADIAN), pos.y, pos.z + d * std::sin(rotation * DEG_TO_RADIAN));
 }
 
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
+	eye.x = 0.0f;
+	eye.y = 1.0f;
+	eye.z = 0.0f;
+	at.x = 0.0f;
+	at.y = 1.0f;
+	at.z = -1.0f;
+	up.x = 0.0f;
+	up.y = 1.0f;
+	up.z = 0.0f;
 	window = setupRC(context);
 	glewInitilisation();
 	loadShader();
@@ -57,6 +102,10 @@ void sceneManager::draw()
 	glm::mat4 view(1.0);
 	model.push(view);
 
+	
+	at = moveForward(eye, rotation, 1.0f);
+	model.top() = glm::lookAt(eye, at, up);
+
 	glDepthMask(GL_FALSE);
 	glm::mat3 mvRotOnlyMat3 = glm::mat3(model.top());
 	model.push(glm::mat4(mvRotOnlyMat3));
@@ -66,22 +115,21 @@ void sceneManager::draw()
 	skyboxShader->use();
 	skyboxShader->setMat4("projection", projection);
 	skyboxShader->setMat4("view", view);
-	//model.top() = glm::translate(model.top(), glm::vec3(0.0f, -10.0f, -30.0f)); // translate it down so it's at the center of the scene
-	model.top() = glm::scale(model.top(), glm::vec3(20.5f, 20.5f, 20.5f));	// it's a bit too big for our scene, so scale it down
+	
+	model.top() = glm::scale(model.top(), glm::vec3(20.5f, 20.5f, 20.5f));	
 	skyboxShader->setMat4("model", model.top());
 	skyboxModel->modelDraw(*skyboxShader);
 	glCullFace(GL_BACK);
 	model.pop();
-
+	glDepthMask(GL_TRUE);
 
 	ourShader->use();
 	ourShader->setMat4("projection", projection);
 	ourShader->setMat4("view", view);
 
 	// render the loaded model
-	//glm::mat4 model = glm::mat4(1.0f);
-	model.top() = glm::translate(model.top(), glm::vec3(0.0f, -10.0f, -30.0f)); // translate it down so it's at the center of the scene
-	model.top() = glm::scale(model.top(), glm::vec3(20.5f, 20.5f, 20.5f));	// it's a bit too big for our scene, so scale it down
+	model.top() = glm::translate(model.top(), glm::vec3(0.0f, -10.0f, -30.0f));
+	model.top() = glm::scale(model.top(), glm::vec3(20.5f, 20.5f, 20.5f));	
 	ourShader->setMat4("model", model.top());
 	ourModel->modelDraw(*ourShader);
 
@@ -96,7 +144,6 @@ SDL_Window* sceneManager::setupRC(SDL_GLContext& context)
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		cout << "Unable to initialize SDL " << endl;;
 
-	// Request an OpenGL 3.0 context.
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
@@ -105,10 +152,10 @@ SDL_Window* sceneManager::setupRC(SDL_GLContext& context)
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);  // double buffering on
 	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8); // 8 bit alpha buffering
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4); // Turn on x4 multisampling anti-aliasing (MSAA)
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4); 
 
 	// Create 800x600 window
-	window = SDL_CreateWindow("SDL/GLM/OpenGL Demo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+	window = SDL_CreateWindow("The Maze", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		windowWidth, windowHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 	if (!window) // Check window was created OK
 		cout << "Unable to create window" << endl;

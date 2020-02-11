@@ -21,7 +21,7 @@ private:
 	void glewInitilisation();
 	void loadModel();
 	void loadShader();
-	void update();
+	
 
 	int windowWidth;
 	int windowHeight;
@@ -32,7 +32,9 @@ public:
 	~sceneManager();
 
 	void draw();
-
+	void update();
+	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
+	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
 
 	stack<glm::mat4> model;			// Stack
 
@@ -58,6 +60,10 @@ public:
 			"../GameTechProject/skybox/bottom.bmp"
 	};
 
+	glm::vec3 eye;
+	glm::vec3 at;
+	glm::vec3 up;
+	GLfloat rotation;
 };
 
 #endif // !SCENE_MANAGER
