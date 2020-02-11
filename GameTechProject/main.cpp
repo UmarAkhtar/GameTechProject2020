@@ -19,7 +19,8 @@ using namespace std;
 
 
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
 	sceneManager s(800, 600);
 	bool running = true; // set running to true
 	SDL_Event sdlEvent;  // variable to detect SDL events

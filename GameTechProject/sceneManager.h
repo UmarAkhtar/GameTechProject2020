@@ -48,6 +48,8 @@ public:
 
 	shared_ptr<Model> skyboxModel;
 	shared_ptr<Shader> skyboxShader;
+	
+	shared_ptr<Model> playerModel;
 
 	GLuint skybox;
 	GLuint loadSkybox(const char* fname[6], GLuint* texID);

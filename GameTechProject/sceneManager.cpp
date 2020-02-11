@@ -17,6 +17,7 @@ void sceneManager::loadModel()
 {
 	ourModel = make_shared<Model>("../GameTechProject/models/Barracks/ALLIED_Barracks.obj");
 	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
+	playerModel = make_shared<Model>("../GameTechProject/cat.obj");
 }
 
 void sceneManager::loadShader()
@@ -136,11 +137,20 @@ void sceneManager::draw()
 	ourShader->setMat4("view", view);
 
 	// render the loaded model
+	model.push(model.top());
 	model.top() = glm::translate(model.top(), glm::vec3(0.0f, -10.0f, -30.0f));
 	model.top() = glm::scale(model.top(), glm::vec3(20.5f, 20.5f, 20.5f));	
 	ourShader->setMat4("model", model.top());
 	ourModel->modelDraw(*ourShader);
+	model.pop();
 
+
+	model.push(model.top());
+	model.top() = glm::translate(model.top(), glm::vec3(20.0f, -10.0f, -30.0f));
+	model.top() = glm::scale(model.top(), glm::vec3(20.5f, 20.5f, 20.5f));
+	ourShader->setMat4("model", model.top());
+	playerModel->modelDraw(*ourShader);
+	model.pop();
 
 
 	SDL_GL_SwapWindow(window);  //Swap buffers
