@@ -1,12 +1,7 @@
-﻿  sceneManager.cpp
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(59,15): warning C4305: '+=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(63,15): warning C4305: '-=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
+﻿  main.cpp
+  SoundManager.cpp
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\SoundManager.cpp(38,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\SoundManager.cpp(39,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\SoundManager.cpp(40,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
   GameTechProject.vcxproj -> C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\Debug\GameTechProject.exe

@@ -11,7 +11,6 @@
 #include <Windows.h>
 #include "SoundManager.h"
 #include "main.h"
-#include "Wall.h"
 #include "sceneManager.h"
 //#include <SDL_ttf.h>
 

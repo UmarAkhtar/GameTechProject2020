@@ -22,7 +22,6 @@
     <ClInclude Include="anorms.h" />
     <ClInclude Include="bass.h" />
     <ClInclude Include="cube.h" />
-    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="rt3d.h" />
@@ -31,7 +30,6 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cubeMap.frag" />
@@ -47,7 +45,6 @@
     <None Include="toon.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -56,7 +53,6 @@
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
