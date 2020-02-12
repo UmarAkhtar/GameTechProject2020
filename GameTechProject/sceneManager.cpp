@@ -76,15 +76,10 @@ glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
 
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
-	eye.x = 0.0f;
-	eye.y = 1.0f;
-	eye.z = 0.0f;
-	at.x = 0.0f;
-	at.y = 1.0f;
-	at.z = -1.0f;
-	up.x = 0.0f;
-	up.y = 1.0f;
-	up.z = 0.0f;
+	eye = { 0.0f, 1.0f, 0.0f };
+	at = { 0.0f, 1.0f, -1.0f };
+	up = { 0.0f, 1.0f, 0.0f };
+
 	window = setupRC(context);
 	glewInitilisation();
 	loadShader();
