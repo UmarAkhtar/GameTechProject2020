@@ -1,6 +1,11 @@
 #include "sceneManager.h"
 #define DEG_TO_RADIAN 0.017453293
 
+
+
+vector<Model> m;
+
+
 void sceneManager::glewInitilisation()
 {
 	glewExperimental = GL_TRUE;
@@ -12,13 +17,33 @@ void sceneManager::glewInitilisation()
 	}
 	cout << glGetString(GL_VERSION) << endl;
 }
+void sceneManager::initMusic()
+{
+	sm = new SoundManager(2);
+	sm->init();
+	samples = new HSAMPLE[2];
+	// Following comment is from source basstest file!
+	/* Load a sample from "file" and give it a max of 3 simultaneous
+	playings using playback position as override decider */
+	samples[0] = sm->loadSample("Trot.wav");
+	samples[1] = sm->loadSample("Simple Blues.wav");
 
+	HCHANNEL ch = BASS_SampleGetChannel(samples[1], FALSE);
+	sm->setAttributes(0, &ch, 0, 0.01, 0);
+	if (!BASS_ChannelPlay(ch, FALSE))
+		cout << "Can't play sample" << endl;
+}
 void sceneManager::loadModel()
 {
-	ourModel = make_shared<Model>("../GameTechProject/models/Barracks/ALLIED_Barracks.obj");
+
+	
+
+	m.push_back(Model("../GameTechProject/models/Barracks/ALLIED_Barracks.obj"));
+	
 	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
-	playerModel = make_shared<Model>("../GameTechProject/cat.obj");
 }
+
+
 
 void sceneManager::loadShader()
 {
@@ -54,15 +79,23 @@ void sceneManager::update()
 	{
 		rotation += 1.0f;
 	}
-	if (keys[SDL_SCANCODE_E])
+
+
+	if (keys[SDL_SCANCODE_1])
 	{
-		eye.y += 0.1;
+		health -= 1;
+			Sleep(100);
+			cout << health << endl;
 	}
-	if (keys[SDL_SCANCODE_F])
-	{
-		eye.y -= 0.1;
-	}
+
+	
+
+
 }
+
+
+
+
 
 glm::vec3 sceneManager::moveForward(glm::vec3 pos, GLfloat angle, GLfloat d)
 {
@@ -76,15 +109,21 @@ glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
 
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
-	eye = { 0.0f, 1.0f, 0.0f };
-	at = { 0.0f, 1.0f, -1.0f };
-	up = { 0.0f, 1.0f, 0.0f };
-
+	eye.x = 0.0f;
+	eye.y = 1.0f;
+	eye.z = 0.0f;
+	at.x = 0.0f;
+	at.y = 1.0f;
+	at.z = -1.0f;
+	up.x = 0.0f;
+	up.y = 1.0f;
+	up.z = 0.0f;
 	window = setupRC(context);
 	glewInitilisation();
 	loadShader();
 	loadModel();
 	loadSkybox(cubeTexFiles, &skybox);
+	initMusic();
 	draw();
 }
 
@@ -132,20 +171,14 @@ void sceneManager::draw()
 	ourShader->setMat4("view", view);
 
 	// render the loaded model
-	model.push(model.top());
-	model.top() = glm::translate(model.top(), glm::vec3(0.0f, -10.0f, -30.0f));
-	model.top() = glm::scale(model.top(), glm::vec3(20.5f, 20.5f, 20.5f));	
+	model.top() = glm::translate(model.top(), glm::vec3(0.0f, 10.0f, -10.0f));
+	model.top() = glm::scale(model.top(), glm::vec3(15.5f, 20.5f, 20.5f));	
 	ourShader->setMat4("model", model.top());
-	ourModel->modelDraw(*ourShader);
-	model.pop();
+	for (int i = 0; i < m.size(); i++)
+	{
+		m[i].modelDraw(*ourShader);
+	}
 
-
-	model.push(model.top());
-	model.top() = glm::translate(model.top(), glm::vec3(20.0f, -10.0f, -30.0f));
-	model.top() = glm::scale(model.top(), glm::vec3(20.5f, 20.5f, 20.5f));
-	ourShader->setMat4("model", model.top());
-	playerModel->modelDraw(*ourShader);
-	model.pop();
 
 
 	SDL_GL_SwapWindow(window);  //Swap buffers
