@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include <glew.h>
 #include "Shader.h"
+#include "SoundManager.h"
 #include "Model.h"
 #include <stack>
 
@@ -21,6 +22,7 @@ private:
 	void glewInitilisation();
 	void loadModel();
 	void loadShader();
+	void initMusic();
 	
 
 	int windowWidth;
@@ -35,35 +37,34 @@ public:
 	void update();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
-
+	SoundManager* sm;
+	HSAMPLE* samples = NULL;
 	stack<glm::mat4> model;			// Stack
-
-
 	SDL_GLContext context;
 	SDL_Window* window;
 	SDL_Window* setupRC(SDL_GLContext& context);
-
+	int health = 100;
+	bool key1Found, key2Found = false;
 	shared_ptr<Shader> ourShader;
 	shared_ptr<Model> ourModel;
 
 	shared_ptr<Model> skyboxModel;
 	shared_ptr<Shader> skyboxShader;
-	
-	shared_ptr<Model> playerModel;
 
 	GLuint skybox;
 	GLuint loadSkybox(const char* fname[6], GLuint* texID);
 	const char* cubeTexFiles[6] = {
-			"../GameTechProject/skybox/town-skybox/back.bmp",
-			"../GameTechProject/skybox/town-skybox/front.bmp",
-			"../GameTechProject/skybox/town-skybox/right.bmp",
-			"../GameTechProject/skybox/town-skybox/left.bmp",
-			"../GameTechProject/skybox/town-skybox/top.bmp",
-			"../GameTechProject/skybox/town-skybox/bottom.bmp"
+			"../GameTechProject/skybox/blue/back.bmp",
+			"../GameTechProject/skybox/blue/front.bmp",
+			"../GameTechProject/skybox/blue/right.bmp",
+			"../GameTechProject/skybox/blue/left.bmp",
+			"../GameTechProject/skybox/blue/top.bmp",
+			"../GameTechProject/skybox/blue/bottom.bmp"
 	};
 
 	glm::vec3 eye;
 	glm::vec3 at;
+	glm::vec3 yoffset;
 	glm::vec3 up;
 	GLfloat rotation;
 };
