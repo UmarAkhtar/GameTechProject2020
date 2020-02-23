@@ -35,9 +35,6 @@ void sceneManager::initMusic()
 }
 void sceneManager::loadModel()
 {
-
-	
-
 	m.push_back(Model("../GameTechProject/models/Barracks/ALLIED_Barracks.obj"));
 	
 	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
@@ -79,23 +76,13 @@ void sceneManager::update()
 	{
 		rotation += 1.0f;
 	}
-
-
 	if (keys[SDL_SCANCODE_1])
 	{
 		health -= 1;
 			Sleep(100);
 			cout << health << endl;
 	}
-
-	
-
-
 }
-
-
-
-
 
 glm::vec3 sceneManager::moveForward(glm::vec3 pos, GLfloat angle, GLfloat d)
 {
@@ -109,15 +96,10 @@ glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
 
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
-	eye.x = 0.0f;
-	eye.y = 1.0f;
-	eye.z = 0.0f;
-	at.x = 0.0f;
-	at.y = 1.0f;
-	at.z = -1.0f;
-	up.x = 0.0f;
-	up.y = 1.0f;
-	up.z = 0.0f;
+
+	eye = { 0.0, 1.0, 0.0 };
+	at = { 0.0, 1.0, -1.0 };
+	up = { 0.0, 1.0, 0.0 };
 	window = setupRC(context);
 	glewInitilisation();
 	loadShader();
