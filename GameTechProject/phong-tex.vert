@@ -56,7 +56,7 @@ void main(void) {
 
 	float att_distance = distance(vec4(vertexPosition,1.0), lightPosition);
 
-	ex_attenuation = (1.0 / (1.0 + 0.2 * att_distance + 0.01 * att_distance * att_distance));
+	ex_attenuation = (1.0 / (1.0 + 0.02 * att_distance + 0.01 * att_distance * att_distance));
 
 
 	
