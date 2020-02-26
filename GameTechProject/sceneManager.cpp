@@ -73,9 +73,11 @@ void sceneManager::initShaders()
 	ourShader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 	ourShader->setVec3("lightPos", lightPos);*/
 
+	GLfloat attenuation = 1.0f;
+
 	ourShader->setFloat("attenuationConst", attenuationConstant);
 	ourShader->setFloat("attenuationLinear", attenuationLinear);
-	ourShader->setFloat("attenuationQuadratic", attenuationQuad);
+	ourShader->setFloat("attenuationQuadratic", 0.01f);
 	//ourShader->setLightStruct("light", light);
 	//ourShader->setMaterial("material", material0);
 
@@ -100,8 +102,9 @@ void sceneManager::initShaders()
 	ourShader->setInt("material.diffuse", 0);
 	ourShader->setInt("material.specular", 1);
 
+	glm::vec3 ambient (0.5f, 0.5f, 0.5f);
 	ourShader->setVec3("light.position", lightPos);
-	ourShader->setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+	ourShader->setVec3("light.ambient", ambient);
 	ourShader->setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
 	ourShader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 	ourShader->setFloat("material.shininess", 100.0f);	
@@ -242,9 +245,9 @@ void sceneManager::draw()
 	light.position[2] = tmp.z;
 	ourShader->setLightPos("lightPosition", glm::value_ptr(tmp));
 
-	modelStack.push(modelStack.top());
+	modelStack.push(modelStack.top());															//Cube for light position
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(lightPos.x, lightPos.y, lightPos.z));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5f, 0.5f, 0.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
 	ourShader->setUniformMatrix4fv("model", glm::value_ptr(modelStack.top()));
 	cubeTest->modelDraw(*ourShader);
 	modelStack.pop();

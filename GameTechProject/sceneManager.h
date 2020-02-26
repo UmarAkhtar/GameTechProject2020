@@ -71,7 +71,7 @@ public:
 	//glm::mat4 light;
 	float attenuationConstant = 1.0f;
 	float attenuationLinear = 0.02f;
-	float attenuationQuad = 0.01f;
+	//float attenuationQuad = 0.01f;
 
 	/*glm::vec4 lightAmbient = { 0.3f, 0.3f, 0.3f, 1.0f };
 	glm::vec4 lightDiffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
