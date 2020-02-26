@@ -16,6 +16,20 @@ class Shader
 {
 public:
 
+	struct lightStruct {
+		GLfloat ambient[4];
+		GLfloat diffuse[4];
+		GLfloat specular[4];
+		GLfloat position[4];
+	};
+
+	struct materialStruct {
+		GLfloat ambient[4];
+		GLfloat diffuse[4];
+		GLfloat specular[4];
+		GLfloat shininess;
+	};
+
 	Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
 
 	void use();
@@ -34,6 +48,9 @@ public:
 	void setMat3(const std::string& name, const glm::mat3& mat) const;
 	void setMat4(const std::string& name, const glm::mat4& mat) const;
 	void setUniformMatrix4fv(const char* uniformName, const GLfloat* data);
+	void setLightStruct(const std::string& name, const lightStruct light);
+	void setMaterial(const std::string& name, const materialStruct material);
+	void setLightPos(const std::string& name, const GLfloat* lightPos);
 
 	int getId();
 

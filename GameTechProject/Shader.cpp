@@ -150,6 +150,43 @@ void Shader::setUniformMatrix4fv(const char* uniformName, const GLfloat* data) {
 	glUniformMatrix4fv(uniformIndex, 1, GL_FALSE, data);
 }
 
+void Shader::setLightStruct(const std::string& name, const lightStruct light)
+{
+	GLint uniformIndex = glGetUniformLocation(this->id, "light.ambient");
+	glUniformMatrix4fv(uniformIndex, 1, GL_FALSE, light.ambient);
+
+	uniformIndex = glGetUniformLocation(this->id, "light.diffuse");
+	glUniformMatrix4fv(uniformIndex, 1, GL_FALSE, light.diffuse);
+
+	uniformIndex = glGetUniformLocation(this->id, "light.specular");
+	glUniformMatrix4fv(uniformIndex, 1, GL_FALSE, light.specular);
+
+	uniformIndex = glGetUniformLocation(this->id, "lightPosition");
+	glUniformMatrix4fv(uniformIndex, 1, GL_FALSE, light.position);
+}
+
+void Shader::setMaterial(const std::string& name, const materialStruct material)
+{
+	GLint uniformIndex = glGetUniformLocation(this->id, "material.ambient");
+	glUniformMatrix4fv(uniformIndex, 1, GL_FALSE, material.ambient);
+
+	uniformIndex = glGetUniformLocation(this->id, "material.diffuse");
+	glUniformMatrix4fv(uniformIndex, 1, GL_FALSE, material.diffuse);
+
+	uniformIndex = glGetUniformLocation(this->id, "material.specular");
+	glUniformMatrix4fv(uniformIndex, 1, GL_FALSE, material.specular);
+
+	uniformIndex = glGetUniformLocation(this->id, "material.shininess");
+	glUniform1f(uniformIndex, material.shininess);
+}
+
+void Shader::setLightPos(const std::string& name, const GLfloat* lightPos)
+{
+	GLint uniformIndex = glGetUniformLocation(this->id, "lightPosition");
+	glUniform4fv(uniformIndex, 1, lightPos);
+}
+
+
 // utility function for checking shader compilation/linking errors.
 void Shader::checkCompileErrors(GLuint shader, std::string type)
 {

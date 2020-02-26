@@ -39,6 +39,7 @@
     <None Include="reflect.frag" />
     <None Include="reflect.vert" />
     <None Include="shader.fs" />
+    <None Include="shader.vs" />
     <None Include="textured.frag" />
     <None Include="textured.vert" />
     <None Include="toon.frag" />

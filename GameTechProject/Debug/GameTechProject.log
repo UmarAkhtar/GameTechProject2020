@@ -1,5 +1,3 @@
-﻿  main.cpp
-  sceneManager.cpp
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(162,20): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+﻿  sceneManager.cpp
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(257,20): warning C4018: '<': signed/unsigned mismatch
   GameTechProject.vcxproj -> C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\Debug\GameTechProject.exe
