@@ -53,7 +53,7 @@ void sceneManager::loadShader()
 	//ourShader = make_shared<Shader>("shader.vs", "shader.fs");
     ourShader = make_shared<Shader>("phong-tex.vert", "phong-tex.frag");
 	cubeShader = make_shared<Shader>("cubeShader.vs", "cubeShader.fs");
-	//skyboxShader = make_shared<Shader>("cubeMap.vert", "cubeMap.frag");
+	skyboxShader = make_shared<Shader>("cubeMap.vert", "cubeMap.frag");
 }
 
 void sceneManager::initShaders()
@@ -212,37 +212,36 @@ void sceneManager::draw()
 	glm::mat4 projection(1.0);
 	projection = glm::perspective(float(60.0f * DEG_TO_RADIAN), 800.0f / 600.0f, 1.0f, 150.0f);
 
-	glm::mat4 view(1.0f);
-	modelStack.push(view);
+	glm::mat4 view(1.0f);					//Only here for skybox, nt actually needed
 
-	glm::mat4 model = glm::mat4(1.0f);
+	glm::mat4 modelView = glm::mat4(1.0f);
+	modelStack.push(modelView);
 
 	
 	at = moveForward(eye, rotation, 1.0f);
 	modelStack.top() = glm::lookAt(eye, at, up);
 
-	//glDepthMask(GL_FALSE);
-	//glm::mat3 mvRotOnlyMat3 = glm::mat3(modelStack.top());
-	//modelStack.push(glm::mat4(mvRotOnlyMat3));
+	glDepthMask(GL_FALSE);
+	glm::mat3 mvRotOnlyMat3 = glm::mat3(modelStack.top());
+	modelStack.push(glm::mat4(mvRotOnlyMat3));
 
-	//glCullFace(GL_FRONT);
-	//glBindTexture(GL_TEXTURE_CUBE_MAP, skybox);
-	//skyboxShader->use();
-	//skyboxShader->setMat4("projection", projection);
-	//skyboxShader->setMat4("view", view);
-	//
-	//modelStack.top() = glm::scale(modelStack.top(), glm::vec3(20.5f, 20.5f, 20.5f));
-	//skyboxShader->setMat4("model", modelStack.top());
-	//skyboxModel->modelDraw(*skyboxShader);
-	//glCullFace(GL_BACK);
-	//modelStack.pop();
+	glCullFace(GL_FRONT);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox);
+	skyboxShader->use();
+	skyboxShader->setMat4("projection", projection);
+	skyboxShader->setMat4("modelView", modelView);
+	
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(20.5f, 20.5f, 20.5f));
+	skyboxShader->setMat4("modelView", modelStack.top());
+	skyboxModel->modelDraw(*skyboxShader);
+	glCullFace(GL_BACK);
+	modelStack.pop();
 	glDepthMask(GL_TRUE);
-	   	 
+	
 	ourShader->use();
-	ourShader->setMat4("Model", model);
+	ourShader->setMat4("modelView", modelView);
 	ourShader->setMat4("projection", projection);
-	ourShader->setMat4("view", view);
-	//ourShader->setVec3("lightPosition", lightPos);
+	//ourShader->setMat4("view", view);
 
 	glm::vec4 tmp = modelStack.top() * lightPos;
 	light.position[0] = tmp.x;
@@ -252,12 +251,12 @@ void sceneManager::draw()
 
 	cubeShader->use();
 	cubeShader->setMat4("projection", projection);
-	cubeShader->setMat4("view", view);
+	cubeShader->setMat4("view", view);			//Doesnt actually need to be passed it, will dfault itself.
 
 	modelStack.push(modelStack.top());															//Cube for light position
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(lightPos.x, lightPos.y, lightPos.z));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
-	cubeShader->setUniformMatrix4fv("model", glm::value_ptr(modelStack.top()));
+	cubeShader->setUniformMatrix4fv("modelView", glm::value_ptr(modelStack.top()));
 	cubeTest->modelDraw(*ourShader);
 	modelStack.pop();
 
@@ -268,7 +267,7 @@ void sceneManager::draw()
 	// render the loaded model
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(0.0f, 10.0f, -10.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(15.5f, 20.5f, 20.5f));
-	ourShader->setMat4("model", modelStack.top());
+	ourShader->setMat4("modelView", modelStack.top());
 	for (int i = 0; i < m.size(); i++)
 	{
 		m[i].modelDraw(*ourShader);
@@ -279,7 +278,7 @@ void sceneManager::draw()
 	modelStack.push(modelStack.top());															//Cube for light position
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(0.0f, 10.0f, -10.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0f, 1.0f, 1.0f));
-	ourShader->setUniformMatrix4fv("model", glm::value_ptr(modelStack.top()));
+	ourShader->setUniformMatrix4fv("modelView", glm::value_ptr(modelStack.top()));
 	catModel->modelDraw(*ourShader);
 	modelStack.pop();
 

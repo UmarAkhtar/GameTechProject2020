@@ -11,7 +11,7 @@ uniform float attenuationQuadratic;
 uniform mat4 view;
 uniform mat4 projection;
 uniform vec4 lightPosition;
-uniform mat4 model;
+uniform mat4 modelView;
 //uniform mat3 normalmatrix;
 
 in  vec3 in_Position;
@@ -30,13 +30,13 @@ out float ex_dist;
 																									// multiply each vertex position by the MVP matrix and find V, L, N vectors for the fragment shader
 void main(void) {
 
-	vertexPosition = vec3(model  * vec4(in_Position,1.0));	
+	vertexPosition = vec3(modelView  * vec4(in_Position,1.0));	
 
 	
 	ex_V = normalize(-vertexPosition).xyz;															// Find V - in eye coordinates, eye is at (0,0,0)
 
 
-	mat3 normalmatrix = transpose(inverse(mat3(model)));												// surface normal in eye coordinates taking the rotation part of the modelview matrix to generate the normal matrix
+	mat3 normalmatrix = transpose(inverse(mat3(modelView)));												// surface normal in eye coordinates taking the rotation part of the modelview matrix to generate the normal matrix
 																									//(if scaling is includes, should use transpose inverse modelview matrix!) this is somewhat wasteful in compute time and should really be part of the cpu program,
 																									// giving an additional uniform input
 	ex_N = normalize(normalmatrix * in_Normal);
