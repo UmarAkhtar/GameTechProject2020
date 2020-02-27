@@ -46,7 +46,9 @@ public:
 	shared_ptr<Shader> ourShader;
 	shared_ptr<Model> ourModel;
 	shared_ptr<Model> cubeTest;
-	shared_ptr<Shader> attenShader;
+	shared_ptr<Model> catModel;
+
+	shared_ptr<Shader> cubeShader;
 
 	shared_ptr<Model> skyboxModel;
 	shared_ptr<Shader> skyboxShader;
@@ -71,7 +73,7 @@ public:
 	//glm::mat4 light;
 	float attenuationConstant = 1.0f;
 	float attenuationLinear = 0.02f;
-	//float attenuationQuad = 0.01f;
+	float attenuationQuad = 0.01f;
 
 	/*glm::vec4 lightAmbient = { 0.3f, 0.3f, 0.3f, 1.0f };
 	glm::vec4 lightDiffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -88,7 +90,7 @@ public:
 	{1.0f, 1.0f, 1.0f, 1.0f}, // ambient
 	{1.0f, 1.0f, 1.0f, 1.0f}, // diffuse
 	{1.0f, 1.0f, 1.0f, 1.0f}, // specular
-	{ 0.0f, 15.0f, 20.0f, 1.0f}  // position
+	{ -10.0f, 10.0f, 10.0f, 1.0f}  // position
 	};
 
 	glm::vec4 lightPos{ 0.0f, 15.0f, 20.0f, 1.0f };
@@ -99,6 +101,8 @@ public:
 	{0.0f, 0.1f, 0.0f, 1.0f}, // specular
 	2.0f  // shininess
 	};
+
+	glm::vec3 catPos = { 0.0f, 10.0f, -10.0f };
 
 };
 

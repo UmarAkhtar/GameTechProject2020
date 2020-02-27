@@ -56,6 +56,7 @@ void main(void) {
 
 	float att_distance = distance(vec4(vertexPosition,1.0), lightPosition);
 
+
 	ex_attenuation = (1.0 / (attenuationConst + attenuationLinear * att_distance + 0.01 * att_distance * att_distance));
 
 //	ex_attenuation = (1.0 / attenuationConst + (attenuationLinear * att_distance) + (0.01 * att_distance * att_distance));
@@ -70,17 +71,3 @@ void main(void) {
 //kc = constant attenuation factor
 // kl = linear attenuation factor 
 //kq = quadtratic attenuation factor.
-
-
-
-
-
-
-
-
-
-
-
-
-
-

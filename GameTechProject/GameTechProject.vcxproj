@@ -34,6 +34,8 @@
   <ItemGroup>
     <None Include="cubeMap.frag" />
     <None Include="cubeMap.vert" />
+    <None Include="cubeShader.fs" />
+    <None Include="cubeShader.vs" />
     <None Include="phong-tex.frag" />
     <None Include="phong-tex.vert" />
     <None Include="reflect.frag" />

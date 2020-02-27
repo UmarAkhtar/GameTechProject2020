@@ -1,3 +1,23 @@
 ﻿  sceneManager.cpp
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(260,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(119,15): warning C4305: '+=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(123,15): warning C4305: '-=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(162,20): warning C4305: '+=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(167,20): warning C4305: '-=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(272,20): warning C4018: '<': signed/unsigned mismatch
   GameTechProject.vcxproj -> C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\Debug\GameTechProject.exe

@@ -42,6 +42,8 @@ void sceneManager::loadModel()
 	cubeTest = make_shared<Model>("../GameTechProject/cube.obj");
 	
 	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
+
+	catModel = make_shared<Model>("../GameTechProject/cat.obj");
 }
 
 
@@ -50,6 +52,7 @@ void sceneManager::loadShader()
 {
 	//ourShader = make_shared<Shader>("shader.vs", "shader.fs");
     ourShader = make_shared<Shader>("phong-tex.vert", "phong-tex.frag");
+	cubeShader = make_shared<Shader>("cubeShader.vs", "cubeShader.fs");
 	//skyboxShader = make_shared<Shader>("cubeMap.vert", "cubeMap.frag");
 }
 
@@ -78,25 +81,6 @@ void sceneManager::initShaders()
 	ourShader->setFloat("attenuationConst", attenuationConstant);
 	ourShader->setFloat("attenuationLinear", attenuationLinear);
 	ourShader->setFloat("attenuationQuadratic", 0.01f);
-	//ourShader->setLightStruct("light", light);
-	//ourShader->setMaterial("material", material0);
-
-	//lightingShader.use();
-	//lightingShader.setInt("material.diffuse", 0);
-	//lightingShader.setInt("material.specular", 1);
-
-	//lightingShader.use();
-	//lightingShader.setVec3("light.position", lightPos);
-	////lightingShader.setVec3("viewPos", camera.Position);
-
-	//// light properties
-	//lightingShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-	//lightingShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-	//lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-
-	//// material properties
-	//lightingShader.setFloat("material.shininess", 64.0f);
-
 
 	ourShader->use();
 	ourShader->setInt("material.diffuse", 0);
@@ -129,6 +113,14 @@ void sceneManager::update()
 	if (keys[SDL_SCANCODE_D])
 	{
 		eye = moveRight(eye, rotation, 0.1f);
+	}
+	if (keys[SDL_SCANCODE_E])
+	{
+		eye.y += 0.1;
+	}
+	if (keys[SDL_SCANCODE_F])
+	{
+		eye.y -= 0.1;
 	}
 	if (keys[SDL_SCANCODE_K])
 	{
@@ -164,6 +156,17 @@ void sceneManager::update()
 	{
 		lightPos = glm::vec4(moveRight(lightPos, 0.0f, 0.1f), 1.0);
 	}
+
+	if (keys[SDL_SCANCODE_N])
+	{
+		lightPos.y += 0.1;
+	}
+
+	if (keys[SDL_SCANCODE_M])
+	{
+		lightPos.y -= 0.1;
+	}
+
 }
 
 glm::vec3 sceneManager::moveForward(glm::vec3 pos, GLfloat angle, GLfloat d)
@@ -232,12 +235,14 @@ void sceneManager::draw()
 	//modelStack.pop();
 	glDepthMask(GL_TRUE);
 	   	 
-	ourShader->use();
-	ourShader->setMat4("projection", projection);
-	ourShader->setMat4("view", view);
+	
 	
 	//0.0f, 15.0f, 20.0f
 
+
+	ourShader->use();
+	ourShader->setMat4("projection", projection);
+	ourShader->setMat4("view", view);
 
 	glm::vec4 tmp = modelStack.top() * lightPos;
 	light.position[0] = tmp.x;
@@ -245,12 +250,19 @@ void sceneManager::draw()
 	light.position[2] = tmp.z;
 	ourShader->setLightPos("lightPosition", glm::value_ptr(tmp));
 
+	cubeShader->use();
+	cubeShader->setMat4("projection", projection);
+	cubeShader->setMat4("view", view);
+
 	modelStack.push(modelStack.top());															//Cube for light position
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(lightPos.x, lightPos.y, lightPos.z));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
-	ourShader->setUniformMatrix4fv("model", glm::value_ptr(modelStack.top()));
+	cubeShader->setUniformMatrix4fv("model", glm::value_ptr(modelStack.top()));
 	cubeTest->modelDraw(*ourShader);
 	modelStack.pop();
+
+
+	ourShader->use();
 
 
 	// render the loaded model
@@ -261,7 +273,15 @@ void sceneManager::draw()
 	{
 		m[i].modelDraw(*ourShader);
 	}
+	//modelStack.pop();
 
+
+	modelStack.push(modelStack.top());															//Cube for light position
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(0.0f, 10.0f, -10.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0f, 1.0f, 1.0f));
+	ourShader->setUniformMatrix4fv("model", glm::value_ptr(modelStack.top()));
+	catModel->modelDraw(*ourShader);
+	modelStack.pop();
 
 
 	SDL_GL_SwapWindow(window);  //Swap buffers

@@ -86,6 +86,12 @@
     <None Include="shader.vs">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="cubeShader.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cubeShader.vs">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
