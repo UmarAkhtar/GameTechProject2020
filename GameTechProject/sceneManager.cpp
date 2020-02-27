@@ -83,15 +83,16 @@ void sceneManager::initShaders()
 	ourShader->setFloat("attenuationQuadratic", 0.01f);
 
 	ourShader->use();
-	ourShader->setInt("material.diffuse", 0);
-	ourShader->setInt("material.specular", 1);
+	//ourShader->setInt("material.diffuse", 0);
+	//ourShader->setInt("material.specular", 1);
 
-	glm::vec3 ambient (0.5f, 0.5f, 0.5f);
-	ourShader->setVec3("light.position", lightPos);
-	ourShader->setVec3("light.ambient", ambient);
+
+	ourShader->setVec3("light.position", -10.0f, -10.0f, 10.0f);
+	ourShader->setVec3("light.ambient", 0.5f, 0.5f, 0.5f);
 	ourShader->setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
 	ourShader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-	ourShader->setFloat("material.shininess", 100.0f);	
+
+	//ourShader->setFloat("material.shininess", 100.0f);	
 }
 
 
@@ -211,8 +212,10 @@ void sceneManager::draw()
 	glm::mat4 projection(1.0);
 	projection = glm::perspective(float(60.0f * DEG_TO_RADIAN), 800.0f / 600.0f, 1.0f, 150.0f);
 
-	glm::mat4 view(1.0);
+	glm::mat4 view(1.0f);
 	modelStack.push(view);
+
+	glm::mat4 model = glm::mat4(1.0f);
 
 	
 	at = moveForward(eye, rotation, 1.0f);
@@ -235,14 +238,11 @@ void sceneManager::draw()
 	//modelStack.pop();
 	glDepthMask(GL_TRUE);
 	   	 
-	
-	
-	//0.0f, 15.0f, 20.0f
-
-
 	ourShader->use();
+	ourShader->setMat4("Model", model);
 	ourShader->setMat4("projection", projection);
 	ourShader->setMat4("view", view);
+	//ourShader->setVec3("lightPosition", lightPos);
 
 	glm::vec4 tmp = modelStack.top() * lightPos;
 	light.position[0] = tmp.x;

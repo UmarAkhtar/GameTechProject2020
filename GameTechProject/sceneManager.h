@@ -93,7 +93,7 @@ public:
 	{ -10.0f, 10.0f, 10.0f, 1.0f}  // position
 	};
 
-	glm::vec4 lightPos{ 0.0f, 15.0f, 20.0f, 1.0f };
+	glm::vec4 lightPos{ 0.0f, 15.0f, 2.0f, 1.0f };
 
 	Shader::materialStruct material0 = {
 	{0.2f, 0.4f, 0.2f, 1.0f}, // ambient

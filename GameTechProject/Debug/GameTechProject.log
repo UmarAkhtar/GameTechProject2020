@@ -1,20 +1,20 @@
 ﻿  sceneManager.cpp
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(119,15): warning C4305: '+=': truncation from 'double' to 'T'
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(120,15): warning C4305: '+=': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(123,15): warning C4305: '-=': truncation from 'double' to 'T'
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(124,15): warning C4305: '-=': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(162,20): warning C4305: '+=': truncation from 'double' to 'T'
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(163,20): warning C4305: '+=': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(167,20): warning C4305: '-=': truncation from 'double' to 'T'
+C:\Users\k_mce\Documents\Uni\3rd Year\ProjectClass\GameTechProject2020\GameTechProject\sceneManager.cpp(168,20): warning C4305: '-=': truncation from 'double' to 'T'
           with
           [
               T=float

@@ -30,19 +30,13 @@ out float ex_dist;
 																									// multiply each vertex position by the MVP matrix and find V, L, N vectors for the fragment shader
 void main(void) {
 
-
-	
-	//vec4 vertexPosition = view * vec4(in_Position,1.0);										// vertex into eye coordinates
-
 	vertexPosition = vec3(model  * vec4(in_Position,1.0));	
-
-	//vec4 mylightPosition = view * vec4(lightPosition);
 
 	
 	ex_V = normalize(-vertexPosition).xyz;															// Find V - in eye coordinates, eye is at (0,0,0)
 
 
-	mat3 normalmatrix = transpose(inverse(mat3(view)));										// surface normal in eye coordinates taking the rotation part of the modelview matrix to generate the normal matrix
+	mat3 normalmatrix = transpose(inverse(mat3(model)));												// surface normal in eye coordinates taking the rotation part of the modelview matrix to generate the normal matrix
 																									//(if scaling is includes, should use transpose inverse modelview matrix!) this is somewhat wasteful in compute time and should really be part of the cpu program,
 																									// giving an additional uniform input
 	ex_N = normalize(normalmatrix * in_Normal);
@@ -52,14 +46,14 @@ void main(void) {
 
 	ex_TexCoord = in_TexCoord;
 
-   gl_Position = projection * vec4(vertexPosition,1.0);
+    gl_Position = projection * vec4(vertexPosition,1.0);
 
 	float att_distance = distance(vec4(vertexPosition,1.0), lightPosition);
-
+	
 
 	ex_attenuation = (1.0 / (attenuationConst + attenuationLinear * att_distance + 0.01 * att_distance * att_distance));
 
-//	ex_attenuation = (1.0 / attenuationConst + (attenuationLinear * att_distance) + (0.01 * att_distance * att_distance));
+//	ex_attenuation = 1.0;// (1.0 / attenuationConst + (attenuationLinear * att_distance) + (0.01 * att_distance * att_distance));
 
 
 	
