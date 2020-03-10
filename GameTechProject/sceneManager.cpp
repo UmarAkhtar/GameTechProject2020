@@ -1,10 +1,15 @@
 #include "sceneManager.h"
 #define DEG_TO_RADIAN 0.017453293
 
+GLint x, y, z = 0;
 
+vector<Model> gameObjects;
 
-vector<Model> m;
+bool walking = false;
 
+GLfloat yoffset, yoffset1, yoffset2 = 0;
+
+bool key1Found, key2Found = false;
 
 void sceneManager::glewInitilisation()
 {
@@ -17,30 +22,45 @@ void sceneManager::glewInitilisation()
 	}
 	cout << glGetString(GL_VERSION) << endl;
 }
+
+void sceneManager::loadModel()
+{
+
+	const Uint8* keys = SDL_GetKeyboardState(NULL);
+	
+	for (int i = 0; i < 2; i++)
+	{
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall.obj"));
+	}
+
+	
+	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
+}
+
 void sceneManager::initMusic()
 {
-	sm = new SoundManager(2);
+	sm = new SoundManager(3);
 	sm->init();
-	samples = new HSAMPLE[2];
+	samples = new HSAMPLE[3];
 	// Following comment is from source basstest file!
 	/* Load a sample from "file" and give it a max of 3 simultaneous
 	playings using playback position as override decider */
 	samples[0] = sm->loadSample("Trot.wav");
 	samples[1] = sm->loadSample("Simple Blues.wav");
+	samples[2] = sm->loadSample("fot.wav");
 
-	HCHANNEL ch = BASS_SampleGetChannel(samples[1], FALSE);
+	/*HCHANNEL ch = BASS_SampleGetChannel(samples[1], FALSE);
 	sm->setAttributes(0, &ch, 0, 0.01, 0);
 	if (!BASS_ChannelPlay(ch, FALSE))
-		cout << "Can't play sample" << endl;
-}
-void sceneManager::loadModel()
-{
-	m.push_back(Model("../GameTechProject/models/Barracks/ALLIED_Barracks.obj"));
+		cout << "Can't play sample" << endl;*/
 	
-	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
+
+
+
+
+
+
 }
-
-
 
 void sceneManager::loadShader()
 {
@@ -51,37 +71,116 @@ void sceneManager::loadShader()
 
 void sceneManager::update()
 {
+
+	//cout << walking << endl;
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 	if (keys[SDL_SCANCODE_W])
 	{
+
+walking = true;
+
 		eye = moveForward(eye, rotation, 0.1f);
+		
+	
 	}
+	else
+	{
+		walking = false;
+	}
+
+
+	
+	
 	if (keys[SDL_SCANCODE_S])
 	{
 		eye = moveForward(eye, rotation, -0.1f);
+		walking = true;
 	}
 	if (keys[SDL_SCANCODE_A])
 	{
 		eye = moveRight(eye, rotation, -0.1f);
+		walking = true;
 	}
 	if (keys[SDL_SCANCODE_D])
 	{
 		eye = moveRight(eye, rotation, 0.1f);
+		walking = true;
 	}
-	if (keys[SDL_SCANCODE_K])
+
+	if (keys[SDL_SCANCODE_Q])
 	{
 		rotation -= 1.0f;
 	}
-	if (keys[SDL_SCANCODE_L])
+	if (keys[SDL_SCANCODE_E])
 	{
 		rotation += 1.0f;
 	}
+	if (keys[SDL_SCANCODE_R])
+	{
+		eye.y += 0.1f;
+	}
+	if (keys[SDL_SCANCODE_F])
+	{
+		eye.y -= 0.1f;
+	}
+
+
 	if (keys[SDL_SCANCODE_1])
 	{
 		health -= 1;
-			Sleep(100);
-			cout << health << endl;
+		Sleep(100);
+		cout << health << endl;
 	}
+
+
+	if (keys[SDL_SCANCODE_O] && key1Found)
+	{
+
+		while(yoffset <= 3)
+		{
+			yoffset += 0.01f;
+		}
+		
+	
+				
+				
+	}
+
+	if (keys[SDL_SCANCODE_P])
+	{
+
+		while (yoffset1 <= 3)
+		{
+			yoffset1 += 0.01f;
+		}
+	}
+
+	if (keys[SDL_SCANCODE_K] && key2Found)
+	{
+
+		while (yoffset2 <= 3)
+		{
+			yoffset2 += 0.01f;
+		}
+	}
+
+	if (keys[SDL_SCANCODE_2])
+	{
+		key1Found = true;
+		Sleep(300);
+		cout << "Key 1 Found, Open the door infront of you1" << endl;
+		Sleep(300);
+	}
+
+	if (keys[SDL_SCANCODE_3])
+	{
+		key2Found = true;
+		Sleep(300);
+		cout << "Key 2 Found, Open the door on your left" << endl;
+		Sleep(300);
+	}
+	
+	
 }
 
 glm::vec3 sceneManager::moveForward(glm::vec3 pos, GLfloat angle, GLfloat d)
@@ -89,17 +188,31 @@ glm::vec3 sceneManager::moveForward(glm::vec3 pos, GLfloat angle, GLfloat d)
 	return glm::vec3(pos.x + d * std::sin(rotation * DEG_TO_RADIAN), pos.y, pos.z - d * std::cos(rotation * DEG_TO_RADIAN));
 }
 
+
 glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
 {
 	return glm::vec3(pos.x + d * std::cos(rotation * DEG_TO_RADIAN), pos.y, pos.z + d * std::sin(rotation * DEG_TO_RADIAN));
 }
 
+
+
+	
+
+
+
+
+
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
-
-	eye = { 0.0, 1.0, 0.0 };
-	at = { 0.0, 1.0, -1.0 };
-	up = { 0.0, 1.0, 0.0 };
+	eye.x = 6.0f;
+	eye.y = 1.3f;
+	eye.z = 0.0f;
+	at.x = 0.0f;
+	at.y = 1.0f;
+	at.z = -1.0f;
+	up.x = 0.0f;
+	up.y = 1.0f;
+	up.z = 0.0f;
 	window = setupRC(context);
 	glewInitilisation();
 	loadShader();
@@ -121,6 +234,19 @@ void sceneManager::draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
+
+
+
+	if (walking == true)
+	{
+		HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+		sm->setAttributes(0, &ch, 0, 1.0, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+	}
+
+
+
 	glm::mat4 projection(1.0);
 	projection = glm::perspective(float(60.0f * DEG_TO_RADIAN), 800.0f / 600.0f, 1.0f, 150.0f);
 
@@ -131,6 +257,37 @@ void sceneManager::draw()
 	at = moveForward(eye, rotation, 1.0f);
 	model.top() = glm::lookAt(eye, at, up);
 
+	drawSkybox(projection, view);
+	
+	ourShader->use();
+	ourShader->setMat4("projection", projection);
+	ourShader->setMat4("view", view);
+    
+	
+	
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(2.75, 1, -25.2));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(0.0f,-0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+
+	firstRoom();
+
+
+	hallwayFromFirstRoom();
+
+
+ourShader->setMat4("model", model.top());
+
+
+SDL_GL_SwapWindow(window);  //Swap buffers
+}
+
+void sceneManager::drawSkybox(glm::mat4 &projection, glm::mat4 &view)
+{
 	glDepthMask(GL_FALSE);
 	glm::mat3 mvRotOnlyMat3 = glm::mat3(model.top());
 	model.push(glm::mat4(mvRotOnlyMat3));
@@ -140,30 +297,266 @@ void sceneManager::draw()
 	skyboxShader->use();
 	skyboxShader->setMat4("projection", projection);
 	skyboxShader->setMat4("view", view);
-	
-	model.top() = glm::scale(model.top(), glm::vec3(20.5f, 20.5f, 20.5f));	
+
+	model.top() = glm::scale(model.top(), glm::vec3(20.5f, 20.5f, 20.5f));
 	skyboxShader->setMat4("model", model.top());
 	skyboxModel->modelDraw(*skyboxShader);
 	glCullFace(GL_BACK);
 	model.pop();
 	glDepthMask(GL_TRUE);
+}
 
-	ourShader->use();
-	ourShader->setMat4("projection", projection);
-	ourShader->setMat4("view", view);
-
-	// render the loaded model
-	model.top() = glm::translate(model.top(), glm::vec3(0.0f, 10.0f, -10.0f));
-	model.top() = glm::scale(model.top(), glm::vec3(15.5f, 20.5f, 20.5f));	
+void sceneManager::hallwayFromFirstRoom()
+{
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(8.1, 1, -9.8));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
 	ourShader->setMat4("model", model.top());
-	for (int i = 0; i < m.size(); i++)
-	{
-		m[i].modelDraw(*ourShader);
-	}
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(8.1, 1, -12.3));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(8.1, 1, -14.8));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(8.1, 1, -17.4));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(8.1, 1, -20));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(8.1, 1, -22.5));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(8.1, 1, -25));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	///////////
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(2.5, 1, -9.8));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(2.5, 1, -12.3));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(2.5, 1, -14.8));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(2.5, 1, -17.4));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(2.5, 1, -20));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(2.5, 1 +  yoffset2, -22.5));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(2.5, 1, -25));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+	///////////
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(5.3, 1 +  yoffset1, -27.5));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+}
+
+void sceneManager::firstRoom()
+{
+	model.push(model.top());
+	gameObjects[0].setPosition(glm::vec3(0, 1, 0));
+	model.top() = glm::translate(model.top(), gameObjects[0].getPosition());
+	ourShader->setMat4("model", model.top());
+	gameObjects[0].modelDraw(*ourShader);
+	model.pop();
 
 
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(0, 1, -2.5));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
 
-	SDL_GL_SwapWindow(window);  //Swap buffers
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(0, 1, -5));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(0, 1, -7.5));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(2.8, 1, -10));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(5.3, 1 +  yoffset, -10));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(7.8, 1, -10));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(10.3, 1, -10));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[0].setPosition(glm::vec3(13.2, 1, 0));
+	model.top() = glm::translate(model.top(), gameObjects[0].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[0].modelDraw(*ourShader);
+	model.pop();
+
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(13.2, 1, -2.5));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(13.2, 1, -5));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(13.2, 1, -7.5));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(2.8, 1, 2.8));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(-90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(5.3, 1, 2.8));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(-90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(7.8, 1, 2.8));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(-90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
+
+	model.push(model.top());
+	gameObjects[1].setPosition(glm::vec3(10.3, 1, 2.8));
+	model.top() = glm::translate(model.top(), gameObjects[1].getPosition());
+	model.top() = glm::rotate(model.top(), float(-90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("model", model.top());
+	gameObjects[1].modelDraw(*ourShader);
+	model.pop();
 }
 
 SDL_Window* sceneManager::setupRC(SDL_GLContext& context)
