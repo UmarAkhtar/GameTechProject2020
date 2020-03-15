@@ -7,71 +7,68 @@ struct Material {
     float shininess;
 }; 
 
-struct Light
-{
-	vec3 position;
-
-	float attenuationConst;
-	float attenuationLinear;
-	float attenuationQuadratic;
-
-	vec3 ambient;
-	vec3 diffuse;
-	vec3 specular;
+struct PointLight {
+    vec3 position;
+    
+    float constant;
+    float linear;
+    float quadratic;
+	
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
 };
-#define NR_LIGHTS 4
 
-uniform Light lights[NR_LIGHTS];
-
-in vec3 vertexPosition;  //fragPos
-in vec3 ex_N;           //Normal
+in vec3 vertexPosition;
+in vec3 norm;
 in vec2 ex_TexCoord;
-  
-uniform vec3 viewPos;
+
+#define NR_POINT_LIGHTS 4
+
+uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform Material material;
+uniform vec3 viewPos;
 
-vec4 result;
-vec4 tmpColour;
-vec4 litColour;
+vec3 result;
 
-
-vec3 CalcLights(Light light, vec3 vertPos);
+    vec3 CalcPointLight(PointLight light, vec3 viewDirection);
 
 void main()
 {
-   vec3 norm = normalize(ex_N);
-   //vec3 lightDir = normalize(lights.position - vertexPosition);
-   
-   for(int i = 0; i < NR_LIGHTS; i++)
-      result += CalcLights(lights[i], vertexPosition);
-
-       FragColor = result;
-      
-} 
- 
-
-vec3 CalcLights(Light light, vec3 vertPos)
-{
+    vec3 viewDirection = normalize(viewPos - vertexPosition);
     
-       vec3 ambient = light.ambient * texture(material.diffuse, ex_TexCoord).rgb;
+      for(int i = 0; i < NR_POINT_LIGHTS; i++)
+      result += CalcPointLight(pointLights[i], viewDirection); 
 
-       vec3 norm = normalize(ex_N);
-       vec3 lightDir = normalize(light.position - vertexPosition);
+      FragColor = vec4 (result, 1.0);
+    
+}
 
-       float diff = max(dot(norm, lightDir), 0.0);
+vec3 CalcPointLight (PointLight light, vec3 viewDirection)
+{
 
-       vec3 diffuse = light.diffuse * diff * texture(material.diffuse, ex_TexCoord).rgb;  
+    vec3 viewDirectionTest = normalize(light.position - vertexPosition);
 
-       vec3 reflectDir = normalize(reflect(normalize(-lightDir),normalize(ex_N)));
+    vec3 lightDirection = normalize (light.position - vertexPosition);
 
-       float spec = pow(max(dot(lightDir, reflectDir), 0.0), material.shininess);
+    float diff = max(dot(norm, lightDirection) , 0.0);
 
-       vec3 specular = light.specular * spec * texture(material.specular, ex_TexCoord).rgb;  
+    vec3 reflectDir = normalize(reflect(normalize(-lightDirection),normalize(norm)));
+    
+    float spec = pow(max(dot(viewDirectionTest, reflectDir), 0.0), material.shininess);
 
-       float att_distance = distance(vec4(vertexPosition,1.0), vec4(light.position, 1.0));
-  
-       float ex_attenuation = (1.0 / (light.attenuationConst + light.attenuationLinear * att_distance +  0.01f * att_distance * att_distance));
-       
-       vec4 test = vec4(ambient + diffuse  * ex_attenuation, 1.0);
-       return (test);
+    float distance = length(light.position - vertexPosition);
+
+    float attenuation = 1.0 / (light.constant + light.linear * distance + 0.01 * (distance * distance));    
+    
+    vec3 ambient = light.ambient * texture(material.diffuse, ex_TexCoord).rgb;
+    vec3 diffuse = light.diffuse * diff * texture(material.diffuse, ex_TexCoord).rgb; 
+    vec3 specular = light.specular * spec * texture(material.specular, ex_TexCoord).rgb;  
+
+    ambient *= attenuation;
+    diffuse *= attenuation ;
+   // specular *= attenuation;
+    return (ambient + diffuse + specular); 
+    
+
 }

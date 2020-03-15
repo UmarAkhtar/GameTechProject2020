@@ -72,26 +72,9 @@ public:
 
 	//glm::mat4 light;
 	float attenuationConstant = 1.0f;
-	float attenuationLinear = 0.02f;
+	float attenuationLinear = 0.09f;
 	float attenuationQuad = 0.01f;
 
-	/*glm::vec4 lightAmbient = { 0.3f, 0.3f, 0.3f, 1.0f };
-	glm::vec4 lightDiffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glm::vec4 lightSpecular = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glm::vec4 lightPosition = { -5.0f, 2.0f, 2.0f, 1.0f };
-	glm::vec4 lightPos = { 0.0f, 2.0f, 0.0f, 1.0f };
-	glm::vec4 materialAmbient = { 0.2f, 0.4f, 0.2f, 1.0f };
-	glm::vec4 materialDiffuse = { 0.5f, 1.0f, 0.5f, 1.0f };
-	glm::vec4 materialSpecular = { 0.0f, 0.1f, 0.0f, 1.0f };
-	GLfloat materialShininess = 1.0f;*/
-
-
-	Shader::lightStruct light = {
-	{1.0f, 1.0f, 1.0f, 1.0f}, // ambient
-	{1.0f, 1.0f, 1.0f, 1.0f}, // diffuse
-	{1.0f, 1.0f, 1.0f, 1.0f}, // specular
-	{ -10.0f, 10.0f, 10.0f, 1.0f}  // position
-	};
 
 	glm::vec4 lightPos{ 0.0f, 15.0f, 2.0f, 1.0f };
 
@@ -102,8 +85,7 @@ public:
 	2.0f  // shininess
 	};
 
-	glm::vec3 catPos = { 0.0f, 10.0f, -10.0f };
-
+	
 	glm::vec3 lightPosition[4] = {
 	   glm::vec3(5.0f, 15.0f, 2.0f),
 	   glm::vec3(5.0f, 15.0f, -23.0f),
