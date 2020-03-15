@@ -58,41 +58,57 @@ void sceneManager::loadShader()
 
 void sceneManager::initShaders()
 {	
-	/*ourShader->setVec4("lightPosition", lightPosition);
-	ourShader->setVec4("lightStructAmbient", lightAmbient);
-	ourShader->setVec4("lightStructDiffuse", lightDiffuse);
-	ourShader->setVec4("lightStructSpecular", lightSpecular);
-	ourShader->setFloat("attenuationConst", attenuationConstant);
-	ourShader->setFloat("attenuationLinear", attenuationLinear);
-	ourShader->setFloat("attenuationQuadratic", attenuationQuad);
-	ourShader->setVec4("materialStructAmbient", materialAmbient);
-	ourShader->setVec4("materialStructDiffuse", materialDiffuse);
-	ourShader->setVec4("materialStructSpecular", materialSpecular);
-	ourShader->setFloat("materialStructShininess", materialShininess);*/
-
-
-	//ourShader->setUniformMatrix4fv("lightStruct", light0);
-	/*ourShader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-	ourShader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-	ourShader->setVec3("lightPos", lightPos);*/
+	
 
 	GLfloat attenuation = 1.0f;
 
-	ourShader->setFloat("attenuationConst", attenuationConstant);
-	ourShader->setFloat("attenuationLinear", attenuationLinear);
-	ourShader->setFloat("attenuationQuadratic", 0.01f);
+	//ourShader->setFloat("attenuationConst", attenuationConstant);
+	//ourShader->setFloat("attenuationLinear", attenuationLinear);
+	//ourShader->setFloat("attenuationQuadratic", attenuationQuad);
 
 	ourShader->use();
 	//ourShader->setInt("material.diffuse", 0);
 	//ourShader->setInt("material.specular", 1);
 
 
-	ourShader->setVec3("light.position", -10.0f, -10.0f, 10.0f);
-	ourShader->setVec3("light.ambient", 0.5f, 0.5f, 0.5f);
-	ourShader->setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-	ourShader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+	//ourShader->setVec3("light.position", -10.0f, -10.0f, 10.0f);
+	//ourShader->setVec3("light.ambient", 0.5f, 0.5f, 0.5f);
+	//ourShader->setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+	//ourShader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
-	//ourShader->setFloat("material.shininess", 100.0f);	
+	ourShader->setVec3("lights[0].position", lightPosition[0]);
+	ourShader->setVec3("lights[0].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("lights[0].diffuse", 0.5f, 0.5f, 0.5f);
+	ourShader->setVec3("lights[0].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setFloat("lights[0].attenuationConst", attenuationConstant);
+	ourShader->setFloat("lights[0].attenuationLinear", attenuationLinear);
+	ourShader->setFloat("lights[0].attenuationQuadratic", 1.0f);
+
+	ourShader->setVec3("lights[1].position", lightPosition[1]);
+	ourShader->setVec3("lights[1].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("lights[1].diffuse", 0.5f, 0.5f, 0.5f);
+	ourShader->setVec3("lights[1].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setFloat("lights[1].attenuationConst", attenuationConstant);
+	ourShader->setFloat("lights[1].attenuationLinear", attenuationLinear);
+	ourShader->setFloat("lights[1].attenuationQuadratic", 1.0f);
+
+	ourShader->setVec3("lights[2].position", lightPosition[2]);
+	ourShader->setVec3("lights[2].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("lights[2].diffuse", 0.5f, 0.5f, 0.5f);
+	ourShader->setVec3("lights[2].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setFloat("lights[2].attenuationConst", attenuationConstant);
+	ourShader->setFloat("lights[2].attenuationLinear", attenuationLinear);
+	ourShader->setFloat("lights[2].attenuationQuadratic", 1.0f);
+
+	ourShader->setVec3("lights[3].position", lightPosition[3]);
+	ourShader->setVec3("lights[3].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("lights[3].diffuse", 0.5f, 0.5f, 0.5f);
+	ourShader->setVec3("lights[3].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setFloat("lights[3].attenuationConst", attenuationConstant);
+	ourShader->setFloat("lights[3].attenuationLinear", attenuationLinear);
+	ourShader->setFloat("lights[3].attenuationQuadratic", 1.0f);
+	
+		
 }
 
 
@@ -140,32 +156,32 @@ void sceneManager::update()
 
 	if (keys[SDL_SCANCODE_Y])
 	{
-		lightPos = glm::vec4(moveForward(lightPos, 0.0f, 0.1f), 1.0f);
+		lightPosition[1] = glm::vec4(moveForward(lightPosition[1], 0.0f, 0.1f), 1.0f);
 	}
 
 	if (keys[SDL_SCANCODE_G])
 	{
-		lightPos = glm::vec4(moveRight(lightPos, 0.0f, -0.1f), 1.0f);
+		lightPosition[1] = glm::vec4(moveRight(lightPosition[1], 0.0f, -0.1f), 1.0f);
 	}
 
 	if (keys[SDL_SCANCODE_H])
 	{
-		lightPos = glm::vec4(moveForward(lightPos, 0.0f, -0.1f), 1.0f);
+		lightPosition[1] = glm::vec4(moveForward(lightPosition[1], 0.0f, -0.1f), 1.0f);
 	}
 
 	if (keys[SDL_SCANCODE_J])
 	{
-		lightPos = glm::vec4(moveRight(lightPos, 0.0f, 0.1f), 1.0);
+		lightPosition[1] = glm::vec4(moveRight(lightPosition[1], 0.0f, 0.1f), 1.0);
 	}
 
 	if (keys[SDL_SCANCODE_N])
 	{
-		lightPos.y += 0.1;
+		lightPosition[1].y += 0.1;
 	}
 
 	if (keys[SDL_SCANCODE_M])
 	{
-		lightPos.y -= 0.1;
+		lightPosition[1].y -= 0.1;
 	}
 
 }
@@ -239,26 +255,74 @@ void sceneManager::draw()
 	glDepthMask(GL_TRUE);
 	
 	ourShader->use();
+	   
+
+
+
 	ourShader->setMat4("modelView", modelView);
 	ourShader->setMat4("projection", projection);
+
+	
 	//ourShader->setMat4("view", view);
 
-	glm::vec4 tmp = modelStack.top() * lightPos;
-	light.position[0] = tmp.x;
-	light.position[1] = tmp.y;
-	light.position[2] = tmp.z;
-	ourShader->setLightPos("lightPosition", glm::value_ptr(tmp));
+		
+	glm::vec4 tmpZero = modelStack.top() * glm::vec4(lightPosition[1], 1.0);
+	lightPosition[0].x = tmpZero.x;
+	lightPosition[0].y = tmpZero.y;
+	lightPosition[0].z = tmpZero.z;
+	ourShader->setLightPos("lights[0].position", glm::value_ptr(tmpZero));
+			   		 
+	//glm::vec4 tmpOne = modelStack.top() * glm::vec4(lightPosition[1], 1.0);
+	//lightPosition[1].x = tmpOne.x;
+	//lightPosition[1].y = tmpOne.y;
+	//lightPosition[1].z = tmpOne.z;
+	//ourShader->setLightPos("lights[1].position", glm::value_ptr(tmpOne));
+	//	
+	//glm::vec4 tmpTwo = modelStack.top() * glm::vec4(lightPosition[2], 1.0);
+	//lightPosition[2].x = tmpTwo.x;
+	//lightPosition[2].y = tmpTwo.y;
+	//lightPosition[2].z = tmpTwo.z;
+	//ourShader->setLightPos("lights[2].position", glm::value_ptr(tmpTwo));
 
-	cubeShader->use();
+	/*glm::vec4 tmpThree = modelStack.top() * glm::vec4(lightPosition[0], 1.0);
+	lightPosition[3].x = tmpThree.x;
+	lightPosition[3].y = tmpThree.y;
+	lightPosition[3].z = tmpThree.z;		
+	ourShader->setLightPos("lights[3].position", glm::value_ptr(tmpThree));*/
+		
+
+	cubeShader->use();	
 	cubeShader->setMat4("projection", projection);
 	cubeShader->setMat4("view", view);			//Doesnt actually need to be passed it, will dfault itself.
-
+	
 	modelStack.push(modelStack.top());															//Cube for light position
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(lightPos.x, lightPos.y, lightPos.z));
+	modelStack.top() = glm::translate(modelStack.top(), lightPosition[0]);
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
 	cubeShader->setUniformMatrix4fv("modelView", glm::value_ptr(modelStack.top()));
 	cubeTest->modelDraw(*ourShader);
 	modelStack.pop();
+
+	modelStack.push(modelStack.top());															//Cube for light position
+	modelStack.top() = glm::translate(modelStack.top(), lightPosition[1]);
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
+	cubeShader->setUniformMatrix4fv("modelView", glm::value_ptr(modelStack.top()));
+	cubeTest->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());															//Cube for light position
+	modelStack.top() = glm::translate(modelStack.top(), lightPosition[2]);
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
+	cubeShader->setUniformMatrix4fv("modelView", glm::value_ptr(modelStack.top()));
+	cubeTest->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());															//Cube for light position
+	modelStack.top() = glm::translate(modelStack.top(), lightPosition[3]);
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
+	cubeShader->setUniformMatrix4fv("modelView", glm::value_ptr(modelStack.top()));
+	cubeTest->modelDraw(*ourShader);
+	modelStack.pop();
+
 
 
 	ourShader->use();

@@ -104,6 +104,15 @@ public:
 
 	glm::vec3 catPos = { 0.0f, 10.0f, -10.0f };
 
+	glm::vec3 lightPosition[4] = {
+	   glm::vec3(5.0f, 15.0f, 2.0f),
+	   glm::vec3(5.0f, 15.0f, -23.0f),
+	   glm::vec3(10.0f, 15.0f, 2.0f),
+	   glm::vec3(15.0f, 15.0f, 2.0f)
+	};
+
+
+
 };
 
 #endif // !SCENEMANAGER_H
