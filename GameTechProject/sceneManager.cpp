@@ -137,22 +137,22 @@ void sceneManager::update()
 
 	if (keys[SDL_SCANCODE_Y])
 	{
-		lightPos = glm::vec4(moveForward(lightPos, 0.0f, 0.1f), 1.0f);
+		lightPosition[1] = glm::vec4(moveForward(lightPosition[1], 0.0f, 0.1f), 1.0f);
 	}
 
 	if (keys[SDL_SCANCODE_G])
 	{
-		lightPos = glm::vec4(moveRight(lightPos, 0.0f, -0.1f), 1.0f);
+		lightPosition[1] = glm::vec4(moveRight(lightPosition[1], 0.0f, -0.1f), 1.0f);
 	}
 
 	if (keys[SDL_SCANCODE_H])
 	{
-		lightPos = glm::vec4(moveForward(lightPos, 0.0f, -0.1f), 1.0f);
+		lightPosition[1] = glm::vec4(moveForward(lightPosition[1], 0.0f, -0.1f), 1.0f);
 	}
 
 	if (keys[SDL_SCANCODE_J])
 	{
-		lightPos = glm::vec4(moveRight(lightPos, 0.0f, 0.1f), 1.0);
+		lightPosition[1] = glm::vec4(moveRight(lightPosition[1], 0.0f, 0.1f), 1.0);
 	}
 
 	if (keys[SDL_SCANCODE_N])
@@ -247,12 +247,25 @@ void sceneManager::draw()
 	ourShader->setVec3("pointLights[2].position", modelStack.top() * glm::vec4(lightPosition[2] , 1.0));
 	ourShader->setVec3("pointLights[3].position", modelStack.top() * glm::vec4(lightPosition[3] , 1.0));
 
+
 	
+
 
 
 	cubeShader->use();
 	cubeShader->setMat4("projection", projection);
 	cubeShader->setMat4("view", view);			//Doesnt actually need to be passed it, will dfault itself.
+
+	for (int i = 0; i < 4; i++)
+	{
+		modelStack.push(modelStack.top());
+		modelStack.top() = glm::translate(modelStack.top(), lightPosition[i]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
+		cubeShader->setUniformMatrix4fv("modelView", glm::value_ptr(modelStack.top()));
+		cubeTest->modelDraw(*ourShader);
+		modelStack.pop();
+	}
+
 
 	//modelStack.push(modelStack.top());															//Cube for light position
 	//modelStack.top() = glm::translate(modelStack.top(), glm::vec3(lightPos.x, lightPos.y, lightPos.z));

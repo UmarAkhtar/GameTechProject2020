@@ -47,28 +47,26 @@ void main()
 vec3 CalcPointLight (PointLight light, vec3 viewDirection)
 {
 
-    vec3 viewDirectionTest = normalize(light.position - vertexPosition);
+   vec3 viewPosition = normalize (-vertexPosition).xyz;
 
-    vec3 lightDirection = normalize (light.position - vertexPosition);
+   float att_distance = distance(vertexPosition, light.position);
 
-    float diff = max(dot(norm, lightDirection) , 0.0);
+   vec3 ambient = light.ambient * texture(material.diffuse, ex_TexCoord).rgb;
 
-    vec3 reflectDir = normalize(reflect(normalize(-lightDirection),normalize(norm)));
-    
-    float spec = pow(max(dot(viewDirectionTest, reflectDir), 0.0), material.shininess);
+  vec3 lightPos = normalize(light.position - vertexPosition);	
 
-    float distance = length(light.position - vertexPosition);
+   vec3 lightDir = normalize(light.position - vertexPosition);
 
-    float attenuation = 1.0 / (light.constant + light.linear * distance + 0.01 * (distance * distance));    
-    
-    vec3 ambient = light.ambient * texture(material.diffuse, ex_TexCoord).rgb;
-    vec3 diffuse = light.diffuse * diff * texture(material.diffuse, ex_TexCoord).rgb; 
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = light.diffuse * diff * texture(material.diffuse, ex_TexCoord).rgb;  
+
+    vec3 reflectDir = normalize(reflect(normalize(-lightPos),normalize(norm)));	                // ex_L normalized vec from light source to object vertex
+    float spec = pow(max(dot(lightDir, reflectDir), 0.0), material.shininess);
     vec3 specular = light.specular * spec * texture(material.specular, ex_TexCoord).rgb;  
 
-    ambient *= attenuation;
-    diffuse *= attenuation ;
-   // specular *= attenuation;
-    return (ambient + diffuse + specular); 
+   float ex_attenuation = (1.0 / (light.constant + light.linear * att_distance + 0.01 * att_distance * att_distance));
     
+     vec4 result = vec4(ambient + diffuse  * ex_attenuation, 1.0);
 
+     return result;
 }
