@@ -36,6 +36,8 @@ public:
 	~sceneManager();
 
 	void draw();
+	void secondHallwayandTwoRooms();
+	void secondRoom();
 	void drawSkybox(glm::mat4 &projection, glm::mat4 &view);
 	void hallwayFromFirstRoom();
 	void firstRoom();
