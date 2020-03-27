@@ -2,81 +2,181 @@
 #define DEG_TO_RADIAN 0.017453293
 
 GLint x, y, z = 0;
-
 vector<Model> gameObjects;
 bool menu = false;
 bool walking = false;
-
 GLfloat yoffset, yoffset1, yoffset2 = 0;
-
 float mouseX, mouseY;
-
 bool key1Found, key2Found = false;
+
 
 void sceneManager::glewInitilisation()
 {
 	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
-	{ 
+	{
 		std::cout << "glewInit failed, aborting." << endl;
 		exit(1);
 	}
 	cout << glGetString(GL_VERSION) << endl;
 }
 
-void sceneManager::loadModel()
-{
-
-	const Uint8* keys = SDL_GetKeyboardState(NULL);
-	
-	for (int i = 0; i < 2; i++)
-	{
-	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall.obj"));
-	}
-
-	
-	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
-}
-
 void sceneManager::initMusic()
 {
-	sm = new SoundManager(3);
+	sm = new SoundManager(2);
 	sm->init();
-	samples = new HSAMPLE[3];
+	samples = new HSAMPLE[2];
 	// Following comment is from source basstest file!
 	/* Load a sample from "file" and give it a max of 3 simultaneous
 	playings using playback position as override decider */
 	samples[0] = sm->loadSample("Trot.wav");
 	samples[1] = sm->loadSample("Simple Blues.wav");
-	samples[2] = sm->loadSample("fot.wav");
 
-	/*HCHANNEL ch = BASS_SampleGetChannel(samples[1], FALSE);
+	HCHANNEL ch = BASS_SampleGetChannel(samples[1], FALSE);
 	sm->setAttributes(0, &ch, 0, 0.01, 0);
 	if (!BASS_ChannelPlay(ch, FALSE))
-		cout << "Can't play sample" << endl;*/
-	
-
-
-
-
-
-
+		cout << "Can't play sample" << endl;
 }
+
+void sceneManager::loadModel()
+{
+	m.push_back(Model("../GameTechProject/models/Barracks/ALLIED_Barracks.obj"));
+
+	cubeTest = make_shared<Model>("../GameTechProject/cube.obj");
+
+	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
+  
+  const Uint8* keys = SDL_GetKeyboardState(NULL);
+	
+	for (int i = 0; i < 2; i++)
+	{
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall.obj"));
+	}
+}
+
+
 
 void sceneManager::loadShader()
 {
-	ourShader = make_shared<Shader>("shader.vs", "shader.fs");
+	//ourShader = make_shared<Shader>("shader.vs", "shader.fs");
+	ourShader = make_shared<Shader>("phong-tex.vert", "phong-tex.frag");
+	cubeShader = make_shared<Shader>("cubeShader.vs", "cubeShader.fs");
 	skyboxShader = make_shared<Shader>("cubeMap.vert", "cubeMap.frag");
+}
+
+void sceneManager::initShaders()
+{
+
+	ourShader->use();
+	//ourShader->setVec3("pointLights[0].position", lightPosition[0]);
+	ourShader->setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setFloat("pointLights[0].constant", 1.0f);
+	ourShader->setFloat("pointLights[0].linear", 0.09);
+	ourShader->setFloat("pointLights[0].quadratic", 0.032);
+	// point light 2
+	//ourShader->setVec3("pointLights[1].position", lightPosition[1]);
+	ourShader->setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setFloat("pointLights[1].constant", 1.0f);
+	ourShader->setFloat("pointLights[1].linear", 0.09);
+	ourShader->setFloat("pointLights[1].quadratic", 0.032);
+	// point light 3
+	//ourShader->setVec3("pointLights[2].position", lightPosition[2]);
+	ourShader->setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setFloat("pointLights[2].constant", 1.0f);
+	ourShader->setFloat("pointLights[2].linear", 0.09);
+	ourShader->setFloat("pointLights[2].quadratic", 0.032);
+	// point light 4
+	//ourShader->setVec3("pointLights[3].position", lightPosition[3]);
+	ourShader->setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setFloat("pointLights[3].constant", 1.0f);
+	ourShader->setFloat("pointLights[3].linear", 0.09);
+	ourShader->setFloat("pointLights[3].quadratic", 0.032);
+	
 }
 
 
 void sceneManager::update()
 {
+	const Uint8* keys = SDL_GetKeyboardState(NULL);
+	if (keys[SDL_SCANCODE_W])
+	{
+		eye = moveForward(eye, rotation, 0.1f);
+	}
+	if (keys[SDL_SCANCODE_S])
+	{
+		eye = moveForward(eye, rotation, -0.1f);
+	}
+	if (keys[SDL_SCANCODE_A])
+	{
+		eye = moveRight(eye, rotation, -0.1f);
+	}
+	if (keys[SDL_SCANCODE_D])
+	{
+		eye = moveRight(eye, rotation, 0.1f);
+	}
+	if (keys[SDL_SCANCODE_E])
+	{
+		eye.y += 0.1;
+	}
+	if (keys[SDL_SCANCODE_F])
+	{
+		eye.y -= 0.1;
+	}
+	if (keys[SDL_SCANCODE_K])
+	{
+		rotation -= 1.0f;
+	}
+	if (keys[SDL_SCANCODE_L])
+	{
+		rotation += 1.0f;
+	}
+	if (keys[SDL_SCANCODE_1])
+	{
+		health -= 1;
+		Sleep(100);
+		cout << health << endl;
+	}
 
+	if (keys[SDL_SCANCODE_Y])
+	{
+		lightPosition[1] = glm::vec4(moveForward(lightPosition[1], 0.0f, 0.1f), 1.0f);
+	}
 
+	if (keys[SDL_SCANCODE_G])
+	{
+		lightPosition[1] = glm::vec4(moveRight(lightPosition[1], 0.0f, -0.1f), 1.0f);
+	}
 
-	/*float oldMouseX = windowWidth;
+	if (keys[SDL_SCANCODE_H])
+	{
+		lightPosition[1] = glm::vec4(moveForward(lightPosition[1], 0.0f, -0.1f), 1.0f);
+	}
+
+	if (keys[SDL_SCANCODE_J])
+	{
+		lightPosition[1] = glm::vec4(moveRight(lightPosition[1], 0.0f, 0.1f), 1.0);
+	}
+
+	if (keys[SDL_SCANCODE_N])
+	{
+		lightPos.y += 0.1;
+	}
+
+	if (keys[SDL_SCANCODE_M])
+	{
+		lightPos.y -= 0.1;
+	}
+  
+  /*float oldMouseX = windowWidth;
 	float oldMouseY = windowHeight;
 	POINT cp;
 	GetCursorPos(&cp);
@@ -85,13 +185,6 @@ void sceneManager::update()
 	if ((mouseX - oldMouseX) > 0) { rotation += 0.5f;  if ((mouseX - oldMouseX) > 0) rotation += 0.5f;}
 	else if ((mouseX - oldMouseX) < 0) { rotation -= 0.5f; if ((mouseX - oldMouseX) < 0) rotation -= 0.5f; }
 	SetCursorPos(windowWidth, windowHeight);*/
-
-
-
-
-
-
-
 
 	//cout << walking << endl;
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -200,8 +293,7 @@ walking = true;
 		cout << "Key 2 Found, Open the door on your left" << endl;
 		Sleep(300);
 	}
-	
-	
+
 }
 
 glm::vec3 sceneManager::moveForward(glm::vec3 pos, GLfloat angle, GLfloat d)
@@ -209,38 +301,26 @@ glm::vec3 sceneManager::moveForward(glm::vec3 pos, GLfloat angle, GLfloat d)
 	return glm::vec3(pos.x + d * std::sin(rotation * DEG_TO_RADIAN), pos.y, pos.z - d * std::cos(rotation * DEG_TO_RADIAN));
 }
 
-
 glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
 {
 	return glm::vec3(pos.x + d * std::cos(rotation * DEG_TO_RADIAN), pos.y, pos.z + d * std::sin(rotation * DEG_TO_RADIAN));
 }
 
-
-
-	
-
-
-
-
-
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
-	eye.x = 6.0f;
-	eye.y = 1.3f;
-	eye.z = 0.0f;
-	at.x = 0.0f;
-	at.y = 1.0f;
-	at.z = -1.0f;
-	up.x = 0.0f;
-	up.y = 1.0f;
-	up.z = 0.0f;
+
+	eye = { 0.0, 15.0, 30.0 };
+	at = { 0.0, 0.0, -1.0 };
+	up = { 0.0, 1.0, 0.0 };
 	window = setupRC(context);
 	glewInitilisation();
 	loadShader();
+	initShaders();
 	loadModel();
 	loadSkybox(cubeTexFiles, &skybox);
 	initMusic();
 	draw();
+
 }
 
 sceneManager::~sceneManager()
@@ -254,11 +334,8 @@ void sceneManager::draw()
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
-
-
-
-
-	//if (walking == true)
+  
+  //if (walking == true)
 	//{
 	//	HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
 	//	sm->setAttributes(0, &ch, 0, 1.0, 0);
@@ -266,36 +343,93 @@ void sceneManager::draw()
 	//		cout << "Can't play sample" << endl;
 	//}
 
-
-
 	glm::mat4 projection(1.0);
 	projection = glm::perspective(float(60.0f * DEG_TO_RADIAN), 800.0f / 600.0f, 1.0f, 150.0f);
 
-	glm::mat4 view(1.0);
-	model.push(view);
+	glm::mat4 view(1.0f);					//Only here for skybox, nt actually needed
 
-	
+	glm::mat4 modelView = glm::mat4(1.0f);
+	modelStack.push(modelView);
+
+
 	at = moveForward(eye, rotation, 1.0f);
-	model.top() = glm::lookAt(eye, at, up);
+	modelStack.top() = glm::lookAt(eye, at, up);
 
-	drawSkybox(projection, view);
-	
+	glDepthMask(GL_FALSE);
+	glm::mat3 mvRotOnlyMat3 = glm::mat3(modelStack.top());
+	modelStack.push(glm::mat4(mvRotOnlyMat3));
+
+	glCullFace(GL_FRONT);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox);
+	skyboxShader->use();
+	skyboxShader->setMat4("projection", projection);
+	skyboxShader->setMat4("modelView", modelView);
+
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(20.5f, 20.5f, 20.5f));
+	skyboxShader->setMat4("modelView", modelStack.top());
+	skyboxModel->modelDraw(*skyboxShader);
+	glCullFace(GL_BACK);
+	modelStack.pop();
+	glDepthMask(GL_TRUE);
+
+
+  
 	ourShader->use();
+	
+	ourShader->setMat4("modelView", modelView);
 	ourShader->setMat4("projection", projection);
-	ourShader->setMat4("view", view);
-    
+
+
+	ourShader->setVec3("viewPos", at);
+	ourShader->setVec3("pointLights[0].position", modelStack.top() * glm::vec4(lightPosition[0] , 1.0));
+	ourShader->setVec3("pointLights[1].position", modelStack.top() * glm::vec4(lightPosition[1] , 1.0));
+	ourShader->setVec3("pointLights[2].position", modelStack.top() * glm::vec4(lightPosition[2] , 1.0));
+	ourShader->setVec3("pointLights[3].position", modelStack.top() * glm::vec4(lightPosition[3] , 1.0));
+
+
 	secondHallwayandTwoRooms();
 
 	firstRoom();
 	hallwayFromFirstRoom();
-secondRoom();
+  secondRoom();
 
 
 
-ourShader->setMat4("model", model.top());
+	cubeShader->use();
+	cubeShader->setMat4("projection", projection);
+	cubeShader->setMat4("view", view);			//Doesnt actually need to be passed it, will dfault itself.
+
+	for (int i = 0; i < 4; i++)
+	{
+		modelStack.push(modelStack.top());
+		modelStack.top() = glm::translate(modelStack.top(), lightPosition[i]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
+		cubeShader->setUniformMatrix4fv("modelView", glm::value_ptr(modelStack.top()));
+		cubeTest->modelDraw(*ourShader);
+		modelStack.pop();
+	}
 
 
-SDL_GL_SwapWindow(window);  //Swap buffers
+	//modelStack.push(modelStack.top());															//Cube for light position
+	//modelStack.top() = glm::translate(modelStack.top(), glm::vec3(lightPos.x, lightPos.y, lightPos.z));
+	//modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
+	//cubeShader->setUniformMatrix4fv("modelView", glm::value_ptr(modelStack.top()));
+	//cubeTest->modelDraw(*ourShader);
+	//modelStack.pop();
+	   	
+
+	ourShader->use();
+	// render the loaded model
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(0.0f, 10.0f, -10.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(15.5f, 20.5f, 20.5f));
+	ourShader->setMat4("modelView", modelStack.top());
+	for (int i = 0; i < m.size(); i++)
+	{
+		m[i].modelDraw(*ourShader);
+	}
+	//modelStack.pop();
+
+	SDL_GL_SwapWindow(window);  //Swap buffers
 }
 
 void sceneManager::secondHallwayandTwoRooms()
@@ -1024,7 +1158,7 @@ SDL_Window* sceneManager::setupRC(SDL_GLContext& context)
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);  // double buffering on
 	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8); // 8 bit alpha buffering
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4); 
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
 	// Create 800x600 window
 	window = SDL_CreateWindow("The Maze", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -1077,5 +1211,3 @@ GLuint sceneManager::loadSkybox(const char* fname[6], GLuint* texID)
 	}
 	return *texID;
 }
-
-

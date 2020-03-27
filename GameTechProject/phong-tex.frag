@@ -1,67 +1,72 @@
-// Phong fragment shader phong-tex.frag matched with phong-tex.vert
-#version 330
+#version 330 core
+out vec4 FragColor;
 
-// Some drivers require the following
-precision highp float;
+struct Material {
+    sampler2D diffuse;
+    sampler2D specular;    
+    float shininess;
+}; 
 
-struct lightStruct
-{
-	vec4 ambient;
-	vec4 diffuse;
-	vec4 specular;
-};
-
-struct materialStruct
-{
-	vec4 ambient;
-	vec4 diffuse;
-	vec4 specular;
-	float shininess;
-};
-
-uniform lightStruct light;
-uniform materialStruct material;
-uniform sampler2D textureUnit0;
-
-uniform float attConst;
-uniform float attLinear;
-uniform float attQuadratic;
-
-
-in vec3 ex_N;
-in vec3 ex_V;
-in vec3 ex_L;
-in vec2 ex_TexCoord;
-in float ex_D;
-layout(location = 0) out vec4 out_Color;
- 
-void main(void) {
+struct PointLight {
+    vec3 position;
     
-	// Ambient intensity
-	vec4 ambientI = light.ambient * material.ambient;
-
-	// Diffuse intensity
-	vec4 diffuseI = light.diffuse * material.diffuse;
-	diffuseI = diffuseI * max(dot(normalize(ex_N),normalize(ex_L)),0);
-
-	// Specular intensity
-	// Calculate R - reflection of light
-	vec3 R = normalize(reflect(normalize(-ex_L),normalize(ex_N)));
-
-	vec4 specularI = light.specular * material.specular;
-	specularI = specularI * pow(max(dot(R,ex_V),0), material.shininess);
-
-	float attenuation=1.0f/(attConst + attLinear * ex_D + attQuadratic * ex_D*ex_D);
-	vec4 tmp_Color = (diffuseI + specularI)*texture(textureUnit0, ex_TexCoord);
-	//Attenuation does not affect transparency
-	vec4 litColour = vec4(tmp_Color.rgb *attenuation, tmp_Color.a);
-	vec4 amb=min(ambientI,vec4(1.0f));
-		
-	out_Color=min(litColour+amb*texture(textureUnit0, ex_TexCoord),vec4(1.0f));//Here attenuation does not affectambient
+    float constant;
+    float linear;
+    float quadratic;
 	
-	
-	
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
 
+in vec3 vertexPosition;
+in vec3 norm;
+in vec2 ex_TexCoord;
 
+#define NR_POINT_LIGHTS 4
 
+uniform PointLight pointLights[NR_POINT_LIGHTS];
+uniform Material material;
+uniform vec3 viewPos;
+
+vec3 result;
+
+    vec3 CalcPointLight(PointLight light, vec3 viewDirection);
+
+void main()
+{
+    vec3 viewDirection = normalize(viewPos - vertexPosition);
+    
+      for(int i = 0; i < NR_POINT_LIGHTS; i++)
+      result += CalcPointLight(pointLights[i], viewDirection); 
+
+      FragColor = vec4 (result, 1.0);
+    
+}
+
+vec3 CalcPointLight (PointLight light, vec3 viewDirection)
+{
+
+   vec3 viewPosition = normalize (-vertexPosition).xyz;
+
+   float att_distance = distance(vertexPosition, light.position);
+
+   vec3 ambient = light.ambient * texture(material.diffuse, ex_TexCoord).rgb;
+
+  vec3 lightPos = normalize(light.position - vertexPosition);	
+
+   vec3 lightDir = normalize(light.position - vertexPosition);
+
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = light.diffuse * diff * texture(material.diffuse, ex_TexCoord).rgb;  
+
+    vec3 reflectDir = normalize(reflect(normalize(-lightPos),normalize(norm)));	                // ex_L normalized vec from light source to object vertex
+    float spec = pow(max(dot(lightDir, reflectDir), 0.0), material.shininess);
+    vec3 specular = light.specular * spec * texture(material.specular, ex_TexCoord).rgb;  
+
+   float ex_attenuation = (1.0 / (light.constant + light.linear * att_distance + 0.01 * att_distance * att_distance));
+    
+     vec4 result = vec4(ambient + diffuse  * ex_attenuation, 1.0);
+
+     return result;
 }

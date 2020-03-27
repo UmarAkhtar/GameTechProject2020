@@ -1,6 +1,6 @@
-#ifndef SCENE_MANAGER_H
-#define SCENE_MANAGER_H
-#pragma once
+#ifndef SCENEMANAGER_H
+#define SCENEMANAGER_H
+
 #include <iostream>
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
@@ -14,8 +14,6 @@
 #include <iostream>
 #include <memory>
 
-
-
 using namespace std;
 
 class sceneManager
@@ -25,7 +23,8 @@ private:
 	void loadModel();
 	void loadShader();
 	void initMusic();
-	
+	void initShaders();
+
 
 	int windowWidth;
 	int windowHeight;
@@ -46,7 +45,7 @@ public:
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
 	SoundManager* sm;
 	HSAMPLE* samples = NULL;
-	stack<glm::mat4> model;			// Stack
+	stack<glm::mat4> modelStack;			// Stack
 	SDL_GLContext context;
 	SDL_Window* window;
 	SDL_Window* setupRC(SDL_GLContext& context);
@@ -54,6 +53,10 @@ public:
 	bool key1Found, key2Found = false;
 	shared_ptr<Shader> ourShader;
 	shared_ptr<Model> ourModel;
+	shared_ptr<Model> cubeTest;
+	shared_ptr<Model> catModel;
+
+	shared_ptr<Shader> cubeShader;
 
 	shared_ptr<Model> skyboxModel;
 	shared_ptr<Shader> skyboxShader;
@@ -74,6 +77,32 @@ public:
 	
 	glm::vec3 up;
 	GLfloat rotation;
+
+	//glm::mat4 light;
+	float attenuationConstant = 1.0f;
+	float attenuationLinear = 0.09f;
+	float attenuationQuad = 0.01f;
+
+
+	glm::vec4 lightPos{ 0.0f, 15.0f, 2.0f, 1.0f };
+
+	Shader::materialStruct material0 = {
+	{0.2f, 0.4f, 0.2f, 1.0f}, // ambient
+	{0.5f, 1.0f, 0.5f, 1.0f}, // diffuse
+	{0.0f, 0.1f, 0.0f, 1.0f}, // specular
+	2.0f  // shininess
+	};
+
+	
+	glm::vec3 lightPosition[4] = {
+	   glm::vec3(5.0f, 15.0f, 2.0f),
+	   glm::vec3(0.0f, 15.0f, 2.0f),
+	   glm::vec3(10.0f, 15.0f, 9.0f),
+	   glm::vec3(15.0f, 15.0f, 2.0f)
+	};
+
+
+
 };
 
-#endif // !SCENE_MANAGER
+#endif // !SCENEMANAGER_H

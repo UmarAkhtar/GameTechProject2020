@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SOUNDMANAGER_H
+#define SOUNDMANAGER_H
 #include "bass.h"
 #include <iostream>
 
@@ -20,3 +21,4 @@ public:
 	void Load(int point);
 	void play();
 };
+#endif // !SOUNDMANAGER_H

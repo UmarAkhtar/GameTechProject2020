@@ -34,11 +34,14 @@
   <ItemGroup>
     <None Include="cubeMap.frag" />
     <None Include="cubeMap.vert" />
+    <None Include="cubeShader.fs" />
+    <None Include="cubeShader.vs" />
     <None Include="phong-tex.frag" />
     <None Include="phong-tex.vert" />
     <None Include="reflect.frag" />
     <None Include="reflect.vert" />
     <None Include="shader.fs" />
+    <None Include="shader.vs" />
     <None Include="textured.frag" />
     <None Include="textured.vert" />
     <None Include="toon.frag" />
