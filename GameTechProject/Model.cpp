@@ -7,6 +7,7 @@
 Model::Model(const string& path, bool gamma) : gammaCorrection(gamma)
 {
 	loadModel(path);
+
 }
 
 void Model::modelDraw(Shader shader) {
@@ -164,6 +165,12 @@ vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type,
 	}
 	return textures;
 }
+
+
+
+
+
+
 
 unsigned int TextureFromFile(const char* path, const string& directory, bool gamma)
 {

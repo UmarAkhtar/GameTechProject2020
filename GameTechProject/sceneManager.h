@@ -11,6 +11,8 @@
 #include "SoundManager.h"
 #include "Model.h"
 #include <stack>
+#include <iostream>
+#include <memory>
 
 using namespace std;
 
@@ -33,6 +35,11 @@ public:
 	~sceneManager();
 
 	void draw();
+	void secondHallwayandTwoRooms();
+	void secondRoom();
+	void drawSkybox(glm::mat4 &projection, glm::mat4 &view);
+	void hallwayFromFirstRoom();
+	void firstRoom();
 	void update();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
@@ -43,6 +50,7 @@ public:
 	SDL_Window* window;
 	SDL_Window* setupRC(SDL_GLContext& context);
 	int health = 100;
+	bool key1Found, key2Found = false;
 	shared_ptr<Shader> ourShader;
 	shared_ptr<Model> ourModel;
 	shared_ptr<Model> cubeTest;
@@ -66,7 +74,7 @@ public:
 
 	glm::vec3 eye;
 	glm::vec3 at;
-	glm::vec3 yoffset;
+	
 	glm::vec3 up;
 	GLfloat rotation;
 

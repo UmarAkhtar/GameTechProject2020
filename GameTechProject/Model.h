@@ -31,12 +31,31 @@ public:
 	vector<Texture> textures_loaded;
 	vector<Mesh> meshes;
 	string directory;
+	glm::vec3 position;
+	
+	glm::vec3 rotation;
 	bool gammaCorrection;
 
-	Model(string const& path, bool gamma = false);
+	Model(string const& path,bool gamma = false);
 
 	void modelDraw(Shader shader);
+glm::vec3 getPosition()
+	{
+	return position;
+	}
+	glm::vec3 getRotation()
+	{
+		return rotation;
+	}
 
+	void setPosition(glm::vec3 pos)
+	{
+		position = pos;
+	}
+	void setRotation(glm::vec3 rot)
+	{
+		 rotation = rot;
+	}
 private:
 
 	void loadModel(string const& path);
@@ -46,6 +65,8 @@ private:
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 
 	vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, const string& typeName);
+
+	
 };
 
 unsigned int TextureFromFile(const char* path, const string& directory, bool gamma);
