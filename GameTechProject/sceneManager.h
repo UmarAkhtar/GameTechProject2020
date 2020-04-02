@@ -95,13 +95,13 @@ public:
 
 	
 	glm::vec3 lightPosition[4] = {
-	   glm::vec3(5.0f, 15.0f, 2.0f),
-	   glm::vec3(0.0f, 15.0f, 2.0f),
-	   glm::vec3(10.0f, 15.0f, 9.0f),
+	   glm::vec3(5.0f, 2.3f, -2.5f),
+	   glm::vec3(5.2f, 2.3f, -12.5f),
+	   glm::vec3(5.2f, 2.3f, -22.5f),
 	   glm::vec3(15.0f, 15.0f, 2.0f)
 	};
 
-
+	//sync test
 
 };
 
