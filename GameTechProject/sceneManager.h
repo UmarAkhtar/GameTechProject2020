@@ -98,7 +98,7 @@ public:
 	   glm::vec3(5.0f, 2.3f, -2.5f),
 	   glm::vec3(5.2f, 2.3f, -12.5f),
 	   glm::vec3(5.2f, 2.3f, -22.5f),
-	   glm::vec3(15.0f, 15.0f, 2.0f)
+	   glm::vec3(-1.2f, 2.3f, -22.5f)
 	};
 
 
