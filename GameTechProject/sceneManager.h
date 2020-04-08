@@ -8,6 +8,14 @@
 #include <SDL.h>
 #include <glew.h>
 #include "Shader.h"
+#include "Entity.h"
+#include "Entity_OBB.h"
+#include "Entity_Sphere.h"
+#include "Ray.h"
+#include "Supply_Point.h"
+#include "player.h"
+#include "Enemy.h"
+#include "collisionHandler.h"
 #include "SoundManager.h"
 #include "Model.h"
 #include <stack>
@@ -35,7 +43,9 @@ public:
 	~sceneManager();
 
 	void draw();
+	void middleMap();
 	void secondHallwayandTwoRooms();
+	void thirdHallwayintoRoom();
 	void secondRoom();
 	void drawSkybox(glm::mat4 &projection, glm::mat4 &view);
 	void hallwayFromFirstRoom();
@@ -55,6 +65,15 @@ public:
 	shared_ptr<Model> ourModel;
 	shared_ptr<Model> cubeTest;
 	shared_ptr<Model> catModel;
+
+	player thePlayer;
+	vector<Entity_OBB> environment;
+	vector<Supply_Point> supplyPoints;
+	vector<Enemy> enemies;
+	//vector<Node> nodesList;
+	collisionHandler theCollisionHandler;
+
+
 
 	shared_ptr<Shader> cubeShader;
 
