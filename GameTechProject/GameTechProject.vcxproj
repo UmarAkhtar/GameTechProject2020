@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="anorms.h" />
     <ClInclude Include="bass.h" />
+    <ClInclude Include="collisionHandler.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
@@ -48,6 +49,7 @@
     <None Include="toon.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="collisionHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />

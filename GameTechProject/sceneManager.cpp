@@ -46,8 +46,11 @@ void sceneManager::loadModel()
 	cubeTest = make_shared<Model>("../GameTechProject/cube.obj");
 
 	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
-  
-  const Uint8* keys = SDL_GetKeyboardState(NULL);
+	floorRoofPlane = make_shared<Model>("../GameTechProject/models/Wall/SciFi_Wall_Floor_Ceiling.obj");
+	wallWindow = make_shared<Model>("../GameTechProject/models/Wall/SciFi_Wall_window.obj");
+	bed = make_shared<Model>("../GameTechProject/models/Bay/bed/SciFi_Bed.obj");
+	ammoCharger = make_shared<Model>("../GameTechProject/models/chargers/ammo/SciFi_Ammo.obj");
+	const Uint8* keys = SDL_GetKeyboardState(NULL);
 	
 	for (int i = 0; i < 2; i++)
 	{
@@ -70,36 +73,177 @@ void sceneManager::initShaders()
 
 	ourShader->use();
 	//ourShader->setVec3("pointLights[0].position", lightPosition[0]);
-	ourShader->setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("pointLights[0].ambient", 0.05f, 0.01f, 0.01f);
 	ourShader->setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
-	ourShader->setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setVec3("pointLights[0].specular", 0.5f, 0.5f, 0.5f);
 	ourShader->setFloat("pointLights[0].constant", 1.0f);
 	ourShader->setFloat("pointLights[0].linear", 0.09);
 	ourShader->setFloat("pointLights[0].quadratic", 0.032);
 	// point light 2
 	//ourShader->setVec3("pointLights[1].position", lightPosition[1]);
-	ourShader->setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("pointLights[1].ambient", 0.05f, 0.01f, 0.01f);
 	ourShader->setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
-	ourShader->setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setVec3("pointLights[1].specular", 0.5f, 0.5f, 0.5f);
 	ourShader->setFloat("pointLights[1].constant", 1.0f);
 	ourShader->setFloat("pointLights[1].linear", 0.09);
 	ourShader->setFloat("pointLights[1].quadratic", 0.032);
 	// point light 3
 	//ourShader->setVec3("pointLights[2].position", lightPosition[2]);
-	ourShader->setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("pointLights[2].ambient", 0.05f, 0.01f, 0.01f);
 	ourShader->setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
-	ourShader->setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setVec3("pointLights[2].specular", 0.5f, 0.5f, 0.5f);
 	ourShader->setFloat("pointLights[2].constant", 1.0f);
 	ourShader->setFloat("pointLights[2].linear", 0.09);
 	ourShader->setFloat("pointLights[2].quadratic", 0.032);
 	// point light 4
 	//ourShader->setVec3("pointLights[3].position", lightPosition[3]);
-	ourShader->setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+	ourShader->setVec3("pointLights[3].ambient", 0.05f, 0.01f, 0.01f);
 	ourShader->setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
-	ourShader->setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+	ourShader->setVec3("pointLights[3].specular", 0.5f, 0.5f, 0.5f);
 	ourShader->setFloat("pointLights[3].constant", 1.0f);
 	ourShader->setFloat("pointLights[3].linear", 0.09);
 	ourShader->setFloat("pointLights[3].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[4].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[4].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[4].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[4].constant", 1.0f);
+	ourShader->setFloat("pointLights[4].linear", 0.09);
+	ourShader->setFloat("pointLights[4].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[5].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[5].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[5].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[5].constant", 1.0f);
+	ourShader->setFloat("pointLights[5].linear", 0.09);
+	ourShader->setFloat("pointLights[5].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[6].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[6].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[6].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[6].constant", 1.0f);
+	ourShader->setFloat("pointLights[6].linear", 0.09);
+	ourShader->setFloat("pointLights[6].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[7].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[7].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[7].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[7].constant", 1.0f);
+	ourShader->setFloat("pointLights[7].linear", 0.09);
+	ourShader->setFloat("pointLights[7].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[8].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[8].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[8].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[8].constant", 1.0f);
+	ourShader->setFloat("pointLights[8].linear", 0.09);
+	ourShader->setFloat("pointLights[8].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[9].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[9].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[9].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[9].constant", 1.0f);
+	ourShader->setFloat("pointLights[9].linear", 0.09);
+	ourShader->setFloat("pointLights[9].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[10].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[10].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[10].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[10].constant", 1.0f);
+	ourShader->setFloat("pointLights[10].linear", 0.09);
+	ourShader->setFloat("pointLights[10].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[11].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[11].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[11].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[11].constant", 1.0f);
+	ourShader->setFloat("pointLights[11].linear", 0.09);
+	ourShader->setFloat("pointLights[11].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[12].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[12].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[12].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[12].constant", 1.0f);
+	ourShader->setFloat("pointLights[12].linear", 0.09);
+	ourShader->setFloat("pointLights[12].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[13].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[13].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[13].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[13].constant", 1.0f);
+	ourShader->setFloat("pointLights[13].linear", 0.09);
+	ourShader->setFloat("pointLights[13].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[14].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[14].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[14].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[14].constant", 1.0f);
+	ourShader->setFloat("pointLights[14].linear", 0.09);
+	ourShader->setFloat("pointLights[14].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[15].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[15].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[15].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[15].constant", 1.0f);
+	ourShader->setFloat("pointLights[15].linear", 0.09);
+	ourShader->setFloat("pointLights[15].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[16].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[16].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[16].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[16].constant", 1.0f);
+	ourShader->setFloat("pointLights[16].linear", 0.09);
+	ourShader->setFloat("pointLights[16].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[17].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[17].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[17].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[17].constant", 1.0f);
+	ourShader->setFloat("pointLights[17].linear", 0.09);
+	ourShader->setFloat("pointLights[17].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[18].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[18].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[18].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[18].constant", 1.0f);
+	ourShader->setFloat("pointLights[18].linear", 0.09);
+	ourShader->setFloat("pointLights[18].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[19].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[19].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[19].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[19].constant", 1.0f);
+	ourShader->setFloat("pointLights[19].linear", 0.09);
+	ourShader->setFloat("pointLights[19].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[20].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[20].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[20].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[20].constant", 1.0f);
+	ourShader->setFloat("pointLights[20].linear", 0.09);
+	ourShader->setFloat("pointLights[20].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[21].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[21].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[21].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[21].constant", 1.0f);
+	ourShader->setFloat("pointLights[21].linear", 0.09);
+	ourShader->setFloat("pointLights[21].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[22].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[22].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[22].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[22].constant", 1.0f);
+	ourShader->setFloat("pointLights[22].linear", 0.09);
+	ourShader->setFloat("pointLights[22].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[23].ambient", 0.05f, 0.01f, 0.01f);
+	ourShader->setVec3("pointLights[23].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader->setVec3("pointLights[23].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[23].constant", 1.0f);
+	ourShader->setFloat("pointLights[23].linear", 0.09);
+	ourShader->setFloat("pointLights[23].quadratic", 0.032);
+	
 	
 }
 
@@ -123,7 +267,8 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
-	environment = {
+	environment = 
+	{
 		Entity_OBB(1,1,1,0, 0, 0, glm::vec3(0,90,0))
 	};
 	collisionHandler theCollisionHandler;
@@ -204,22 +349,22 @@ void sceneManager::update()
 	if (keys[SDL_SCANCODE_W]) //forward
 	{
 		thePlayer.pos = moveForward(thePlayer.pos, rotation, 0.1f);
-		//eye = moveForward(eye, rotation, 0.1f);
+		eye = moveForward(eye, rotation, 0.1f);
 	}
 	if (keys[SDL_SCANCODE_S]) //backward
 	{
 		thePlayer.pos = moveForward(thePlayer.pos, rotation, -0.1f);
-		//eye = moveForward(eye, rotation, -0.1f);
+		eye = moveForward(eye, rotation, -0.1f);
 	}
 	if (keys[SDL_SCANCODE_A]) //left
 	{
 		thePlayer.pos = moveRight(thePlayer.pos, rotation, -0.1f);
-		//eye = moveRight(eye, rotation, -0.1f);
+		eye = moveRight(eye, rotation, -0.1f);
 	}
 	if (keys[SDL_SCANCODE_D]) //right
 	{
 		thePlayer.pos = moveRight(thePlayer.pos, rotation, 0.1f);
-		//eye = moveRight(eye, rotation, 0.1f);
+		eye = moveRight(eye, rotation, 0.1f);
 	}
 
 	if (keys[SDL_SCANCODE_Q])
@@ -228,7 +373,8 @@ void sceneManager::update()
 	}
 	if (keys[SDL_SCANCODE_E])
 	{
-		rotation += 1.0f;
+		//rotation += 1.0f;
+		eye.y += 0.1;
 	}
 	if (keys[SDL_SCANCODE_R])
 	{
@@ -236,7 +382,8 @@ void sceneManager::update()
 	}
 	if (keys[SDL_SCANCODE_F])
 	{
-		thePlayer.pos.y -= 0.1f;
+		//thePlayer.pos.y -= 0.1f;
+		eye.y -= 0.1;
 	}
 
 
@@ -247,37 +394,42 @@ void sceneManager::update()
 		cout << health << endl;
 	}
 
-
-	if (keys[SDL_SCANCODE_O] && key1Found)
+	if (keys[SDL_SCANCODE_K])
 	{
-
-		while (yoffset <= 3)
-		{
-			yoffset += 0.01f;
-		}
-
-
-
-
+		rotation -= 1.0f;
+	}
+	if (keys[SDL_SCANCODE_L])
+	{
+		rotation += 1.0f;
 	}
 
-	if (keys[SDL_SCANCODE_P])
-	{
 
-		while (yoffset1 <= 3)
-		{
-			yoffset1 += 0.01f;
-		}
-	}
+	//if (keys[SDL_SCANCODE_O] && key1Found)
+	//{
 
-	if (keys[SDL_SCANCODE_K] && key2Found)
-	{
+	//	while (yoffset <= 3)
+	//	{
+	//		yoffset += 0.01f;
+	//	}
+	//}
 
-		while (yoffset2 <= 3)
-		{
-			yoffset2 += 0.01f;
-		}
-	}
+	//if (keys[SDL_SCANCODE_P])
+	//{
+
+	//	while (yoffset1 <= 3)
+	//	{
+	//		yoffset1 += 0.01f;
+	//	}
+	//}
+
+	//if (keys[SDL_SCANCODE_K] && key2Found)
+	//{
+
+	//	while (yoffset2 <= 3)
+	//	{
+	//		yoffset2 += 0.01f;
+	//	}
+	//}
 
 	if (keys[SDL_SCANCODE_2])
 	{
@@ -295,24 +447,24 @@ void sceneManager::update()
 		Sleep(300);
 	}
 
-	for (int i = 0; i < environment.size(); i++)
-	{
-		//cout << "eX: " << thePlayer.getX() << "    eY: " << thePlayer.getY() << "    eZ: " << thePlayer.getZ() << endl;
-		//cout << "pX: " << thePlayer.getX() << "    pY: " << thePlayer.getY() << "    pZ: " << thePlayer.getZ() << endl;
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, environment[i])) /*players collides with environment[i]*/
-		{
-			cout << "Environmental collision" << endl << endl;
-			thePlayer.setX(eye.x);
-			thePlayer.setY(eye.y);
-			thePlayer.setZ(eye.z);
-		}
-		else
-		{
-			eye.x = thePlayer.getX();
-			eye.y = thePlayer.getY();
-			eye.z = thePlayer.getZ();
-		}
-	}
+	//for (int i = 0; i < environment.size(); i++)
+	//{
+	//	//cout << "eX: " << thePlayer.getX() << "    eY: " << thePlayer.getY() << "    eZ: " << thePlayer.getZ() << endl;
+	//	//cout << "pX: " << thePlayer.getX() << "    pY: " << thePlayer.getY() << "    pZ: " << thePlayer.getZ() << endl;
+	//	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, environment[i])) /*players collides with environment[i]*/
+	//	{
+	//		cout << "Environmental collision" << endl << endl;
+	//		thePlayer.setX(eye.x);
+	//		thePlayer.setY(eye.y);
+	//		thePlayer.setZ(eye.z);		
+	//	}
+	//	else
+	//	{
+	//		eye.x = thePlayer.getX();
+	//		eye.y = thePlayer.getY();
+	//		eye.z = thePlayer.getZ();
+	//	}
+	//}
 
 }
 sceneManager::~sceneManager()
@@ -367,8 +519,7 @@ void sceneManager::draw()
 	glCullFace(GL_BACK);
 	modelStack.pop();
 	glDepthMask(GL_TRUE);
-
-
+	
   
 	ourShader->use();
 	
@@ -381,7 +532,181 @@ void sceneManager::draw()
 	ourShader->setVec3("pointLights[1].position", modelStack.top() * glm::vec4(lightPosition[1] , 1.0));
 	ourShader->setVec3("pointLights[2].position", modelStack.top() * glm::vec4(lightPosition[2] , 1.0));
 	ourShader->setVec3("pointLights[3].position", modelStack.top() * glm::vec4(lightPosition[3] , 1.0));
+	ourShader->setVec3("pointLights[4].position", modelStack.top() * glm::vec4(lightPosition[4], 1.0));
+	ourShader->setVec3("pointLights[5].position", modelStack.top() * glm::vec4(lightPosition[5], 1.0));
+	ourShader->setVec3("pointLights[6].position", modelStack.top() * glm::vec4(lightPosition[6], 1.0));
+	ourShader->setVec3("pointLights[7].position", modelStack.top() * glm::vec4(lightPosition[7], 1.0));
+	ourShader->setVec3("pointLights[8].position", modelStack.top() * glm::vec4(lightPosition[8], 1.0));
+	ourShader->setVec3("pointLights[9].position", modelStack.top() * glm::vec4(lightPosition[9], 1.0));
+	ourShader->setVec3("pointLights[10].position", modelStack.top() * glm::vec4(lightPosition[10], 1.0));
+	ourShader->setVec3("pointLights[11].position", modelStack.top() * glm::vec4(lightPosition[11], 1.0));
+	ourShader->setVec3("pointLights[12].position", modelStack.top() * glm::vec4(lightPosition[12], 1.0));
+	ourShader->setVec3("pointLights[13].position", modelStack.top() * glm::vec4(lightPosition[13], 1.0));
+	ourShader->setVec3("pointLights[14].position", modelStack.top() * glm::vec4(lightPosition[14], 1.0));
+	ourShader->setVec3("pointLights[15].position", modelStack.top() * glm::vec4(lightPosition[15], 1.0));
+	ourShader->setVec3("pointLights[16].position", modelStack.top() * glm::vec4(lightPosition[16], 1.0));
+	ourShader->setVec3("pointLights[17].position", modelStack.top() * glm::vec4(lightPosition[17], 1.0));
+	ourShader->setVec3("pointLights[18].position", modelStack.top() * glm::vec4(lightPosition[18], 1.0));
+	ourShader->setVec3("pointLights[19].position", modelStack.top() * glm::vec4(lightPosition[19], 1.0));
+	ourShader->setVec3("pointLights[20].position", modelStack.top() * glm::vec4(lightPosition[20], 1.0));
+	ourShader->setVec3("pointLights[21].position", modelStack.top() * glm::vec4(lightPosition[21], 1.0));
+	ourShader->setVec3("pointLights[22].position", modelStack.top() * glm::vec4(lightPosition[22], 1.0));
 
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(9.0f, 3.0f, -23.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(3.0, 3.0f, 3.0f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(180.0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.0f, -0.10f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////Floor fill 1
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(6.6f, 0.0f, -3.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(6.6f, 0.0f, -13.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(6.6f, 0.0f, -23.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+	
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(6.6f, 0.0f, -33.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(6.6f, 0.0f, -43.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////Floor fill 2
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-3.4f, 0.0f, -3.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-3.4f, 0.0f, -13.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-3.4f, 0.0f, -23.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-3.4f, 0.0f, -33.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-3.4f, 0.0f, -43.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-3.4f, 0.0f, -53.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////Floor fill 3
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-13.4f, 0.0f, -3.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-13.4f, 0.0f, -13.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-13.4f, 0.0f, -23.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-13.4f, 0.0f, -33.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-13.4f, 0.0f, -43.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-13.4f, 0.0f, -53.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.5, 0.5f, 0.5f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	floorRoofPlane->modelDraw(*ourShader);
+	modelStack.pop();
+
+		   	  
 	modelStack.push(modelStack.top());
 	gameObjects[1].setPosition(glm::vec3(7.7, 1, -34.8));
 	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
@@ -453,6 +778,34 @@ void sceneManager::draw()
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[1].modelDraw(*ourShader);
 	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(0.0f, 0.0f, -0.0f));
+	//modelStack.top() = glm::scale(modelStack.top(), glm::vec3(10.0, 10.5f, 10.0f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	wallWindow->modelDraw(*ourShader);
+	modelStack.pop();
+
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(7.0f, 0.0f, -3.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0f, 1.0f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0 * DEG_TO_RADIAN), glm::vec3(0.0f, -0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	ammoCharger->modelDraw(*ourShader);
+	modelStack.pop();
+
+	
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(6.6f, 0.0f, -3.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0f, 1.0f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	bed->modelDraw(*ourShader);
+	modelStack.pop();
+
 	///////////
 	middleMap();
 	secondHallwayandTwoRooms();
@@ -485,6 +838,8 @@ void sceneManager::draw()
 	//cubeTest->modelDraw(*ourShader);
 	//modelStack.pop();
 	   	
+		//ourShader->setVec3("pointLights[23].position", modelStack.top() * glm::vec4(lightPosition[23], 1.0));
+
 
 	ourShader->use();
 	// render the loaded model
@@ -550,13 +905,7 @@ void sceneManager::middleMap()
 	gameObjects[1].modelDraw(*ourShader);
 	modelStack.pop();
 
-
-
-
-
-
-
-
+	   	  
 	//////////////
 	modelStack.push(modelStack.top());
 	gameObjects[1].setPosition(glm::vec3(-9.8, 1, -40.4));

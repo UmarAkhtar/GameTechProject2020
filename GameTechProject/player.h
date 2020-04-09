@@ -8,7 +8,12 @@ private:
 	int ammo;
 
 public:
-	player() {}
+	player()
+	{
+		health = 100;
+		ammo = 100;
+	}
+
 	player(float myRadius, float myPosX, float myPosY, float myPosZ, glm::vec3 myRot)
 	{
 		radius = myRadius;

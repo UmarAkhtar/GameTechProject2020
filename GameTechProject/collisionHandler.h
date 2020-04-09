@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity_OBB.h"
 #include "Entity_Sphere.h"
-#include "Ray.h"
+//#include "Ray.h"
 
 
 class collisionHandler

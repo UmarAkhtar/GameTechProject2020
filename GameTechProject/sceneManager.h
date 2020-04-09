@@ -11,10 +11,10 @@
 #include "Entity.h"
 #include "Entity_OBB.h"
 #include "Entity_Sphere.h"
-#include "Ray.h"
+//#include "Ray.h"
 #include "Supply_Point.h"
 #include "player.h"
-#include "Enemy.h"
+//#include "Enemy.h"
 #include "collisionHandler.h"
 #include "SoundManager.h"
 #include "Model.h"
@@ -65,11 +65,15 @@ public:
 	shared_ptr<Model> ourModel;
 	shared_ptr<Model> cubeTest;
 	shared_ptr<Model> catModel;
+	shared_ptr<Model> floorRoofPlane;
+	shared_ptr<Model> wallWindow;
+	shared_ptr<Model> bed;
+	shared_ptr<Model> ammoCharger;
 
 	player thePlayer;
 	vector<Entity_OBB> environment;
 	vector<Supply_Point> supplyPoints;
-	vector<Enemy> enemies;
+	//vector<Enemy> enemies;
 	//vector<Node> nodesList;
 	collisionHandler theCollisionHandler;
 
@@ -113,11 +117,30 @@ public:
 	};
 
 	
-	glm::vec3 lightPosition[4] = {
+	glm::vec3 lightPosition[23] = {
 	   glm::vec3(5.0f, 2.3f, -2.5f),
 	   glm::vec3(5.2f, 2.3f, -12.5f),
 	   glm::vec3(5.2f, 2.3f, -22.5f),
-	   glm::vec3(-1.2f, 2.3f, -22.5f)
+	   glm::vec3(-1.2f, 2.3f, -22.5f),
+	   glm::vec3(-5.0f, 2.3f, -12.0f),
+	   glm::vec3(-5.0f, 2.3f, -20.0f),
+	   glm::vec3(-5.0f, 2.3f, -25.0f),
+	   glm::vec3(-10.0f, 2.3f, -15.0f),
+	   glm::vec3(-10.0f, 2.3f, -25.0f),
+	   glm::vec3(-15.0f, 2.3f, 21.0f),
+	   glm::vec3(-15.0f, 2.3f, -31.0f),
+	   glm::vec3(-15.0f, 2.3f, -37.0f),
+	   glm::vec3(-7.0f, 2.3f, -37.0f),
+	   glm::vec3(-7.0f, 2.3f, -47.0f),
+	   glm::vec3(-2.0f, 2.3f, -48.0f),
+	   glm::vec3(-2.0f, 2.3f, -39.0f),
+	   glm::vec3(-2.0f, 2.3f, -29.0f),
+	   glm::vec3(9.0f, 2.3f, -30.0f),
+	   glm::vec3(3.0f, 2.3f, -30.0f),
+	   glm::vec3(9.0f, 2.3f, -37.0f),
+	   glm::vec3(3.0f, 2.3f, -37.0f),
+	   glm::vec3(2.0f, 2.3f, -47.0f),
+	   glm::vec3(6.0f, 2.3f, -47.0f)
 	};
 
 
