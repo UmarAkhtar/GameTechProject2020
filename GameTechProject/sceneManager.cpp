@@ -50,12 +50,11 @@ void sceneManager::loadModel()
 	wallWindow = make_shared<Model>("../GameTechProject/models/Wall/SciFi_Wall_window.obj");
 	bed = make_shared<Model>("../GameTechProject/models/Bay/bed/SciFi_Bed.obj");
 	ammoCharger = make_shared<Model>("../GameTechProject/models/chargers/ammo/SciFi_Ammo.obj");
+	healthCharger = make_shared<Model>("../GameTechProject/models/chargers/health/SciFi_Health.obj");
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
-	
-	for (int i = 0; i < 2; i++)
-	{
-		gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall.obj"));
-	}
+		
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall_window.obj"));
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall.obj"));	
 }
 
 
@@ -492,7 +491,7 @@ void sceneManager::draw()
 	cout << eye.x << " " << eye.y << " " << eye.z << endl;
 
 	glm::mat4 projection(1.0);
-	projection = glm::perspective(float(60.0f * DEG_TO_RADIAN), 800.0f / 600.0f, 1.0f, 150.0f);
+	projection = glm::perspective(float(60.0f * DEG_TO_RADIAN), 800.0f / 600.0f, 0.1f, 150.0f);
 
 	glm::mat4 view(1.0f);					//Only here for skybox, nt actually needed
 
@@ -796,6 +795,13 @@ void sceneManager::draw()
 	ammoCharger->modelDraw(*ourShader);
 	modelStack.pop();
 
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(10.0f, 0.0f, -3.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0f, 1.0f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90.0 * DEG_TO_RADIAN), glm::vec3(0.0f, -0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	healthCharger->modelDraw(*ourShader);
+	modelStack.pop();
 	
 
 	modelStack.push(modelStack.top());
@@ -2188,12 +2194,12 @@ void sceneManager::hallwayFromFirstRoom()
 
 void sceneManager::firstRoom()
 {
-	modelStack.push(modelStack.top());
+	/*modelStack.push(modelStack.top());
 	gameObjects[0].setPosition(glm::vec3(0, 1, 0));
 	modelStack.top() = glm::translate(modelStack.top(), gameObjects[0].getPosition());
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[0].modelDraw(*ourShader);
-	modelStack.pop();
+	modelStack.pop();*/
 
 
 	modelStack.push(modelStack.top());
@@ -2249,30 +2255,30 @@ void sceneManager::firstRoom()
 	gameObjects[1].modelDraw(*ourShader);
 	modelStack.pop();
 
+	/*modelStack.push(modelStack.top());
+	gameObjects[1].setPosition(glm::vec3(13.2, 1, 0));
+	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
+	modelStack.top() = glm::rotate(modelStack.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();*/
+
+
 	modelStack.push(modelStack.top());
-	gameObjects[0].setPosition(glm::vec3(13.2, 1, 0));
+	gameObjects[0].setPosition(glm::vec3(13.2, 1, -2.5));
 	modelStack.top() = glm::translate(modelStack.top(), gameObjects[0].getPosition());
 	modelStack.top() = glm::rotate(modelStack.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[0].modelDraw(*ourShader);
 	modelStack.pop();
 
-
-	modelStack.push(modelStack.top());
-	gameObjects[1].setPosition(glm::vec3(13.2, 1, -2.5));
-	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
-	modelStack.top() = glm::rotate(modelStack.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[1].modelDraw(*ourShader);
-	modelStack.pop();
-
-	modelStack.push(modelStack.top());
+	/*modelStack.push(modelStack.top());
 	gameObjects[1].setPosition(glm::vec3(13.2, 1, -5));
 	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
 	modelStack.top() = glm::rotate(modelStack.top(), float(180.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[1].modelDraw(*ourShader);
-	modelStack.pop();
+	modelStack.pop();*/
 
 	modelStack.push(modelStack.top());
 	gameObjects[1].setPosition(glm::vec3(13.2, 1, -7.5));

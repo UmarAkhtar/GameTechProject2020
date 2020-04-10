@@ -39,10 +39,11 @@ public:
 	Model(string const& path,bool gamma = false);
 
 	void modelDraw(Shader shader);
-glm::vec3 getPosition()
+	glm::vec3 getPosition()
 	{
-	return position;
+		return position;
 	}
+	
 	glm::vec3 getRotation()
 	{
 		return rotation;

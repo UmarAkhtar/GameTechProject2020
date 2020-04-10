@@ -69,6 +69,7 @@ public:
 	shared_ptr<Model> wallWindow;
 	shared_ptr<Model> bed;
 	shared_ptr<Model> ammoCharger;
+	shared_ptr<Model> healthCharger;
 
 	player thePlayer;
 	vector<Entity_OBB> environment;
