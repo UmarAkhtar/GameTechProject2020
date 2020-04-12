@@ -20,7 +20,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) 
 {
-	sceneManager s(800, 600);
+	sceneManager s(1600, 1000);
 	bool running = true; // set running to true
 	SDL_Event sdlEvent;  // variable to detect SDL events
 	while (running) {	// the event loop

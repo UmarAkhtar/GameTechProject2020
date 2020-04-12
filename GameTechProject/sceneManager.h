@@ -53,6 +53,7 @@ public:
 	void update();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
+
 	SoundManager* sm;
 	HSAMPLE* samples = NULL;
 	stack<glm::mat4> modelStack;			// Stack
@@ -77,7 +78,7 @@ public:
 	//vector<Enemy> enemies;
 	//vector<Node> nodesList;
 	collisionHandler theCollisionHandler;
-
+	vector<Model> gameObjects;
 
 
 	shared_ptr<Shader> cubeShader;
@@ -101,6 +102,7 @@ public:
 	
 	glm::vec3 up;
 	GLfloat rotation;
+	GLfloat rotationY;
 
 	//glm::mat4 light;
 	float attenuationConstant = 1.0f;
@@ -144,7 +146,7 @@ public:
 	   glm::vec3(6.0f, 2.3f, -47.0f)
 	};
 
-
+	//(SDL_Event* e);
 
 };
 
