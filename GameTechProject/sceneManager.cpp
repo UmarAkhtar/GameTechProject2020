@@ -382,28 +382,28 @@ void sceneManager::update()
 
 	//float oldMouseX = windowWidth;
 	//float oldMouseY = windowHeight;
-	//int mouseX, mouseY = 0;
-	//SDL_GetMouseState(&mouseX, &mouseY);
+	int mouseX, mouseY = 0;
+	SDL_GetMouseState(&mouseX, &mouseY);
 
-	//if (mouseX > windowWidth/ 2 + 100)
-	//{
-	//	rotation += 0.5;
-	//}
-	//cout << mouseX <<"\n";
-	//if (mouseX < windowWidth / 2 - 100)
-	//{
-	//	rotation -= 0.5f;
-	//}
+	if (mouseX > windowWidth/ 2 + 100)
+	{
+		rotation += 0.5;
+	}
+	cout << mouseX <<"\n";
+	if (mouseX < windowWidth / 2 - 100)
+	{
+		rotation -= 0.5f;
+	}
 
-	//if (mouseX > windowHeight / 2 + 100)
-	//{
-	//	rotationY += 0.5;
-	//}
-	//
-	//if (mouseX < windowWidth / 2 - 100)
-	//{
-	//	rotationY -= 0.5f;
-	//}
+	if (mouseX > windowHeight / 2 + 100)
+	{
+		rotationY += 0.5;
+	}
+	
+	if (mouseX < windowWidth / 2 - 100)
+	{
+		rotationY -= 0.5f;
+	}
 	
 	//SDL_Event event;
 	//SDL_PollEvent(&event);
