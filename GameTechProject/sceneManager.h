@@ -47,7 +47,6 @@ public:
 	void secondHallwayandTwoRooms();
 	void thirdHallwayintoRoom();
 	void secondRoom();
-	void drawSkybox(glm::mat4 &projection, glm::mat4 &view);
 	void hallwayFromFirstRoom();
 	void firstRoom();
 	void update();
@@ -65,7 +64,6 @@ public:
 	shared_ptr<Shader> ourShader;
 	shared_ptr<Model> ourModel;
 	shared_ptr<Model> cubeTest;
-	shared_ptr<Model> catModel;
 	shared_ptr<Model> floorRoofPlane;
 	shared_ptr<Model> wallWindow;
 	shared_ptr<Model> bed;
@@ -102,9 +100,7 @@ public:
 	
 	glm::vec3 up;
 	GLfloat rotation;
-	GLfloat rotationY;
 
-	//glm::mat4 light;
 	float attenuationConstant = 1.0f;
 	float attenuationLinear = 0.09f;
 	float attenuationQuad = 0.01f;
@@ -145,9 +141,6 @@ public:
 	   glm::vec3(2.0f, 2.3f, -47.0f),
 	   glm::vec3(6.0f, 2.3f, -47.0f)
 	};
-
-	//(SDL_Event* e);
-
 };
 
 #endif // !SCENEMANAGER_H
