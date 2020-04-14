@@ -35,7 +35,8 @@ vec3 result;
 
 void main()
 {
-    vec3 viewDirection = normalize(viewPos - vertexPosition);
+   // vec3 viewDirection = normalize(viewPos - vertexPosition);
+    vec3 viewDirection = normalize(-vertexPosition);
     
     for(int i = 0; i < NR_POINT_LIGHTS; i++)
      result += CalcPointLight(pointLights[i], viewDirection); 
@@ -53,18 +54,21 @@ vec3 CalcPointLight (PointLight light, vec3 viewDirection)
 
    vec3 ambient = light.ambient * texture(material.diffuse, ex_TexCoord).rgb;
 
-   vec3 lightPos = normalize(light.position - vertexPosition);	
+   vec3 lightPos = normalize(light.position - vertexPosition);	    //ex_L
 
-   vec3 lightDir = normalize(light.position - vertexPosition);
+   vec3 lightDir = normalize(-vertexPosition).xyz;      //
 
-   float diff = max(dot(norm, lightDir), 0.0);
+   float diff = max(dot(normalize(norm),normalize(lightPos)), 0.0);
    vec3 diffuse = light.diffuse * diff * texture(material.diffuse, ex_TexCoord).rgb;  
 
    vec3 reflectDir = normalize(reflect(normalize(-lightPos),normalize(norm)));	                
-   float spec = pow(max(dot(lightDir, reflectDir), 0.0), material.shininess);
+   //float spec = pow(max(dot(lightDir, reflectDir), 0.0), material.shininess);
+
+   float spec = pow(max(dot(reflectDir, viewPosition), 0.0), material.shininess);
+
    vec3 specular = light.specular * spec * texture(material.specular, ex_TexCoord).rgb;  
 
-   float ex_attenuation = 1.0f / (light.constant + light.linear * att_distance + light.quadratic * att_distance * att_distance);
+   float ex_attenuation = 1.0f / (light.constant + light.linear * att_distance + 0.01 * att_distance * att_distance);
     
    vec4 result = vec4(ambient + diffuse * ex_attenuation, 1.0);
 

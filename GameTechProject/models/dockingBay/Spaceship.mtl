@@ -1,0 +1,10 @@
+newmtl ship_1_weld1_blinnSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Spaceship_BaseColor.png
+bump Spaceship_Normal.png
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks Spaceship_Roughness.png

@@ -1,3 +1,4 @@
+#version 330 core
 layout (location = 0) in vec3 in_Position;
 layout (location = 1) in vec3 in_Normal;
 layout (location = 2) in vec2 in_TexCoord;
@@ -20,6 +21,7 @@ void main()
 	ex_TexCoord = in_TexCoord;
 
 	gl_Position = projection * vec4(vertexPosition, 1.0);
+	
 
 
 }
