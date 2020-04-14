@@ -32,6 +32,17 @@ private:
 	void loadShader();
 	void initMusic();
 	void initShaders();
+	void middleMap();
+	void secondHallwayandTwoRooms();
+	void thirdHallwayintoRoom();
+	void secondRoom();
+	void hallwayFromFirstRoom();
+	void firstRoom();
+	void spawnChargers();
+	void spawnBay();
+	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
+	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
+
 
 
 	int windowWidth;
@@ -41,17 +52,8 @@ private:
 public:
 	sceneManager(int windowWidth, int windowHeight); // constructor	
 	~sceneManager();
-
 	void draw();
-	void middleMap();
-	void secondHallwayandTwoRooms();
-	void thirdHallwayintoRoom();
-	void secondRoom();
-	void hallwayFromFirstRoom();
-	void firstRoom();
 	void update();
-	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
-	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
 
 	SoundManager* sm;
 	HSAMPLE* samples = NULL;
@@ -65,10 +67,6 @@ public:
 	shared_ptr<Model> ourModel;
 	shared_ptr<Model> cubeTest;
 	shared_ptr<Model> floorRoofPlane;
-	shared_ptr<Model> wallWindow;
-	shared_ptr<Model> bed;
-	shared_ptr<Model> ammoCharger;
-	shared_ptr<Model> healthCharger;
 
 	player thePlayer;
 	vector<Entity_OBB> environment;
@@ -87,12 +85,19 @@ public:
 	GLuint skybox;
 	GLuint loadSkybox(const char* fname[6], GLuint* texID);
 	const char* cubeTexFiles[6] = {
-			"../GameTechProject/skybox/blue/back.bmp",
+			/*"../GameTechProject/skybox/blue/back.bmp",
 			"../GameTechProject/skybox/blue/front.bmp",
 			"../GameTechProject/skybox/blue/right.bmp",
 			"../GameTechProject/skybox/blue/left.bmp",
 			"../GameTechProject/skybox/blue/top.bmp",
-			"../GameTechProject/skybox/blue/bottom.bmp"
+			"../GameTechProject/skybox/blue/bottom.bmp"*/
+
+			"../GameTechProject/skybox/lightblue/back.bmp",
+			"../GameTechProject/skybox/lightblue/front.bmp",
+			"../GameTechProject/skybox/lightblue/right.bmp",
+			"../GameTechProject/skybox/lightblue/left.bmp",
+			"../GameTechProject/skybox/lightblue/top.bmp",
+			"../GameTechProject/skybox/lightblue/bottom.bmp"
 	};
 
 	glm::vec3 eye;
@@ -111,35 +116,35 @@ public:
 	Shader::materialStruct material0 = {
 	{0.2f, 0.4f, 0.2f, 1.0f}, // ambient
 	{0.5f, 1.0f, 0.5f, 1.0f}, // diffuse
-	{0.0f, 0.1f, 0.0f, 1.0f}, // specular
+	{0.5f, 0.5f, 0.5f, 1.0f}, // specular
 	2.0f  // shininess
 	};
 
 	
 	glm::vec3 lightPosition[23] = {
-	   glm::vec3(5.0f, 2.3f, -2.5f),
-	   glm::vec3(5.2f, 2.3f, -12.5f),
-	   glm::vec3(5.2f, 2.3f, -22.5f),
-	   glm::vec3(-1.2f, 2.3f, -22.5f),
-	   glm::vec3(-5.0f, 2.3f, -12.0f),
-	   glm::vec3(-5.0f, 2.3f, -20.0f),
-	   glm::vec3(-5.0f, 2.3f, -25.0f),
-	   glm::vec3(-10.0f, 2.3f, -15.0f),
-	   glm::vec3(-10.0f, 2.3f, -25.0f),
-	   glm::vec3(-15.0f, 2.3f, 21.0f),
-	   glm::vec3(-15.0f, 2.3f, -31.0f),
-	   glm::vec3(-15.0f, 2.3f, -37.0f),
-	   glm::vec3(-7.0f, 2.3f, -37.0f),
-	   glm::vec3(-7.0f, 2.3f, -47.0f),
-	   glm::vec3(-2.0f, 2.3f, -48.0f),
-	   glm::vec3(-2.0f, 2.3f, -39.0f),
-	   glm::vec3(-2.0f, 2.3f, -29.0f),
-	   glm::vec3(9.0f, 2.3f, -30.0f),
-	   glm::vec3(3.0f, 2.3f, -30.0f),
-	   glm::vec3(9.0f, 2.3f, -37.0f),
-	   glm::vec3(3.0f, 2.3f, -37.0f),
-	   glm::vec3(2.0f, 2.3f, -47.0f),
-	   glm::vec3(6.0f, 2.3f, -47.0f)
+	   glm::vec3(6.0f, 2.6f, -5.0f),
+	   glm::vec3(5.2f, 2.6f, -12.5f),
+	   glm::vec3(5.2f, 2.6f, -22.5f),
+	   glm::vec3(-1.2f, 2.6f, -22.5f),
+	   glm::vec3(-5.0f, 2.6f, -12.0f),
+	   glm::vec3(-5.0f, 2.6f, -20.0f),
+	   glm::vec3(-5.0f, 2.6f, -25.0f),
+	   glm::vec3(-10.0f, 2.6f, -15.0f),
+	   glm::vec3(-10.0f, 2.6f, -25.0f),
+	   glm::vec3(-15.0f, 2.6f, 21.0f),
+	   glm::vec3(-15.0f, 2.6f, -31.0f),
+	   glm::vec3(-15.0f, 2.6f, -37.0f),
+	   glm::vec3(-7.0f, 2.6f, -37.0f),
+	   glm::vec3(-7.0f, 2.6f, -47.0f),
+	   glm::vec3(-2.0f, 2.6f, -48.0f),
+	   glm::vec3(-2.0f, 2.6f, -39.0f),
+	   glm::vec3(-2.0f, 2.6f, -29.0f),
+	   glm::vec3(9.0f, 2.6f, -30.0f),
+	   glm::vec3(3.0f, 2.6f, -30.0f),
+	   glm::vec3(9.0f, 2.6f, -37.0f),
+	   glm::vec3(3.0f, 2.6f, -37.0f),
+	   glm::vec3(2.0f, 2.6f, -47.0f),
+	   glm::vec3(6.0f, 2.6f, -47.0f)
 	};
 };
 

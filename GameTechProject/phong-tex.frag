@@ -60,13 +60,13 @@ vec3 CalcPointLight (PointLight light, vec3 viewDirection)
    float diff = max(dot(norm, lightDir), 0.0);
    vec3 diffuse = light.diffuse * diff * texture(material.diffuse, ex_TexCoord).rgb;  
 
-   vec3 reflectDir = normalize(reflect(normalize(-lightPos),normalize(norm)));	                // ex_L normalized vec from light source to object vertex
+   vec3 reflectDir = normalize(reflect(normalize(-lightPos),normalize(norm)));	                
    float spec = pow(max(dot(lightDir, reflectDir), 0.0), material.shininess);
    vec3 specular = light.specular * spec * texture(material.specular, ex_TexCoord).rgb;  
 
-   float ex_attenuation = (1.0 / (light.constant + light.linear * att_distance + 0.01 * att_distance * att_distance));
+   float ex_attenuation = 1.0f / (light.constant + light.linear * att_distance + light.quadratic * att_distance * att_distance);
     
-   vec4 result = vec4(ambient + diffuse  * ex_attenuation, 1.0);
+   vec4 result = vec4(ambient + diffuse * ex_attenuation, 1.0);
 
    return result;
 }
