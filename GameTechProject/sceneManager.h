@@ -40,6 +40,7 @@ private:
 	void firstRoom();
 	void spawnChargers();
 	void spawnBay();
+	void spawnShips();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
 
