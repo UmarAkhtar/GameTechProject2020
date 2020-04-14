@@ -568,6 +568,18 @@ void sceneManager::draw()
 	ourShader->setVec3("pointLights[21].position", modelStack.top() * glm::vec4(lightPosition[21], 1.0));
 	ourShader->setVec3("pointLights[22].position", modelStack.top() * glm::vec4(lightPosition[22], 1.0));
 
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	modelStack.push(modelStack.top());
+	gameObjects[1].setPosition(glm::vec3(-7.4, 1, -9.88));
+	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
+	modelStack.top() = glm::rotate(modelStack.top(), float(-90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Ship piece
+
 	modelStack.push(modelStack.top());
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(9.0f, 2.7f, -23.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(3.0, 3.0f, 3.0f));
@@ -966,12 +978,13 @@ void sceneManager::draw()
 	hallwayFromFirstRoom();
 	secondRoom();
 	thirdHallwayintoRoom();
+	//spawnShips();
 		
 	cubeShader->use();
 	cubeShader->setMat4("projection", projection);
 	cubeShader->setMat4("view", view);			//Doesnt actually need to be passed it, will dfault itself.
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 23; i++)
 	{
 		modelStack.push(modelStack.top());
 		modelStack.top() = glm::translate(modelStack.top(), lightPosition[i]);

@@ -139,16 +139,16 @@ public:
 	   glm::vec3(-15.0f, 2.6f, 21.0f),
 	   glm::vec3(-15.0f, 2.6f, -31.0f),
 	   glm::vec3(-15.0f, 2.6f, -37.0f),
-	   glm::vec3(-7.0f, 2.6f, -37.0f),
+	   glm::vec3(-7.0f, 2.6f, -37.5f),
 	   glm::vec3(-7.0f, 2.6f, -47.0f),
 	   glm::vec3(-2.0f, 2.6f, -48.0f),
 	   glm::vec3(-2.0f, 2.6f, -39.0f),
 	   glm::vec3(-2.0f, 2.6f, -29.0f),
 	   glm::vec3(9.0f, 2.6f, -30.0f),
 	   glm::vec3(3.0f, 2.6f, -30.0f),
-	   glm::vec3(9.0f, 2.6f, -37.0f),
-	   glm::vec3(3.0f, 2.6f, -37.0f),
-	   glm::vec3(2.0f, 2.6f, -47.0f),
+	   glm::vec3(9.0f, 2.6f, -37.5f),
+	   glm::vec3(3.0f, 2.6f, -37.5f),
+	   glm::vec3(2.0f, 2.6f, -47.5f),
 	   glm::vec3(6.0f, 2.6f, -47.0f)
 	};
 };
