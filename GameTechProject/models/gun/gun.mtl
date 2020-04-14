@@ -1,0 +1,64 @@
+# MTL written from C:\Users\7\Desktop\gun.obj
+newmtl body
+Kd 0 0 0
+Ns 256
+d 1
+illum 2
+Ka 0 0 0
+Ks 0.2 0.2 0.2
+newmtl glass
+Kd 0.8 0.8 0.8
+Ns 256
+d 0
+illum 2
+Ka 0 0 0
+Ks 0.2 0.2 0.2
+newmtl light
+Kd 0.8 0.8 0.8
+Ns 256
+d 1
+illum 2
+Ka 3 1.24676 0.653075
+Ks 0.2 0.2 0.2
+newmtl light22
+Kd 0.8 0.8 0.8
+Ns 256
+d 1
+illum 2
+Ka 0.770173 0.843481 3
+Ks 0.2 0.2 0.2
+newmtl plastik
+Kd 0.0329114 0.0329114 0.0329114
+Ns 256
+d 1
+illum 2
+Ka 0 0 0
+Ks 0.2 0.2 0.2
+newmtl provod
+Kd 0.00870895 0 0.8
+Ns 256
+d 1
+illum 2
+Ka 0 0 0
+Ks 0.2 0.2 0.2
+newmtl provod2
+Kd 0 0 0
+Ns 256
+d 1
+illum 2
+Ka 0 0 0
+Ks 0.2 0.2 0.2
+newmtl provod23
+Kd 0.8 0.0144669 0
+Ns 256
+d 1
+illum 2
+Ka 0 0 0
+Ks 0.2 0.2 0.2
+newmtl ruk
+Kd 0.0176101 0.0176101 0.0176101
+Ns 256
+d 1
+illum 2
+Ka 0 0 0
+Ks 0.2 0.2 0.2
