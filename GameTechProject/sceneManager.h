@@ -10,6 +10,7 @@
 #include "Shader.h"
 #include "Entity.h"
 #include "Entity_OBB.h"
+#include "SDL_ttf.h"
 #include "Entity_Sphere.h"
 //#include "Ray.h"
 #include "Supply_Point.h"
@@ -32,6 +33,7 @@ private:
 	void loadShader();
 	void initMusic();
 	void initShaders();
+	void spawnShips();
 	void middleMap();
 	void secondHallwayandTwoRooms();
 	void thirdHallwayintoRoom();
@@ -40,7 +42,6 @@ private:
 	void firstRoom();
 	void spawnChargers();
 	void spawnBay();
-	void spawnShips();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
 
@@ -54,10 +55,13 @@ public:
 	sceneManager(int windowWidth, int windowHeight); // constructor	
 	~sceneManager();
 	void draw();
+	void groundDraw();
 	void update();
 
 	SoundManager* sm;
 	HSAMPLE* samples = NULL;
+	
+	
 	stack<glm::mat4> modelStack;			// Stack
 	SDL_GLContext context;
 	SDL_Window* window;
@@ -76,7 +80,7 @@ public:
 	//vector<Node> nodesList;
 	collisionHandler theCollisionHandler;
 	vector<Model> gameObjects;
-
+	shared_ptr<Model> Gun;
 
 	shared_ptr<Shader> cubeShader;
 
@@ -135,16 +139,16 @@ public:
 	   glm::vec3(-15.0f, 2.6f, 21.0f),
 	   glm::vec3(-15.0f, 2.6f, -31.0f),
 	   glm::vec3(-15.0f, 2.6f, -37.0f),
-	   glm::vec3(-7.0f, 2.6f, -37.5f),
+	   glm::vec3(-7.0f, 2.6f, -37.0f),
 	   glm::vec3(-7.0f, 2.6f, -47.0f),
 	   glm::vec3(-2.0f, 2.6f, -48.0f),
 	   glm::vec3(-2.0f, 2.6f, -39.0f),
 	   glm::vec3(-2.0f, 2.6f, -29.0f),
 	   glm::vec3(9.0f, 2.6f, -30.0f),
 	   glm::vec3(3.0f, 2.6f, -30.0f),
-	   glm::vec3(9.0f, 2.6f, -37.5f),
-	   glm::vec3(3.0f, 2.6f, -37.5f),
-	   glm::vec3(2.0f, 2.6f, -47.5f),
+	   glm::vec3(9.0f, 2.6f, -37.0f),
+	   glm::vec3(3.0f, 2.6f, -37.0f),
+	   glm::vec3(2.0f, 2.6f, -47.0f),
 	   glm::vec3(6.0f, 2.6f, -47.0f)
 	};
 };
