@@ -42,12 +42,12 @@ void sceneManager::initMusic()
 void sceneManager::loadModel()
 {
 	cubeTest = make_shared<Model>("../GameTechProject/cube.obj");
-	
+
 	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
 	floorRoofPlane = make_shared<Model>("../GameTechProject/models/Wall/SciFi_Wall_Floor_Ceiling.obj");
-	
+
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
-		
+
 	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall_Window.obj"));								// [0] window wall section
 	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall.obj"));										// [1] single wall section
 	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall_Floor_Ceiling.obj"));						// [2] ground roof section 
@@ -55,15 +55,15 @@ void sceneManager::loadModel()
 	gameObjects.push_back(Model("../GameTechProject/models/chargers/health/SciFi_Health.obj"));							// [4] Health charger
 	gameObjects.push_back(Model("../GameTechProject/models/chargers/ammo/SciFi_Ammo.obj"));								// [5] Ammo charger
 	gameObjects.push_back(Model("../GameTechProject/models/Bay/bed/SciFi_Bed.obj"));									// [6] Beds
-	gameObjects.push_back(Model("../GameTechProject/models/gun/gun.obj"));												// [7] Gun
-	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Spaceship.obj"));									// [8] Small ship
-	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Luminaris_OBJ.obj"));								// [9] Big ship
+	gameObjects.push_back(Model("../GameTechProject/models/gun/gun.obj"));
+	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Spaceship.obj"));									// [7] Small ship
+	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Luminaris_OBJ.obj"));								// [8] Big ship
 }
 
 
 
 void sceneManager::loadShader()
-{	
+{
 	ourShader = make_shared<Shader>("phong-tex.vert", "phong-tex.frag");
 	cubeShader = make_shared<Shader>("cubeShader.vs", "cubeShader.fs");
 	skyboxShader = make_shared<Shader>("cubeMap.vert", "cubeMap.frag");
@@ -244,7 +244,7 @@ void sceneManager::initShaders()
 	ourShader->setFloat("pointLights[23].constant", 1.0f);
 	ourShader->setFloat("pointLights[23].linear", 0.09);
 	ourShader->setFloat("pointLights[23].quadratic", 0.032);
-	
+
 }
 
 
@@ -268,8 +268,8 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	eye = { 7.3, 1.3, -1.3 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
-	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
-	environment = 
+	thePlayer = player(1, eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
+	environment =
 	{
 		Entity_OBB(1,1,1,0, 0, 0, glm::vec3(0,90,0))
 	};
@@ -279,7 +279,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 		Supply_Point(0.02,4.2f, 1.0f, -11.6f,glm::vec3(0,90,0),true)
 	};
 	collisionHandler theCollisionHandler;
-	
+
 
 	window = setupRC(context);
 	glewInitilisation();
@@ -288,7 +288,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	loadModel();
 	loadSkybox(cubeTexFiles, &skybox);
 	initMusic();
-	
+
 	draw();
 
 }
@@ -296,7 +296,7 @@ void sceneManager::update()
 {
 
 
-	
+
 	///óóóóóHandle Supply PointsóóóóÅE//
 	for (int i = 0; i < supplyPoints.size(); i++)
 	{
@@ -320,7 +320,7 @@ void sceneManager::update()
 
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 	thePlayer.setHealth(health);
-		
+
 	if (keys[SDL_SCANCODE_Q])
 	{
 		rotation -= 1.0f;
@@ -337,11 +337,11 @@ void sceneManager::update()
 	}
 
 
-	 
-	
-	
 
-	 
+
+
+
+
 	if (keys[SDL_SCANCODE_W]) //forward
 	{
 		thePlayer.pos = moveForward(thePlayer.pos, rotation, 0.1f);
@@ -363,7 +363,7 @@ void sceneManager::update()
 		//eye = moveRight(eye, rotation, 0.1f);
 	}
 
-	
+
 
 	if (keys[SDL_SCANCODE_Q])
 	{
@@ -372,7 +372,7 @@ void sceneManager::update()
 	if (keys[SDL_SCANCODE_E])
 	{
 		rotation += 1.0f;
-		
+
 	}
 	if (keys[SDL_SCANCODE_R])
 	{
@@ -425,7 +425,7 @@ void sceneManager::update()
 	int mouseX, mouseY = 0;
 	SDL_GetMouseState(&mouseX, &mouseY);
 
-	if (mouseX > windowWidth/ 2 + 100)
+	if (mouseX > windowWidth / 2 + 100)
 	{
 		rotation += 0.5;
 	}
@@ -435,7 +435,7 @@ void sceneManager::update()
 		rotation -= 0.5f;
 	}
 
-	
+
 
 	//if (keys[SDL_SCANCODE_O] && key1Found)
 	//{
@@ -480,12 +480,12 @@ void sceneManager::update()
 		Sleep(300);
 	}
 
-	
+
 
 }
 sceneManager::~sceneManager()
 {
-	
+
 }
 
 void sceneManager::draw()
@@ -495,7 +495,7 @@ void sceneManager::draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-  
+
   //if (walking == true)
 	//{
 	//	HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
@@ -504,7 +504,7 @@ void sceneManager::draw()
 	//		cout << "Can't play sample" << endl;
 	//}
 
-	
+
 	cout << eye.x << " " << eye.y << " " << eye.z << endl;
 
 	glm::mat4 projection(1.0);
@@ -535,19 +535,19 @@ void sceneManager::draw()
 	glCullFace(GL_BACK);
 	modelStack.pop();
 	glDepthMask(GL_TRUE);
-	
-  
+
+
 	ourShader->use();
-	
+
 	ourShader->setMat4("modelView", modelView);
 	ourShader->setMat4("projection", projection);
 
 
 	ourShader->setVec3("viewPos", at);
-	ourShader->setVec3("pointLights[0].position", modelStack.top() * glm::vec4(lightPosition[0] , 1.0));
-	ourShader->setVec3("pointLights[1].position", modelStack.top() * glm::vec4(lightPosition[1] , 1.0));
-	ourShader->setVec3("pointLights[2].position", modelStack.top() * glm::vec4(lightPosition[2] , 1.0));
-	ourShader->setVec3("pointLights[3].position", modelStack.top() * glm::vec4(lightPosition[3] , 1.0));
+	ourShader->setVec3("pointLights[0].position", modelStack.top() * glm::vec4(lightPosition[0], 1.0));
+	ourShader->setVec3("pointLights[1].position", modelStack.top() * glm::vec4(lightPosition[1], 1.0));
+	ourShader->setVec3("pointLights[2].position", modelStack.top() * glm::vec4(lightPosition[2], 1.0));
+	ourShader->setVec3("pointLights[3].position", modelStack.top() * glm::vec4(lightPosition[3], 1.0));
 	ourShader->setVec3("pointLights[4].position", modelStack.top() * glm::vec4(lightPosition[4], 1.0));
 	ourShader->setVec3("pointLights[5].position", modelStack.top() * glm::vec4(lightPosition[5], 1.0));
 	ourShader->setVec3("pointLights[6].position", modelStack.top() * glm::vec4(lightPosition[6], 1.0));
@@ -581,28 +581,28 @@ void sceneManager::draw()
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Ship piece
 
 	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-18.0f, 2.7f, -23.0f));
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(9.0f, 2.7f, -23.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(3.0, 3.0f, 3.0f));
 	modelStack.top() = glm::rotate(modelStack.top(), float(180.0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.0f, -0.10f));
 	ourShader->setMat4("modelView", modelStack.top());
 	floorRoofPlane->modelDraw(*ourShader);
 	modelStack.pop();
-	
 
-	
-	//modelStack.push(modelStack.top());
-	//gameObjects[7].setPosition(glm::vec3(eye.x+0.3, eye.y, eye.z - 0.4));
-	//modelStack.top() = glm::translate(modelStack.top(), gameObjects[7].getPosition());
-	//modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
-	//modelStack.top() = glm::rotate(modelStack.top(), float(mouseX * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
-	//ourShader->setMat4("modelView", modelStack.top());
-	//gameObjects[7].modelDraw(*ourShader);
-	//modelStack.pop();
-	
+
+
+	modelStack.push(modelStack.top());
+	gameObjects[7].setPosition(glm::vec3(eye.x + 0.3, eye.y, eye.z - 0.4));
+	modelStack.top() = glm::translate(modelStack.top(), gameObjects[7].getPosition());
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(mouseX * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[7].modelDraw(*ourShader);
+	modelStack.pop();
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////Floor fill 1
 	groundDraw();
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ???
-		   	  
+
 	modelStack.push(modelStack.top());
 	gameObjects[1].setPosition(glm::vec3(7.7, 1, -34.8));
 	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
@@ -610,7 +610,7 @@ void sceneManager::draw()
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[1].modelDraw(*ourShader);
 	modelStack.pop();
-	
+
 	modelStack.push(modelStack.top());
 	gameObjects[1].setPosition(glm::vec3(10.2, 1, -34.8));
 	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
@@ -978,8 +978,8 @@ void sceneManager::draw()
 	hallwayFromFirstRoom();
 	secondRoom();
 	thirdHallwayintoRoom();
-	spawnShips();
-		
+	//spawnShips();
+
 	cubeShader->use();
 	cubeShader->setMat4("projection", projection);
 	cubeShader->setMat4("view", view);			//Doesnt actually need to be passed it, will dfault itself.
@@ -2870,22 +2870,14 @@ void sceneManager::spawnShips()
 	//modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.01, 0.01f, 0.01f));
 	//modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
 	//ourShader->setMat4("modelView", modelStack.top());
-	//gameObjects[8].modelDraw(*ourShader);
+	//gameObjects[7].modelDraw(*ourShader);
 	//modelStack.pop();
 
 	modelStack.push(modelStack.top());														//Ship for docking Bay
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(161.0, -4.0f, 1.0f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.1, 0.1f, 0.1f));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0.0 * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[8].modelDraw(*ourShader);
-	modelStack.pop();
-
-	modelStack.push(modelStack.top());														//Ship for docking Bay
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-4.7f, 1.0f, -4.3f));
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(2.7f, 1.0f, 0.3f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.1, 0.1, 0.1));
 	modelStack.top() = glm::rotate(modelStack.top(), float(270 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[9].modelDraw(*ourShader);
+	gameObjects[8].modelDraw(*ourShader);
 	modelStack.pop();
 }
