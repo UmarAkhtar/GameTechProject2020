@@ -71,24 +71,6 @@
     <None Include="reflect.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="textured.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="textured.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="toon.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="toon.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shader.fs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shader.vs">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="cubeShader.fs">
       <Filter>Resource Files</Filter>
     </None>
