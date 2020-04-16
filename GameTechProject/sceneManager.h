@@ -153,11 +153,18 @@ public:
 	   glm::vec3(6.0f, 2.6f, -47.0f)
 	};
 
-	glm::vec3 doorOneHeight;// = testDoorVectorDown;														//Will need one of these vars for each door
+	//glm::vec3 doorOneHeight;// = testDoorVectorDown;														//Will need one of these vars for each door
+	//glm::vec3 doorTwoHeight;
 	glm::vec3 testDoorVectorDown = { 5.3, 1, -10 };
 	glm::vec3 testDoorVectorMid = { 5.3, 1.5, -10 };
 	glm::vec3 testDoorVectorUp = { 5.3, 3, -10 };
+	
+	float doorOneHeight;
+	float doorTwoHeight;
 
+	float yAxis;
+	float yAxisUp = 3.0f;
+	float yAxisDown = 1.0;
 };
 
 #endif // !SCENEMANAGER_H

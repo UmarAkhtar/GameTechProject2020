@@ -253,7 +253,11 @@ glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
 
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
-	doorOneHeight = testDoorVectorDown;
+	//doorOneHeight = testDoorVectorDown;
+	//doorTwoHeight = testDoorVectorDown;
+
+	doorOneHeight = yAxisDown;
+	doorTwoHeight = yAxisDown;
 	eye = { 7.3, 1.3, -1.3 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
@@ -266,7 +270,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	doors =
 	{
 		Supply_Point(0.5, 5.0, 0.0, -8.0, glm::vec3(0,90,0), true),
-		Supply_Point(1.0, 7.0, 0.0, -9.0, glm::vec3(0,90,0), true),
+		Supply_Point(1.0, 4.0, 0.0, -23.0, glm::vec3(0,90,0), true),
 		Supply_Point(1.0, 10.0, 0.0, -9.0, glm::vec3(0,90,0), true)
 	};
 	supplyPoints =
@@ -320,8 +324,8 @@ void sceneManager::update()
 		}
 	}
 
-	for (int i = 0; i < doors.size(); i++)
-	{
+	//for (int i = 0; i < doors.size(); i++)
+	//{
 		//cout << "eX: " << thePlayer.getX() << "    eY: " << thePlayer.getY() << "    eZ: " << thePlayer.getZ() << endl;
 		//cout << "pX: " << thePlayer.getX() << "    pY: " << thePlayer.getY() << "    pZ: " << thePlayer.getZ() << endl;
 		if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, doors[0])) /*players collides with environment[i]*/
@@ -329,7 +333,8 @@ void sceneManager::update()
 			if (key1Found == true)
 			{
 				cout << "Door collision" << endl << endl;
-				doorOneHeight = testDoorVectorUp;
+				//doorOneHeight = testDoorVectorUp;
+				doorOneHeight = yAxisUp;
 			}
 			else
 			{
@@ -337,14 +342,16 @@ void sceneManager::update()
 			}
 			
 		}
-		else
+
+		if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, doors[1])) /*players collides with environment[i]*/
 		{
-			//doorHeight = testDoorVectorDown;
-			eye.x = thePlayer.getX();
-			eye.y = thePlayer.getY();
-			eye.z = thePlayer.getZ();
+			
+				cout << "Door collision" << endl << endl;
+				doorTwoHeight = yAxisUp;
+
 		}
-	}
+		
+	//}
 
 
 
@@ -1293,7 +1300,7 @@ void sceneManager::firstRoom()
 	modelStack.pop();
 
 	modelStack.push(modelStack.top());
-	gameObjects[1].setPosition(glm::vec3(doorOneHeight));
+	gameObjects[1].setPosition(glm::vec3(5.3, doorOneHeight, -10));
 	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
 	modelStack.top() = glm::rotate(modelStack.top(), float(90.0f * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
@@ -1483,7 +1490,7 @@ void sceneManager::hallwayFromFirstRoom()
 	modelStack.pop();
 
 	modelStack.push(modelStack.top());
-	gameObjects[1].setPosition(glm::vec3(2.5, 3 + yoffset2, -22.5));
+	gameObjects[1].setPosition(glm::vec3(2.5, doorTwoHeight, -22.5));
 	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[1].modelDraw(*ourShader);
