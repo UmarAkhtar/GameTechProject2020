@@ -118,11 +118,11 @@ public:
 
 	glm::vec4 lightPos{ 0.0f, 15.0f, 2.0f, 1.0f };
 
-	Shader::materialStruct material0 = {
+	Shader::materialStruct material = {
 	{0.2f, 0.4f, 0.2f, 1.0f}, // ambient
 	{0.5f, 1.0f, 0.5f, 1.0f}, // diffuse
-	{0.5f, 0.5f, 0.5f, 1.0f}, // specular
-	2.0f  // shininess
+	{0.2f, 0.2f, 0.2f, 0.2f}, // specular
+	1.0f  // shininess
 	};
 
 	

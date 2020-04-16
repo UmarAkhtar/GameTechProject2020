@@ -1,5 +1,4 @@
 #version 330 core
-
 out vec4 FragColor;
 
 struct Material {
@@ -30,9 +29,9 @@ uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform Material material;
 uniform vec3 viewPos;
 
-vec4 result;
+vec3 result;
 
-    vec4 CalcPointLight(PointLight light, vec3 viewDirection);
+    vec3 CalcPointLight(PointLight light, vec3 viewDirection);
 
 void main()
 {
@@ -42,11 +41,11 @@ void main()
     for(int i = 0; i < NR_POINT_LIGHTS; i++)
      result += CalcPointLight(pointLights[i], viewDirection); 
 
-    FragColor = result;
+    FragColor = vec4 (result, 1.0);
     
 }
 
-vec4 CalcPointLight (PointLight light, vec3 viewDirection)
+vec3 CalcPointLight (PointLight light, vec3 viewDirection)
 {
 
    vec3 viewPosition = normalize (-vertexPosition).xyz;
@@ -57,7 +56,7 @@ vec4 CalcPointLight (PointLight light, vec3 viewDirection)
 
    vec3 lightPos = normalize(light.position - vertexPosition);	    //ex_L
 
-   vec3 lightDir = normalize(-vertexPosition).xyz;     
+   vec3 lightDir = normalize(-vertexPosition).xyz;      //
 
    float diff = max(dot(normalize(norm),normalize(lightPos)), 0.0);
    vec3 diffuse = light.diffuse * diff * texture(material.diffuse, ex_TexCoord).rgb;  
@@ -65,13 +64,17 @@ vec4 CalcPointLight (PointLight light, vec3 viewDirection)
    vec3 reflectDir = normalize(reflect(normalize(-lightPos),normalize(norm)));	                
    //float spec = pow(max(dot(lightDir, reflectDir), 0.0), material.shininess);
 
-   float spec = pow(max(dot(reflectDir, viewPosition), 0.0), material.shininess);
+   //float spec = pow(max(dot(reflectDir, viewPosition), 0.0), material.shininess);
 
-   vec3 specular = light.specular * spec * texture(material.specular, ex_TexCoord).rgb;  
+  // vec3 specular = light.specular * spec * texture(material.specular, ex_TexCoord).rgb;  
+
+   vec3 specular = light.specular * texture(material.specular, ex_TexCoord).rgb;  
+
+   specular = specular * pow(max(dot(reflectDir, viewPosition), 0.0), material.shininess);
 
    float ex_attenuation = 1.0f / (light.constant + light.linear * att_distance + 0.01 * att_distance * att_distance);
     
-   result = vec4(ambient + diffuse * ex_attenuation, 1.0);
+   vec3 result = ambient + diffuse + specular * ex_attenuation;
 
    return result;
 }

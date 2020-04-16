@@ -21,4 +21,7 @@ void main()
 	ex_TexCoord = in_TexCoord;
 
 	gl_Position = projection * vec4(vertexPosition, 1.0);
+	
+
+
 }
