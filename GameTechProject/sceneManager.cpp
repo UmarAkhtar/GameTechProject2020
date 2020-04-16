@@ -1,15 +1,6 @@
 #include "sceneManager.h"
 #define DEG_TO_RADIAN 0.017453293
 
-GLint x, y, z = 0;
-
-bool menu = false;
-bool walking = false;
-GLfloat yoffset, yoffset1, yoffset2 = 0;
-float mouseX, mouseY;
-bool key1Found, key2Found = false;
-
-TTF_Font* font = TTF_OpenFont("MavenPro-Regular.ttf", 25);
 void sceneManager::glewInitilisation()
 {
 	glewExperimental = GL_TRUE;
@@ -42,12 +33,12 @@ void sceneManager::initMusic()
 void sceneManager::loadModel()
 {
 	cubeTest = make_shared<Model>("../GameTechProject/cube.obj");
-	
+
 	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
 	floorRoofPlane = make_shared<Model>("../GameTechProject/models/Wall/SciFi_Wall_Floor_Ceiling.obj");
-	
+
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
-		
+
 	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall_Window.obj"));								// [0] window wall section
 	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall.obj"));										// [1] single wall section
 	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall_Floor_Ceiling.obj"));						// [2] ground roof section 
@@ -58,9 +49,9 @@ void sceneManager::loadModel()
 	gameObjects.push_back(Model("../GameTechProject/models/gun/gun.obj"));												// [7] Gun
 	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Spaceship.obj"));									// [8] Small ship
 	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Luminaris_OBJ.obj"));								// [9] Big ship
+	gameObjects.push_back(Model("../GameTechProject/models/Test/Tree_frog.dae"));								// [10] TEST ANT
+
 }
-
-
 
 void sceneManager::loadShader()
 {	
@@ -262,7 +253,6 @@ glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
 }
 
 
-
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
 
@@ -295,7 +285,15 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 }
 void sceneManager::update()
 {
-
+	/*float oldMouseX = windowWidth;
+	  float oldMouseY = windowHeight;
+	  POINT cp;
+	  GetCursorPos(&cp);
+	  mouseX = cp.x;
+	  mouseY = cp.y;
+	  if ((mouseX - oldMouseX) > 0) { rotation += 0.5f;  if ((mouseX - oldMouseX) > 0) rotation += 0.5f;}
+	  else if ((mouseX - oldMouseX) < 0) { rotation -= 0.5f; if ((mouseX - oldMouseX) < 0) rotation -= 0.5f; }
+	  SetCursorPos(windowWidth, windowHeight);*/
 
 	
 	///—————Handle Supply Points————E//
@@ -336,13 +334,7 @@ void sceneManager::update()
 		Sleep(100);
 		cout << health << endl;
 	}
-
-
-	 
-	
-	
-
-	 
+	   	 
 	if (keys[SDL_SCANCODE_W]) //forward
 	{
 		thePlayer.pos = moveForward(thePlayer.pos, rotation, 0.1f);
@@ -423,18 +415,25 @@ void sceneManager::update()
 		rotation += 1.0f;
 	}
 
-	int mouseX, mouseY = 0;
-	SDL_GetMouseState(&mouseX, &mouseY);
+	//int mouseX, mouseY = 0;
+	//SDL_GetMouseState(&mouseX, &mouseY);
+	////SDL_GetRelativeMouseState(&mouseX, &mouseY);
 
-	if (mouseX > windowWidth/ 2 + 100)
-	{
-		rotation += 0.5;
-	}
-	//cout << mouseX <<"\n";
-	if (mouseX < windowWidth / 2 - 100)
-	{
-		rotation -= 0.5f;
-	}
+	//if (mouseX > windowWidth/ 2 + 100)
+	//{
+	//	rotation += 0.5;
+	//}
+	////cout << mouseX <<"\n";
+	//if (mouseX < windowWidth / 2 - 100)
+	//{
+	//	rotation -= 0.5f;
+	//}
+
+	//if (mouseY > windowHeight / 2 + 100)
+	//{
+	//	cout << "test";
+	//	rotationY += 0.5f;
+	//}
 
 	
 
@@ -570,6 +569,13 @@ void sceneManager::draw()
 	ourShader->setVec3("pointLights[22].position", modelStack.top() * glm::vec4(lightPosition[22], 1.0));
 
 
+	modelStack.push(modelStack.top());														//Ship for docking Bay
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-14.7f, 1.0f, -4.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.1, 0.1, 0.1));
+	modelStack.top() = glm::rotate(modelStack.top(), float(270 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[10].modelDraw(*ourShader);
+	modelStack.pop();
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	modelStack.push(modelStack.top());

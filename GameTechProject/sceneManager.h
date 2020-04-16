@@ -45,11 +45,9 @@ private:
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
 
-
-
 	int windowWidth;
 	int windowHeight;
-
+	TTF_Font* font = TTF_OpenFont("MavenPro-Regular.ttf", 25);
 
 public:
 	sceneManager(int windowWidth, int windowHeight); // constructor	
@@ -110,11 +108,13 @@ public:
 	
 	glm::vec3 up;
 	GLfloat rotation;
+	GLint x, y, z = 0;
 
-	float attenuationConstant = 1.0f;
-	float attenuationLinear = 0.09f;
-	float attenuationQuad = 0.01f;
-
+	bool menu = false;
+	bool walking = false;
+	GLfloat yoffset, yoffset1, yoffset2 = 0;
+	float mouseX, mouseY;
+	
 
 	glm::vec4 lightPos{ 0.0f, 15.0f, 2.0f, 1.0f };
 
