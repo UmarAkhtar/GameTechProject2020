@@ -73,6 +73,7 @@ public:
 
 	player thePlayer;
 	vector<Entity_OBB> environment;
+	vector<Supply_Point> doors;
 	vector<Supply_Point> supplyPoints;
 	//vector<Enemy> enemies;
 	//vector<Node> nodesList;
@@ -151,6 +152,12 @@ public:
 	   glm::vec3(2.0f, 2.6f, -47.5f),
 	   glm::vec3(6.0f, 2.6f, -47.0f)
 	};
+
+	glm::vec3 doorOneHeight;// = testDoorVectorDown;														//Will need one of these vars for each door
+	glm::vec3 testDoorVectorDown = { 5.3, 1, -10 };
+	glm::vec3 testDoorVectorMid = { 5.3, 1.5, -10 };
+	glm::vec3 testDoorVectorUp = { 5.3, 3, -10 };
+
 };
 
 #endif // !SCENEMANAGER_H
