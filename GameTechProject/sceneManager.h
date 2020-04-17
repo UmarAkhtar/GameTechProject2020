@@ -42,8 +42,14 @@ private:
 	void firstRoom();
 	void spawnChargers();
 	void spawnBay();
+	void groundDraw();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
+	glm::vec4 toEyeCoords(glm::vec4 clipCoords, glm::mat4 proj);
+	glm::vec3 mouseRay(glm::mat4 proj, glm::mat4 modelView);
+	glm::vec2 getNormalisedCoords(float mouseX, float mouseY);
+	glm::vec3 toWorldCoords(glm::vec4 eyeCoords, glm::mat4 modelView);
+	glm::vec3 reverseMouse(glm::vec3 windowCoords, glm::mat4 model, glm::mat4 projection, glm::vec4 view);
 
 	int windowWidth;
 	int windowHeight;
@@ -52,8 +58,7 @@ private:
 public:
 	sceneManager(int windowWidth, int windowHeight); // constructor	
 	~sceneManager();
-	void draw();
-	void groundDraw();
+	void draw();	
 	void update();
 
 	SoundManager* sm;
@@ -75,6 +80,7 @@ public:
 	vector<Entity_OBB> environment;
 	vector<Supply_Point> doors;
 	vector<Supply_Point> supplyPoints;
+	vector<Entity_Sphere> testVec;
 	//vector<Enemy> enemies;
 	//vector<Node> nodesList;
 	collisionHandler theCollisionHandler;
@@ -165,6 +171,9 @@ public:
 	float yAxis;
 	float yAxisUp = 3.0f;
 	float yAxisDown = 1.0;
+
+
+	glm::vec2 rayMouseTest;
 };
 
 #endif // !SCENEMANAGER_H

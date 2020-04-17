@@ -250,6 +250,96 @@ glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
 	return glm::vec3(pos.x + d * std::cos(rotation * DEG_TO_RADIAN), pos.y, pos.z + d * std::sin(rotation * DEG_TO_RADIAN));
 }
 
+glm::vec3 sceneManager::reverseMouse(glm::vec3 windowCoords, glm::mat4 model, glm::mat4 projection, glm::vec4 view)
+{
+	//int mouseX = 0;
+	//int mouseY = 0;
+	//
+	////mouseY = 800 - mouseY;
+
+	//SDL_GetMouseState(&mouseX, &mouseY);
+	//rayMouseTest = glm::vec2(mouseX, mouseY);
+	//glm::vec3 mouseSource = glm::vec3(mouseX, mouseY, 1.0f);
+
+	POINT cp;
+	GetCursorPos(&cp);
+	mouseX = cp.x;
+	mouseY = cp.y;
+	cout << "SCREEN POSITION X " << mouseX << endl;
+	cout << "SCREEN POSITION Y" << mouseY << endl;
+	glm::vec3 mouseCoords = glm::vec3(mouseX, windowHeight - mouseY - 1, 0.0);
+	//glm::vec3 result = glm::unProject(windowCoords, model, projection, view);
+	glm::vec3 result = glm::unProject(mouseCoords, model, projection, view);
+	
+	//cout << result.x << endl;
+	//cout << result.y << endl;
+	//cout << result.z << endl;
+	cout << "WORLD POSITION X " << result.x << endl;
+	cout << "WORLD POSITION Y" << result.y << endl;
+	cout << "WORLD POSITION Z" << result.z << endl;
+
+
+}
+
+
+
+glm::vec3 sceneManager::mouseRay(glm::mat4 proj, glm::mat4 modelView)
+{
+
+	//int mouseX, mouseY = 0;
+	//SDL_GetMouseState(&mouseX, &mouseY);
+	//rayMouseTest = glm::vec2(mouseY, mouseY);
+
+	POINT cp;
+	GetCursorPos(&cp);
+	mouseX = cp.x;
+	mouseY = cp.y;
+
+	//cout << mouseX << endl;
+	//cout << mouseY << endl;
+	glm::vec2 normCoords = getNormalisedCoords(mouseX, mouseX);
+	glm::vec4 clipCoords = glm::vec4(normCoords.x, normCoords.y, -1.0f, 1.0f);
+	glm::vec4 eyeCoords = toEyeCoords(clipCoords, proj);
+	glm::vec3 worldRay = toWorldCoords(eyeCoords, modelView);
+	
+	cout << "RAY IN WORLD : " << worldRay.x << endl;
+	cout << "RAY IN WORLD : " << worldRay.y << endl;
+	cout << "RAY IN WORLD : " << worldRay.z << endl;
+	return worldRay;
+
+}
+
+glm::vec4 sceneManager::toEyeCoords(glm::vec4 clipCoords, glm::mat4 proj)
+{
+	glm::mat4 invertProj = glm::inverse(proj);
+	glm::vec4 eyeCoords = invertProj * clipCoords;
+	//return glm::vec4(eyeCoords);
+	eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0, 0.0);
+	//cout << "eye coords x" << eyeCoords.x << endl;
+	//cout << "eye coords y" << eyeCoords.y << endl;
+	return eyeCoords;
+}
+
+glm::vec2 sceneManager::getNormalisedCoords(float mouseX, float mouseY)
+{
+	
+	float x = (2 * mouseX) / windowWidth - 1.0;
+	float y = 1.0 - (2 * mouseY) / windowHeight;
+	//cout << "normalised x = " << x << endl;
+	//cout << "normalised y = " << y << endl;
+	return glm::vec2(x, y);
+}
+
+glm::vec3 sceneManager::toWorldCoords(glm::vec4 eyeCoords, glm::mat4 modelView)
+{
+	glm::mat4 invertedView = glm::inverse(modelView);
+	glm::vec4 worldRay = invertedView * eyeCoords;
+	glm::vec3 mouseRay = glm::vec3(worldRay.x, worldRay.y, worldRay.z);
+	glm::normalize(mouseRay);
+	return mouseRay;
+	
+}
+
 
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
@@ -264,7 +354,8 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
 	environment = 
 	{
-		Entity_OBB(1,1,1,0, 0, 0, glm::vec3(0,90,0))
+		Entity_OBB(1,1,1,0, 0, 0, glm::vec3(0,90,0)),
+		Entity_OBB(1,1,1,5, 0, -15, glm::vec3(0,90,0))
 		
 	};
 	doors =
@@ -278,6 +369,11 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 		//glm::vec3(4.2f, -1.0f, -11.0f)
 		Supply_Point(0.02,4.2f, 1.0f, -11.6f,glm::vec3(0,90,0),true)
 	};
+	testVec =
+	{
+		Entity_Sphere(0.5, 5.0, 0.0, -8.0, glm::vec3(0, 90, 0))
+	};
+
 	collisionHandler theCollisionHandler;
 	
 
@@ -294,6 +390,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 }
 void sceneManager::update()
 {
+	const Uint8* keys = SDL_GetKeyboardState(NULL);
 	/*float oldMouseX = windowWidth;
 	  float oldMouseY = windowHeight;
 	  POINT cp;
@@ -330,7 +427,7 @@ void sceneManager::update()
 		//cout << "pX: " << thePlayer.getX() << "    pY: " << thePlayer.getY() << "    pZ: " << thePlayer.getZ() << endl;
 		if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, doors[0])) /*players collides with environment[i]*/
 		{
-			if (key1Found == true)
+			if (key1Found == true && (keys[SDL_SCANCODE_E]))
 			{
 				cout << "Door collision" << endl << endl;
 				//doorOneHeight = testDoorVectorUp;
@@ -345,17 +442,25 @@ void sceneManager::update()
 
 		if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, doors[1])) /*players collides with environment[i]*/
 		{
-			
+			if (keys[SDL_SCANCODE_E])
+			{
 				cout << "Door collision" << endl << endl;
 				doorTwoHeight = yAxisUp;
-
+			}				
 		}
+
+
+
+		//if (theCollisionHandler.checkCollisionSphere((testVec[0]), rayMouseTest)) /*players collides with environment[i]*/
+		//{
+		//	cout << "sphere ray test" << endl;
+		//}
 		
 	//}
 
 
 
-	const Uint8* keys = SDL_GetKeyboardState(NULL);
+	
 	thePlayer.setHealth(health);
 		
 	if (keys[SDL_SCANCODE_Q])
@@ -457,6 +562,8 @@ void sceneManager::update()
 
 	//int mouseX, mouseY = 0;
 	//SDL_GetMouseState(&mouseX, &mouseY);
+	//rayMouseTest = glm::vec2(mouseX, mouseY);
+	
 	////SDL_GetRelativeMouseState(&mouseX, &mouseY);
 
 	//if (mouseX > windowWidth/ 2 + 100)
@@ -545,7 +652,7 @@ void sceneManager::draw()
 	//}
 
 	
-	cout << eye.x << " " << eye.y << " " << eye.z << endl;
+	//cout << eye.x << " " << eye.y << " " << eye.z << endl;
 
 	glm::mat4 projection(1.0);
 	projection = glm::perspective(float(60.0f * DEG_TO_RADIAN), 800.0f / 600.0f, 0.1f, 150.0f);
@@ -554,10 +661,25 @@ void sceneManager::draw()
 
 	glm::mat4 modelView = glm::mat4(1.0f);
 	modelStack.push(modelView);
-
+	//modelView = glm::lookAt(eye, at, up);
+	
 
 	at = moveForward(eye, rotation, 1.0f);
 	modelStack.top() = glm::lookAt(eye, at, up);
+
+
+
+
+	glViewport(0.f, 0.0f, windowWidth, windowHeight);
+	glm::vec4 viewport = glm::vec4(0, 0, windowWidth, windowHeight);
+	/////////////////////////////////////////////////////////////////////////////////// RAY
+	//mouseRay(projection, modelStack.top());
+	reverseMouse(glm::vec3(0, 0, 0), modelStack.top(), projection, viewport);
+	//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 	glDepthMask(GL_FALSE);
 	glm::mat3 mvRotOnlyMat3 = glm::mat3(modelStack.top());

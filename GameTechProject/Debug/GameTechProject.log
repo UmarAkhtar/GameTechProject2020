@@ -47,7 +47,15 @@ E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\Game
 E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(231,56): warning C4305: 'argument': truncation from 'double' to 'float'
 E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(237,52): warning C4305: 'argument': truncation from 'double' to 'float'
 E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(238,56): warning C4305: 'argument': truncation from 'double' to 'float'
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(279,62): warning C4305: 'argument': truncation from 'double' to 'float'
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(309,20): warning C4018: '<': signed/unsigned mismatch
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(414,20): warning C4018: '<': signed/unsigned mismatch
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(266,13): warning C4244: '=': conversion from 'LONG' to 'float', possible loss of data
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(267,13): warning C4244: '=': conversion from 'LONG' to 'float', possible loss of data
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(295,13): warning C4244: '=': conversion from 'LONG' to 'float', possible loss of data
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(296,13): warning C4244: '=': conversion from 'LONG' to 'float', possible loss of data
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(326,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(327,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(370,62): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(406,20): warning C4018: '<': signed/unsigned mismatch
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(519,20): warning C4018: '<': signed/unsigned mismatch
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(673,18): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(673,13): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
   GameTechProject.vcxproj -> E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\Debug\GameTechProject.exe

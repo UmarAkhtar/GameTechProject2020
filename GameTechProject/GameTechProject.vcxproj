@@ -23,6 +23,9 @@
     <ClInclude Include="bass.h" />
     <ClInclude Include="collisionHandler.h" />
     <ClInclude Include="cube.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Entity_OBB.h" />
+    <ClInclude Include="Entity_Sphere.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="rt3d.h" />

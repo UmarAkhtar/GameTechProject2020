@@ -11,5 +11,6 @@ class collisionHandler
 		bool checkCollision(Entity entity1, Entity entity2);
 			bool checkCollisionSphereVsOBB(Entity_Sphere sphere, Entity_OBB OBB);
 			bool checkCollisionSphereVsSphere(Entity_Sphere sphere1, Entity_Sphere sphere2);
+			//bool checkCollisionSphere(Entity_Sphere sphere, glm::vec2 mouse);
 			//bool checkCollisionSphereVsRay(Entity_Sphere sphere, Ray ray);
 };

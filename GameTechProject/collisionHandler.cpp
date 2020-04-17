@@ -13,8 +13,8 @@ bool collisionHandler::checkCollisionSphereVsOBB(Entity_Sphere sphere, Entity_OB
 
 	float distance = sqrt((cX - sphere.getX()) * (cX - sphere.getX()) +
 		(cY - sphere.getY()) * (cY - sphere.getY()) +
-		(cY - sphere.getZ()) * (cY - sphere.getZ()));
-
+	//	(cY - sphere.getZ()) * (cY - sphere.getZ()));
+		(cZ - sphere.getZ()) * (cZ - sphere.getZ()));
 	return distance < sphere.getRadius();
 }
 
@@ -26,6 +26,12 @@ bool collisionHandler::checkCollisionSphereVsSphere(Entity_Sphere sphere1, Entit
 
 	return distance < sphere1.getRadius() + sphere2.getRadius();
 }
+
+//bool collisionHandler::checkCollisionSphere(Entity_Sphere sphere, glm::vec2 mouse)
+//{
+//
+//}
+
 
 /*bool collisionHandler::checkCollisionSphereVsRay(Entity_Sphere sphere, Ray ray)
 {
