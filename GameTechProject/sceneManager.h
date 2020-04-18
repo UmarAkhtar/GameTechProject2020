@@ -59,6 +59,9 @@ public:
 	sceneManager(int windowWidth, int windowHeight); // constructor	
 	~sceneManager();
 	void draw();	
+	void finalMap();
+	void BottomRightMap();
+	void bottomLeftMap();
 	void update();
 
 	SoundManager* sm;
