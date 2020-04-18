@@ -74,7 +74,7 @@ vec3 CalcPointLight (PointLight light, vec3 viewDirection)
 
    float ex_attenuation = 1.0f / (light.constant + light.linear * att_distance + 0.01 * att_distance * att_distance);
     
-   vec3 result = ambient + diffuse + specular * ex_attenuation;
+   vec3 result = ambient + diffuse * ex_attenuation;
 
    return result;
 }
