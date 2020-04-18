@@ -402,7 +402,7 @@ void sceneManager::update()
 	  SetCursorPos(windowWidth, windowHeight);*/
 
 	
-	///뿓뿓뾊andle Supply Points뿓뿓갋//
+	///혰혰혰혰혰Handle Supply Points혰혰혰혰혖E//
 	for (int i = 0; i < supplyPoints.size(); i++)
 	{
 		if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, supplyPoints[i]))
@@ -764,6 +764,22 @@ BottomRightMap();
 
 void sceneManager::BottomRightMap()
 {
+	modelStack.push(modelStack.top());
+	gameObjects[1].setPosition(glm::vec3(38.1, 1, -12.85));
+	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	gameObjects[1].setPosition(glm::vec3(35.5, 1, -12.85));
+	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, -0.1f, 0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+	
 	modelStack.push(modelStack.top());
 	gameObjects[1].setPosition(glm::vec3(22.9, 1, -52.8));
 	modelStack.top() = glm::translate(modelStack.top(), gameObjects[1].getPosition());
