@@ -17,10 +17,12 @@ public:
 		pos.z = myPosZ;
 		rot = myRot;
 	}
+
 	float getWidth() { return width; }
 	float getLength() { return length; }
 	float getHeight() { return height; }
 	void setWidth(float myWidth) { width = myWidth; }
 	void setLength(float myLength) { length = myLength; }
 	void setHeight(float myHeight) { height = myHeight; }
+
 };

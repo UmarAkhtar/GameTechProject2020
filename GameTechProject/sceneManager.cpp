@@ -49,7 +49,8 @@ void sceneManager::loadModel()
 	gameObjects.push_back(Model("../GameTechProject/models/gun/gun.obj"));												// [7] Gun
 	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Spaceship.obj"));									// [8] Small ship
 	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Luminaris_OBJ.obj"));								// [9] Big ship
-	gameObjects.push_back(Model("../GameTechProject/models/Test/Tree_frog.dae"));								// [10] TEST ANT
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/WorldObject.obj"));								// [10] TEST CUBE
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/Door.obj"));
 
 }
 
@@ -351,8 +352,8 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
 	environment = 
 	{
-		Entity_OBB(1,1,1,0, 0, 0, glm::vec3(0,90,0)),
-		Entity_OBB(1,1,1,5, 0, -15, glm::vec3(0,90,0))
+		Entity_OBB(-0.5,1.0,1,-14.5, 1.0, -3.6, glm::vec3(0,0,45)),
+		Entity_OBB(0.01,0.01,1,5, 1.0, -15, glm::vec3(0,0,0))
 		
 	};
 	doors =
@@ -734,20 +735,34 @@ void sceneManager::draw()
 	ourShader->setVec3("pointLights[21].position", modelStack.top() * glm::vec4(lightPosition[21], 1.0));
 	ourShader->setVec3("pointLights[22].position", modelStack.top() * glm::vec4(lightPosition[22], 1.0));
 
+	modelStack.push(modelStack.top());														//Ship for docking Bay
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(0.0f, 0.0f, 0.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[10].modelDraw(*ourShader);
+	modelStack.pop();
 
-	
-	spawnChargers();
-	spawnBay();
-	finalMap();
-	bottomLeftMap();
-	BottomRightMap();
-	middleMap();
-	secondHallwayandTwoRooms();
-	firstRoom();
-	hallwayFromFirstRoom();
-	secondRoom();
-	thirdHallwayintoRoom();
-	spawnShips();
+	modelStack.push(modelStack.top());														//Ship for docking Bay
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.0f, 0.0f, 0.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[11].modelDraw(*ourShader);
+	modelStack.pop();
+	//
+	//spawnChargers();
+	//spawnBay();
+	//finalMap();
+	//bottomLeftMap();
+	//BottomRightMap();
+	//middleMap();
+	//secondHallwayandTwoRooms();
+	//firstRoom();
+	//hallwayFromFirstRoom();
+	//secondRoom();
+	//thirdHallwayintoRoom();
+	//spawnShips();
 		
 	cubeShader->use();
 	cubeShader->setMat4("projection", projection);
@@ -762,6 +777,9 @@ void sceneManager::draw()
 		cubeTest->modelDraw(*ourShader);
 		modelStack.pop();
 	}
+
+
+	
 
 	SDL_GL_SwapWindow(window);  //Swap buffers
 }
@@ -2945,13 +2963,7 @@ void sceneManager::bottomLeftMap()
 
 	/////////////////
 	/////////////
-	modelStack.push(modelStack.top());														//Ship for docking Bay
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-14.7f, 1.0f, -4.3f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.1, 0.1, 0.1));
-	modelStack.top() = glm::rotate(modelStack.top(), float(270 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[10].modelDraw(*ourShader);
-	modelStack.pop();
+	
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	modelStack.push(modelStack.top());
