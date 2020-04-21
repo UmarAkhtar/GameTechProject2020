@@ -39,19 +39,15 @@ void sceneManager::loadModel()
 
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 
-	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall_Window.obj"));								// [0] window wall section
-	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall.obj"));										// [1] single wall section
-	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall_Floor_Ceiling.obj"));						// [2] ground roof section 
-	gameObjects.push_back(Model("../GameTechProject/models/Wall/SciFi_Wall_5.obj"));									// [3] 5 piece wall section 
-	gameObjects.push_back(Model("../GameTechProject/models/chargers/health/SciFi_Health.obj"));							// [4] Health charger
-	gameObjects.push_back(Model("../GameTechProject/models/chargers/ammo/SciFi_Ammo.obj"));								// [5] Ammo charger
-	gameObjects.push_back(Model("../GameTechProject/models/Bay/bed/SciFi_Bed.obj"));									// [6] Beds
-	gameObjects.push_back(Model("../GameTechProject/models/gun/gun.obj"));												// [7] Gun
-	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Spaceship.obj"));									// [8] Small ship
-	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Luminaris_OBJ.obj"));								// [9] Big ship
-	gameObjects.push_back(Model("../GameTechProject/models/Wall/WorldObject.obj"));								// [10] TEST CUBE
-	gameObjects.push_back(Model("../GameTechProject/models/Wall/Door.obj"));
 
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/WorldObject.obj"));										// [1] Ship Environment
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/Door.obj"));											// [2] Doors
+	gameObjects.push_back(Model("../GameTechProject/models/chargers/health/SciFi_Health.obj"));							// [3] Health charger
+	gameObjects.push_back(Model("../GameTechProject/models/chargers/ammo/SciFi_Ammo.obj"));								// [4] Ammo charger
+	gameObjects.push_back(Model("../GameTechProject/models/Bay/bed/SciFi_Bed.obj"));									// [5] Beds
+	gameObjects.push_back(Model("../GameTechProject/models/gun/gun.obj"));												// [6] Gun
+	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Spaceship.obj"));									// [7] Small ship
+	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Luminaris_OBJ.obj"));								// [8] Big ship
 }
 
 void sceneManager::loadShader()
@@ -672,20 +668,6 @@ void sceneManager::draw()
 	at = moveForward(eye, rotation, 1.0f);
 	modelStack.top() = glm::lookAt(eye, at, up);
 
-
-
-
-	//glViewport(0.f, 0.0f, windowWidth, windowHeight);
-	//glm::vec4 viewport = glm::vec4(0, 0, windowWidth, windowHeight);
-	/////////////////////////////////////////////////////////////////////////////////// RAY
-	//mouseRay(projection, modelStack.top());
-	//reverseMouse(glm::vec3(0, 0, 0), modelStack.top(), projection, viewport);
-	//////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
 	glDepthMask(GL_FALSE);
 	glm::mat3 mvRotOnlyMat3 = glm::mat3(modelStack.top());
 	modelStack.push(glm::mat4(mvRotOnlyMat3));
@@ -735,21 +717,16 @@ void sceneManager::draw()
 	ourShader->setVec3("pointLights[21].position", modelStack.top() * glm::vec4(lightPosition[21], 1.0));
 	ourShader->setVec3("pointLights[22].position", modelStack.top() * glm::vec4(lightPosition[22], 1.0));
 
-	modelStack.push(modelStack.top());														//Ship for docking Bay
+	modelStack.push(modelStack.top());																							//Ship Environment
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(0.0f, 0.0f, 0.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[10].modelDraw(*ourShader);
+	gameObjects[0].modelDraw(*ourShader);
 	modelStack.pop();
 
-	modelStack.push(modelStack.top());														//Ship for docking Bay
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.0f, 0.0f, 0.5f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[11].modelDraw(*ourShader);
-	modelStack.pop();
+	
+	spawnDoors();
 	//
 	//spawnChargers();
 	//spawnBay();
@@ -782,6 +759,34 @@ void sceneManager::draw()
 	
 
 	SDL_GL_SwapWindow(window);  //Swap buffers
+}
+
+void sceneManager::spawnDoors()
+{
+	modelStack.push(modelStack.top());	
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.0f, 0.0f, 0.5f));							// Blender x= x, y = z, z = y
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));				
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-14.0f, 0.0f, 9.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+
+
+	modelStack.push(modelStack.top());
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(22.0f, 0.0f, -11.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
 }
 
 
@@ -932,6 +937,8 @@ void sceneManager::groundDraw()
 	gameObjects[2].modelDraw(*ourShader);
 	modelStack.pop();
 }
+
+
 
 SDL_Window* sceneManager::setupRC(SDL_GLContext& context)
 {
@@ -4407,7 +4414,7 @@ void sceneManager::spawnShips()
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.1, 0.1f, 0.1f));
 	modelStack.top() = glm::rotate(modelStack.top(), float(0.0 * DEG_TO_RADIAN), glm::vec3(-0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[8].modelDraw(*ourShader);
+	gameObjects[7].modelDraw(*ourShader);
 	modelStack.pop();
 
 	modelStack.push(modelStack.top());														//Ship for docking Bay
@@ -4415,7 +4422,7 @@ void sceneManager::spawnShips()
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.1, 0.1, 0.1));
 	modelStack.top() = glm::rotate(modelStack.top(), float(270 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[9].modelDraw(*ourShader);
+	gameObjects[8].modelDraw(*ourShader);
 	modelStack.pop();
 }
 

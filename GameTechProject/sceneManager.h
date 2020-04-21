@@ -43,6 +43,7 @@ private:
 	void spawnChargers();
 	void spawnBay();
 	void groundDraw();
+	void spawnDoors();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec4 toEyeCoords(glm::vec4 clipCoords, glm::mat4 proj);
