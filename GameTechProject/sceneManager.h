@@ -33,16 +33,7 @@ private:
 	void loadShader();
 	void initMusic();
 	void initShaders();
-	void spawnShips();
-	void middleMap();
-	void secondHallwayandTwoRooms();
-	void thirdHallwayintoRoom();
-	void secondRoom();
-	void hallwayFromFirstRoom();
-	void firstRoom();
-	void spawnChargers();
-	void spawnBay();
-	void groundDraw();
+	
 	void spawnDoors();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
@@ -59,10 +50,9 @@ private:
 public:
 	sceneManager(int windowWidth, int windowHeight); // constructor	
 	~sceneManager();
-	void draw();	
-	void finalMap();
-	void BottomRightMap();
-	void bottomLeftMap();
+	void draw();
+	void spawnBeds();
+
 	void update();
 
 	SoundManager* sm;
