@@ -69,9 +69,9 @@ E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\Game
 E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(305,56): warning C4305: 'argument': truncation from 'double' to 'float'
 E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(311,52): warning C4305: 'argument': truncation from 'double' to 'float'
 E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(312,56): warning C4305: 'argument': truncation from 'double' to 'float'
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(340,60): warning C4305: 'argument': truncation from 'double' to 'float'
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(341,55): warning C4305: 'argument': truncation from 'double' to 'float'
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(356,62): warning C4305: 'argument': truncation from 'double' to 'float'
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(382,20): warning C4018: '<': signed/unsigned mismatch
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(453,21): warning C4018: '<': signed/unsigned mismatch
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(353,60): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(354,55): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(392,62): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(418,20): warning C4018: '<': signed/unsigned mismatch
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(921,21): warning C4018: '<': signed/unsigned mismatch
   GameTechProject.vcxproj -> E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\Debug\GameTechProject.exe

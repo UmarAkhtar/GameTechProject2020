@@ -61,7 +61,7 @@ public:
 	SDL_Window* window;
 	SDL_Window* setupRC(SDL_GLContext& context);
 	int health = 100;
-	bool key1Found, key2Found = false;
+	bool key1Found, key2Found, key3Found, key4Found, key5Found = false;
 	shared_ptr<Shader> ourShader;
 	shared_ptr<Model> ourModel;
 	
@@ -167,6 +167,24 @@ public:
 	
 	float doorOneHeight;
 	float doorTwoHeight;
+	float doorThreeHeight;
+	float doorFourHeight;
+	float doorFiveHeight;
+	float doorSixHeight;
+	float doorSevenHeight;
+	float doorEightHeight;
+	float doorNineHeight;
+	float doorTenHeight;
+	float door11Height;
+	float door12Height;
+	float door13Height;
+	float door14Height;
+	float door15Height;
+	float door16Height;
+	float door17Height;
+	float door18Height;
+	float door19Height;
+	float door20Height;
 
 	float yAxis;
 	float yAxisUp = 2.8f;

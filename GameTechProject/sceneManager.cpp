@@ -331,6 +331,19 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 
 	doorOneHeight = yAxisDown;
 	doorTwoHeight = yAxisDown;
+	doorThreeHeight = yAxisDown;
+	doorFourHeight = yAxisDown;
+	doorFiveHeight = yAxisDown;
+	doorSixHeight = yAxisDown;
+	doorSevenHeight = yAxisDown;
+	doorEightHeight = yAxisDown;
+	doorNineHeight = yAxisDown;
+	doorTenHeight = yAxisDown;
+	door11Height = yAxisDown;
+	door12Height = yAxisDown;
+	door13Height = yAxisDown;
+	door14Height = yAxisDown;
+
 	eye = {-67.0, 1.3, 3.3 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
@@ -343,12 +356,35 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	};
 	doors =
 	{
-		Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0,0,45)),				//Door bay
-		Entity_OBB(5.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0,0,45))
-		//Supply_Point(0.2, 5.0, doorOneHeight, -8.0, glm::vec3(0,90,0), true),
-		//Supply_Point(1.0, 4.0, 0.0, -23.0, glm::vec3(0,90,0), true),
-		//Supply_Point(1.0, 10.0, 0.0, -9.0, glm::vec3(0,90,0), true)
-		//-59.5f, 0.0f, -1.0f
+		Entity_OBB(1.0f, 2.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0,0,45)),				// [0] Door bay
+		Entity_OBB(5.0f, 2.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0,0,45)),				// [1] Door bay
+		Entity_OBB(2.0f, 1.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0,0,45)),				// [2] C1 - R1 Door
+		Entity_OBB(2.0f, 5.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0,0,45)),				// [3] C1 - R1 Collider for door E press
+		Entity_OBB(1.0f, 2.0, 1.0f, -19.5, doorThreeHeight, -1.0, glm::vec3(0,0,45)),				// [4] C1 - R8 Door
+		Entity_OBB(5.0f, 2.0, 1.0f, -19.5, doorThreeHeight, -1.0, glm::vec3(0,0,45)),				// [5] C1 - R8 Collder for door E press
+		Entity_OBB(2.0f, 1.0f, 1.0f, -35.0, doorFourHeight, -15.5, glm::vec3(0,0,45)),				// [6] R1 - C2 Door
+		Entity_OBB(2.0f, 5.0f, 1.0f, -35.0, doorFourHeight, -15.5, glm::vec3(0,0,45)),				// [7] R1 - C2 Collider for door E press
+		Entity_OBB(2.0f, 1.0f, 1.0f, -35.0, doorFiveHeight, -21.5, glm::vec3(0,0,45)),				// [8] C2 - R3 Door
+		Entity_OBB(2.0f, 5.0f, 1.0f, -35.0, doorFiveHeight, -21.5, glm::vec3(0,0,45)),				// [9] C2 - R3 Collider for door E press
+		Entity_OBB(2.0f, 1.0f, 1.0f, -50.0, doorSixHeight, -21.5, glm::vec3(0,0,45)),				// [10] C2 - R2 Door
+		Entity_OBB(2.0f, 5.0f, 1.0f, -50.0, doorSixHeight, -21.5, glm::vec3(0,0,45)),				// [11] C2 - R2 Collider for door E press
+		Entity_OBB(2.0f, 1.0f, 1.0f, -35.0, doorSevenHeight, -33.5, glm::vec3(0,0,45)),				// [12] R3 - C3 Door
+		Entity_OBB(2.0f, 5.0f, 1.0f, -35.0, doorSevenHeight, -33.5, glm::vec3(0,0,45)),				// [13] R3 - C3 Collider for door E press
+		Entity_OBB(1.0f, 2.0f, 1.0f, -1.5, doorEightHeight, -37.5, glm::vec3(0,0,45)),				// [14] C3 - R4 Door
+		Entity_OBB(5.0f, 1.0f, 1.0f, -1.5, doorEightHeight, -37.5, glm::vec3(0,0,45)),				// [15] C3 - R4 Collider for door E press
+		Entity_OBB(2.0f, 1.0f, 1.0f, 4.0, doorNineHeight, -31.5, glm::vec3(0,0,45)),				// [16] R4 - C4 Door
+		Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, doorNineHeight, -31.5, glm::vec3(0,0,45)),				// [17] R4 - C4 Collider for door E press
+		Entity_OBB(2.0f, 1.0f, 1.0f, 4.0, doorTenHeight, -18.5, glm::vec3(0,0,45)),					// [18] C4 - C5 Door
+		Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, doorTenHeight, -18.5, glm::vec3(0,0,45)),					// [19] C4 - C5 Collider for door E press
+		Entity_OBB(2.0f, 1.0f, 1.0f, 4.0, door11Height, -13.5, glm::vec3(0,0,45)),					// [20] C5 - C6 Door
+		Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, door11Height, -13.5, glm::vec3(0,0,45)),					// [21] C5 - C6 Collider for door E press
+		Entity_OBB(2.0f, 1.0f, 1.0f, 25.0, door12Height, -18.5, glm::vec3(0,0,45)),					// [22] C5 - R5 Door
+		Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door12Height, -18.5, glm::vec3(0,0,45)),					// [23] C5 - R5 Collider for door E press
+		Entity_OBB(2.0f, 1.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0,0,45)),					// [24] C5 - R6 Door
+		Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0,0,45)),					// [25] C5 - R6 Collider for door E press
+		Entity_OBB(1.0f, 2.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0,0,45)),					// [26] C5 - R7 Door
+		Entity_OBB(5.0f, 1.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0,0,45)),					// [26] C5 - R7 Collider for door E press
+		//-5.5f, 0.0f, -16.0f
 	};
 	supplyPoints =
 	{
@@ -397,11 +433,8 @@ void sceneManager::update()
 		}
 	}
 
-	//for (int i = 0; i < doors.size(); i++)
-	//{
-		//cout << "eX: " << thePlayer.getX() << "    eY: " << thePlayer.getY() << "    eZ: " << thePlayer.getZ() << endl;
-		//cout << "pX: " << thePlayer.getX() << "    pY: " << thePlayer.getY() << "    pZ: " << thePlayer.getZ() << endl;
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[0])) /*players collides with environment[i]*/
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// For first door in bay Both colliders allow for uses of E to open door when key is collected
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[0])) 
 		{
 			if (key1Found == true && (keys[SDL_SCANCODE_E]))
 			{
@@ -423,7 +456,7 @@ void sceneManager::update()
 			
 		}
 
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[1])) /*players collides with environment[i]*/
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[1])) 
 		{
 			if (key1Found == true && (keys[SDL_SCANCODE_E]))
 			{
@@ -431,7 +464,7 @@ void sceneManager::update()
 				doorOneHeight = yAxisUp;
 				doors[1] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
 				doors[0] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
-				doorOneHeight = yAxisUp;		
+				doorOneHeight = yAxisUp;
 			}
 			else
 			{
@@ -439,6 +472,450 @@ void sceneManager::update()
 			}
 
 		}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		C1 - R1
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[2]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[3]))
+		{	
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door collision" << endl << endl;
+				doorTwoHeight = yAxisUp;
+				doors[2] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0, 0, 45));
+				doors[3] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0, 0, 45));				
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+			
+		}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		C1 - R8
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[4]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[5]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door collision" << endl << endl;
+				doorThreeHeight = yAxisUp;
+				doors[4] = Entity_OBB(1.0f, 5.0f, 1.0f, -19.5, doorThreeHeight, -3.5, glm::vec3(0, 0, 45));				
+				doors[5] = Entity_OBB(5.0f, 5.0f, 1.0f, -19.5, doorThreeHeight, -3.5, glm::vec3(0, 0, 45));				
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	R1 - C2
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[6]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[7]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door collision" << endl << endl;
+				doorFourHeight = yAxisUp;
+				doors[6] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorFourHeight, -15.5, glm::vec3(0, 0, 45));
+				doors[7] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorFourHeight, -15.5, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		C2 - R3
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[8]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[9]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door collision" << endl << endl;
+				doorFiveHeight = yAxisUp;
+				doors[8] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorFiveHeight, -21.5, glm::vec3(0, 0, 45));
+				doors[9] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorFiveHeight, -21.5, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	C2 - R2
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[10]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[11]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door collision" << endl << endl;
+				doorSixHeight = yAxisUp;
+				doors[10] = Entity_OBB(1.5f, 1.0f, 1.0f, -50.0, doorSixHeight, -21.5, glm::vec3(0, 0, 45));
+				doors[11] = Entity_OBB(1.0f, 5.0f, 1.0f, -50.0, doorSixHeight, -21.5, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	R3 - C3
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[12]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[13]))
+		{
+			if ((keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door collision" << endl << endl;
+				doorSevenHeight = yAxisUp;
+				doors[12] = Entity_OBB(1.5f, 1.0f, 1.0f, -50.0, doorSevenHeight, -21.5, glm::vec3(0, 0, 45));
+				doors[13] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorSevenHeight, -33.5, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	C3 - R4 Key from R3
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[14]))
+		{
+			if (key2Found == true && (keys[SDL_SCANCODE_E]))
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[15]))
+		{
+			if (key2Found == true && (keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door collision" << endl << endl;
+				doorEightHeight = yAxisUp;
+				doors[14] = Entity_OBB(1.5f, 1.0f, 1.0f, -1.5, doorEightHeight, -37.5, glm::vec3(0, 0, 45));
+				doors[15] = Entity_OBB(1.0f, 5.0f, 1.0f, -1.5, doorEightHeight, -37.5, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	R4 - C4
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[16]))
+		{
+			if (keys[SDL_SCANCODE_E])
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[17]))
+		{
+			if (keys[SDL_SCANCODE_E])
+			{
+				cout << "Door collision" << endl << endl;
+				doorNineHeight = yAxisUp;
+				doors[16] = Entity_OBB(1.0f, 1.0f, 1.0f, 4.0, doorNineHeight, -31.5, glm::vec3(0, 0, 45));
+				doors[17] = Entity_OBB(5.0f, 1.0f, 1.0f, 4.0, doorNineHeight, -31.5, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C4 - C5 Key from R4
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[18]))
+		{
+			if (key3Found == true && (keys[SDL_SCANCODE_E]))
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[19]))
+		{
+			if (key3Found == true && (keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door collision" << endl << endl;
+				doorTenHeight = yAxisUp;
+				doors[18] = Entity_OBB(1.5f, 1.0f, 1.0f, 4.0, doorTenHeight, -18.5, glm::vec3(0, 0, 45));
+				doors[19] = Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, doorTenHeight, -18.5, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C5 - C6 Key from R6 
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[20]))
+		{
+			if (key4Found == true && (keys[SDL_SCANCODE_E]))
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[21]))
+		{
+			if (key4Found == true && (keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door collision" << endl << endl;
+				door11Height = yAxisUp;
+				doors[20] = Entity_OBB(1.5f, 1.0f, 1.0f, 4.0, door11Height, -13.5, glm::vec3(0, 0, 45));
+				doors[21] = Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, door11Height, -13.5, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C5 - R5
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[22]))
+		{
+			if (keys[SDL_SCANCODE_E])
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[23]))
+		{
+			if (keys[SDL_SCANCODE_E])
+			{
+				cout << "Door collision" << endl << endl;
+				door12Height = yAxisUp;
+				doors[22] = Entity_OBB(1.5f, 1.0f, 1.0f, 25.0, door12Height, -18.5, glm::vec3(0, 0, 45));
+				doors[23] = Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door12Height, -18.5, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C5 - R6
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[24]))
+		{
+			if (keys[SDL_SCANCODE_E])
+			{
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+		}
+
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[25]))
+		{
+			if (keys[SDL_SCANCODE_E])
+			{
+				cout << "Door collision" << endl << endl;
+				door13Height = yAxisUp;
+				doors[24] = Entity_OBB(1.5f, 1.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0, 0, 45));
+				doors[25] = Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Door collision" << endl;
+			}
+
+		}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  C5 - R7  Key from R7
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[26]))
+		{
+			if (key5Found == true && (keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door test" << endl << endl;
+				eye.x = thePlayer.getX();
+				eye.y = thePlayer.getY();
+				eye.z = thePlayer.getZ();
+			}
+			else
+			{
+				cout << "Door " << endl;
+				thePlayer.setX(eye.x);
+				thePlayer.setY(eye.y);
+				thePlayer.setZ(eye.z);
+			}
+
+		}
+
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[27]))
+		{
+			if (key5Found == true && (keys[SDL_SCANCODE_E]))
+			{
+				cout << "Door open" << endl << endl;
+				door14Height = yAxisUp;
+				doors[26] = Entity_OBB(1.0f, 1.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0, 0, 45));
+				doors[27] = Entity_OBB(5.0f, 1.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0, 0, 45));
+			}
+			else
+			{
+				cout << "Key not found" << endl;
+			}
+
+		}
+
+
+
+
 
 
 		for (int i = 0; i < environment.size(); i++)
@@ -563,6 +1040,30 @@ void sceneManager::update()
 	if (keys[SDL_SCANCODE_3])
 	{
 		key2Found = true;
+		Sleep(300);
+		cout << "Key 2 Found, Open the door on your left" << endl;
+		Sleep(300);
+	}
+
+	if (keys[SDL_SCANCODE_4])
+	{
+		key3Found = true;
+		Sleep(300);
+		cout << "Key 2 Found, Open the door on your left" << endl;
+		Sleep(300);
+	}
+
+	if (keys[SDL_SCANCODE_5])
+	{
+		key4Found = true;
+		Sleep(300);
+		cout << "Key 2 Found, Open the door on your left" << endl;
+		Sleep(300);
+	}
+
+	if (keys[SDL_SCANCODE_6])
+	{
+		key5Found = true;
 		Sleep(300);
 		cout << "Key 2 Found, Open the door on your left" << endl;
 		Sleep(300);
@@ -819,17 +1320,17 @@ void sceneManager::spawnDoors()
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[1].modelDraw(*ourShader);
 	modelStack.pop();
-
-	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-35.0f, 0.0f, -3.5f));
+		
+	modelStack.push(modelStack.top());																												//C1 - R1 
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-35.0f, doorTwoHeight, -3.5f));															
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[1].modelDraw(*ourShader);
 	modelStack.pop();
 
-	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-35.0f, 0.0f, -21.5f));
+	modelStack.push(modelStack.top());																												//C2 - R3 
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-35.0f, doorFiveHeight, -21.5f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
@@ -845,7 +1346,23 @@ void sceneManager::spawnDoors()
 	modelStack.pop();
 
 	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-35.0f, 0.0f, -15.5f));
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-35.0f, doorFourHeight, -15.5f));														//R1-C2 
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																													//C2 - R2
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-50.0f, doorSixHeight, -21.5f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																													//R3 - C3
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-35.0f, doorSevenHeight, -33.5f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
@@ -853,7 +1370,23 @@ void sceneManager::spawnDoors()
 	modelStack.pop();
 
 	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-50.0f, 0.0f, -21.5f));
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.0f, doorNineHeight, -31.5f));														// R4 - C4
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																													// C4 - C5
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.0f, doorTenHeight, -18.5f));															
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																													// C5 - C6
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.0f, door11Height, -13.5f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
@@ -861,7 +1394,15 @@ void sceneManager::spawnDoors()
 	modelStack.pop();
 
 	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-35.0f, 0.0f, -33.5f));
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(25.0f, door12Height, -18.5f));														//C5 - R5
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																													// C5 - R6 Room with c5-c6 key
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(25.0f, door13Height, -13.5f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
@@ -869,47 +1410,7 @@ void sceneManager::spawnDoors()
 	modelStack.pop();
 
 	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.0f, 0.0f, -31.5f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[1].modelDraw(*ourShader);
-	modelStack.pop();
-
-	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.0f, 0.0f, -18.5f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[1].modelDraw(*ourShader);
-	modelStack.pop();
-
-	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.0f, 0.0f, -13.5f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[1].modelDraw(*ourShader);
-	modelStack.pop();
-
-	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(25.0f, 0.0f, -18.5f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[1].modelDraw(*ourShader);
-	modelStack.pop();
-
-	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(25.0f, 0.0f, -13.5f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[1].modelDraw(*ourShader);
-	modelStack.pop();
-
-	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-59.5f, doorOneHeight, -1.0f));
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-59.5f, doorOneHeight, -1.0f));														// The bay 
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
@@ -918,7 +1419,15 @@ void sceneManager::spawnDoors()
 
 
 	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-19.5f, 0.0f, -1.0f));
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-19.5f, doorThreeHeight, -1.0f));														// C1 - R8 
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[1].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																													//C3 - R4 
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-1.5f, doorEightHeight, -37.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
@@ -926,15 +1435,7 @@ void sceneManager::spawnDoors()
 	modelStack.pop();
 
 	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-1.5f, 0.0f, -37.0f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[1].modelDraw(*ourShader);
-	modelStack.pop();
-
-	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-5.5f, 0.0f, -16.0f));
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-5.5f, door14Height, -16.0f));														//R7 - C5 Room with R7 - C5 Key
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
