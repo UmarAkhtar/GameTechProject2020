@@ -32,22 +32,22 @@ void sceneManager::initMusic()
 
 void sceneManager::loadModel()
 {
-	cubeTest = make_shared<Model>("../GameTechProject/cube.obj");
-
+	
 	skyboxModel = make_shared<Model>("../GameTechProject/cube.obj");
-	floorRoofPlane = make_shared<Model>("../GameTechProject/models/Wall/SciFi_Wall_Floor_Ceiling.obj");
+
 
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 
 
-	gameObjects.push_back(Model("../GameTechProject/models/Wall/WorldObject.obj"));										// [1] Ship Environment
-	gameObjects.push_back(Model("../GameTechProject/models/Wall/Door.obj"));											// [2] Doors
-	gameObjects.push_back(Model("../GameTechProject/models/chargers/health/SciFi_Health.obj"));							// [3] Health charger
-	gameObjects.push_back(Model("../GameTechProject/models/chargers/ammo/SciFi_Ammo.obj"));								// [4] Ammo charger
-	gameObjects.push_back(Model("../GameTechProject/models/Bay/bed/SciFi_Bed.obj"));									// [5] Beds
-	gameObjects.push_back(Model("../GameTechProject/models/gun/gun.obj"));												// [6] Gun
-	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Spaceship.obj"));									// [7] Small ship
-	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Luminaris_OBJ.obj"));								// [8] Big ship
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/WorldObject.obj"));										// [0] Ship Environment
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/Door.obj"));											// [1] Doors
+	gameObjects.push_back(Model("../GameTechProject/models/chargers/health/SciFi_Health.obj"));							// [2] Health charger
+	gameObjects.push_back(Model("../GameTechProject/models/chargers/ammo/SciFi_Ammo.obj"));								// [3] Ammo charger
+	gameObjects.push_back(Model("../GameTechProject/models/Bay/bed/SciFi_Bed.obj"));									// [4] Beds
+	gameObjects.push_back(Model("../GameTechProject/models/gun/gun.obj"));												// [5] Gun
+	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Spaceship.obj"));									// [6] Small ship
+	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Luminaris_OBJ.obj"));								// [7] Big ship
+	gameObjects.push_back(Model("../GameTechProject/cube.obj"));														// [8] Cube for light
 }
 
 void sceneManager::loadShader()
@@ -233,6 +233,83 @@ void sceneManager::initShaders()
 	ourShader->setFloat("pointLights[23].constant", 1.0f);
 	ourShader->setFloat("pointLights[23].linear", 0.09);
 	ourShader->setFloat("pointLights[23].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[24].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[24].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[24].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[24].constant", 1.0f);
+	ourShader->setFloat("pointLights[24].linear", 0.09);
+	ourShader->setFloat("pointLights[24].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[25].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[25].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[25].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[25].constant", 1.0f);
+	ourShader->setFloat("pointLights[25].linear", 0.09);
+	ourShader->setFloat("pointLights[25].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[26].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[26].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[26].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[26].constant", 1.0f);
+	ourShader->setFloat("pointLights[26].linear", 0.09);
+	ourShader->setFloat("pointLights[26].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[27].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[27].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[27].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[27].constant", 1.0f);
+	ourShader->setFloat("pointLights[27].linear", 0.09);
+	ourShader->setFloat("pointLights[27].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[28].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[28].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[28].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[28].constant", 1.0f);
+	ourShader->setFloat("pointLights[28].linear", 0.09);
+	ourShader->setFloat("pointLights[28].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[29].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[29].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[29].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[29].constant", 1.0f);
+	ourShader->setFloat("pointLights[29].linear", 0.09);
+	ourShader->setFloat("pointLights[29].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[30].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[30].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[30].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[30].constant", 1.0f);
+	ourShader->setFloat("pointLights[30].linear", 0.09);
+	ourShader->setFloat("pointLights[30].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[31].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[31].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[31].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[31].constant", 1.0f);
+	ourShader->setFloat("pointLights[31].linear", 0.09);
+	ourShader->setFloat("pointLights[31].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[32].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[32].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[32].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[32].constant", 1.0f);
+	ourShader->setFloat("pointLights[32].linear", 0.09);
+	ourShader->setFloat("pointLights[32].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[33].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[33].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[33].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[33].constant", 1.0f);
+	ourShader->setFloat("pointLights[33].linear", 0.09);
+	ourShader->setFloat("pointLights[33].quadratic", 0.032);
+
+	ourShader->setVec3("pointLights[34].ambient", 0.02f, 0.0f, 0.0f);
+	ourShader->setVec3("pointLights[34].diffuse", 0.3f, 0.3f, 0.3f);
+	ourShader->setVec3("pointLights[34].specular", 0.5f, 0.5f, 0.5f);
+	ourShader->setFloat("pointLights[34].constant", 1.0f);
+	ourShader->setFloat("pointLights[34].linear", 0.09);
+	ourShader->setFloat("pointLights[34].quadratic", 0.032);
 	
 }
 
@@ -247,94 +324,6 @@ glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
 	return glm::vec3(pos.x + d * std::cos(rotation * DEG_TO_RADIAN), pos.y, pos.z + d * std::sin(rotation * DEG_TO_RADIAN));
 }
 
-glm::vec3 sceneManager::reverseMouse(glm::vec3 windowCoords, glm::mat4 model, glm::mat4 projection, glm::vec4 view)
-{
-	//int mouseX = 0;
-	//int mouseY = 0;
-	//
-	////mouseY = 800 - mouseY;
-
-	//SDL_GetMouseState(&mouseX, &mouseY);
-	//rayMouseTest = glm::vec2(mouseX, mouseY);
-	//glm::vec3 mouseSource = glm::vec3(mouseX, mouseY, 1.0f);
-
-	POINT cp;
-	GetCursorPos(&cp);
-	mouseX = cp.x;
-	mouseY = cp.y;
-	cout << "SCREEN POSITION X " << mouseX << endl;
-	cout << "SCREEN POSITION Y" << mouseY << endl;
-	glm::vec3 mouseCoords = glm::vec3(mouseX, windowHeight - mouseY - 1, 0.0);
-	//glm::vec3 result = glm::unProject(windowCoords, model, projection, view);
-	glm::vec3 result = glm::unProject(mouseCoords, model, projection, view);
-	
-	//cout << result.x << endl;
-	//cout << result.y << endl;
-	//cout << result.z << endl;
-	cout << "WORLD POSITION X " << result.x << endl;
-	cout << "WORLD POSITION Y" << result.y << endl;
-	cout << "WORLD POSITION Z" << result.z << endl;
-
-	return result;
-}
-
-glm::vec3 sceneManager::mouseRay(glm::mat4 proj, glm::mat4 modelView)
-{
-
-	//int mouseX, mouseY = 0;
-	//SDL_GetMouseState(&mouseX, &mouseY);
-	//rayMouseTest = glm::vec2(mouseY, mouseY);
-
-	POINT cp;
-	GetCursorPos(&cp);
-	mouseX = cp.x;
-	mouseY = cp.y;
-
-	//cout << mouseX << endl;
-	//cout << mouseY << endl;
-	glm::vec2 normCoords = getNormalisedCoords(mouseX, mouseX);
-	glm::vec4 clipCoords = glm::vec4(normCoords.x, normCoords.y, -1.0f, 1.0f);
-	glm::vec4 eyeCoords = toEyeCoords(clipCoords, proj);
-	glm::vec3 worldRay = toWorldCoords(eyeCoords, modelView);
-	
-	cout << "RAY IN WORLD : " << worldRay.x << endl;
-	cout << "RAY IN WORLD : " << worldRay.y << endl;
-	cout << "RAY IN WORLD : " << worldRay.z << endl;
-	return worldRay;
-
-}
-
-glm::vec4 sceneManager::toEyeCoords(glm::vec4 clipCoords, glm::mat4 proj)
-{
-	glm::mat4 invertProj = glm::inverse(proj);
-	glm::vec4 eyeCoords = invertProj * clipCoords;
-	//return glm::vec4(eyeCoords);
-	eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0, 0.0);
-	//cout << "eye coords x" << eyeCoords.x << endl;
-	//cout << "eye coords y" << eyeCoords.y << endl;
-	return eyeCoords;
-}
-
-glm::vec2 sceneManager::getNormalisedCoords(float mouseX, float mouseY)
-{
-	
-	float x = (2 * mouseX) / windowWidth - 1.0;
-	float y = 1.0 - (2 * mouseY) / windowHeight;
-	//cout << "normalised x = " << x << endl;
-	//cout << "normalised y = " << y << endl;
-	return glm::vec2(x, y);
-}
-
-glm::vec3 sceneManager::toWorldCoords(glm::vec4 eyeCoords, glm::mat4 modelView)
-{
-	glm::mat4 invertedView = glm::inverse(modelView);
-	glm::vec4 worldRay = invertedView * eyeCoords;
-	glm::vec3 mouseRay = glm::vec3(worldRay.x, worldRay.y, worldRay.z);
-	glm::normalize(mouseRay);
-	return mouseRay;
-	
-}
-
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
 	//doorOneHeight = testDoorVectorDown;
@@ -342,7 +331,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 
 	doorOneHeight = yAxisDown;
 	doorTwoHeight = yAxisDown;
-	eye = { 7.3, 1.3, -1.3 };
+	eye = {-67.0, 1.3, 3.3 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
@@ -582,8 +571,6 @@ void sceneManager::draw()
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-  
 
 
 	
@@ -627,10 +614,10 @@ void sceneManager::draw()
 
 
 	ourShader->setVec3("viewPos", at);
-	ourShader->setVec3("pointLights[0].position", modelStack.top() * glm::vec4(lightPosition[0] , 1.0));	
-	ourShader->setVec3("pointLights[1].position", modelStack.top() * glm::vec4(lightPosition[1] , 1.0));
-	ourShader->setVec3("pointLights[2].position", modelStack.top() * glm::vec4(lightPosition[2] , 1.0));
-	ourShader->setVec3("pointLights[3].position", modelStack.top() * glm::vec4(lightPosition[3] , 1.0));
+	ourShader->setVec3("pointLights[0].position", modelStack.top() * glm::vec4(lightPosition[0], 1.0));
+	ourShader->setVec3("pointLights[1].position", modelStack.top() * glm::vec4(lightPosition[1], 1.0));
+	ourShader->setVec3("pointLights[2].position", modelStack.top() * glm::vec4(lightPosition[2], 1.0));
+	ourShader->setVec3("pointLights[3].position", modelStack.top() * glm::vec4(lightPosition[3], 1.0));
 	ourShader->setVec3("pointLights[4].position", modelStack.top() * glm::vec4(lightPosition[4], 1.0));
 	ourShader->setVec3("pointLights[5].position", modelStack.top() * glm::vec4(lightPosition[5], 1.0));
 	ourShader->setVec3("pointLights[6].position", modelStack.top() * glm::vec4(lightPosition[6], 1.0));
@@ -650,6 +637,20 @@ void sceneManager::draw()
 	ourShader->setVec3("pointLights[20].position", modelStack.top() * glm::vec4(lightPosition[20], 1.0));
 	ourShader->setVec3("pointLights[21].position", modelStack.top() * glm::vec4(lightPosition[21], 1.0));
 	ourShader->setVec3("pointLights[22].position", modelStack.top() * glm::vec4(lightPosition[22], 1.0));
+	ourShader->setVec3("pointLights[23].position", modelStack.top() * glm::vec4(lightPosition[23], 1.0));
+	ourShader->setVec3("pointLights[24].position", modelStack.top() * glm::vec4(lightPosition[24], 1.0));
+	ourShader->setVec3("pointLights[25].position", modelStack.top() * glm::vec4(lightPosition[25], 1.0));
+	ourShader->setVec3("pointLights[26].position", modelStack.top() * glm::vec4(lightPosition[26], 1.0));
+	ourShader->setVec3("pointLights[27].position", modelStack.top() * glm::vec4(lightPosition[27], 1.0));
+	ourShader->setVec3("pointLights[28].position", modelStack.top() * glm::vec4(lightPosition[28], 1.0));
+	ourShader->setVec3("pointLights[29].position", modelStack.top() * glm::vec4(lightPosition[29], 1.0));
+	ourShader->setVec3("pointLights[30].position", modelStack.top() * glm::vec4(lightPosition[30], 1.0));
+	ourShader->setVec3("pointLights[31].position", modelStack.top() * glm::vec4(lightPosition[31], 1.0));
+	ourShader->setVec3("pointLights[32].position", modelStack.top() * glm::vec4(lightPosition[32], 1.0));
+	ourShader->setVec3("pointLights[33].position", modelStack.top() * glm::vec4(lightPosition[33], 1.0));
+	
+
+
 
 	modelStack.push(modelStack.top());																							//Ship Environment
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(0.0f, 0.0f, 0.0f));
@@ -660,25 +661,23 @@ void sceneManager::draw()
 	modelStack.pop();
 
 	spawnBeds();
-
 	spawnDoors();
+	spawnChargers();
 		
 	cubeShader->use();
 	cubeShader->setMat4("projection", projection);
 	cubeShader->setMat4("view", view);			//Doesnt actually need to be passed it, will dfault itself.
 
-	for (int i = 0; i < 23; i++)
+	for (int i = 0; i < 34; i++)
 	{
-		modelStack.push(modelStack.top());
+
+		modelStack.push(modelStack.top());																							//Ship Environment
 		modelStack.top() = glm::translate(modelStack.top(), lightPosition[i]);
 		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
-		cubeShader->setUniformMatrix4fv("modelView", glm::value_ptr(modelStack.top()));
-		cubeTest->modelDraw(*ourShader);
+		cubeShader->setMat4("modelView", modelStack.top());
+		gameObjects[8].modelDraw(*ourShader);
 		modelStack.pop();
 	}
-
-
-	
 
 	SDL_GL_SwapWindow(window);  //Swap buffers
 }
@@ -982,7 +981,7 @@ void sceneManager::spawnDoors()
 	modelStack.push(modelStack.top());
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-35.5f, 0.0f, 41.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[1].modelDraw(*ourShader);
 	modelStack.pop();
@@ -990,7 +989,7 @@ void sceneManager::spawnDoors()
 	modelStack.push(modelStack.top());
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.5f, 0.0f, 41.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[1].modelDraw(*ourShader);
 	modelStack.pop();
@@ -998,14 +997,104 @@ void sceneManager::spawnDoors()
 	modelStack.push(modelStack.top());
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(15.f, 0.0f, 41.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[1].modelDraw(*ourShader);
 	modelStack.pop();
 }
 
+void sceneManager::spawnChargers()
+{	
+	modelStack.push(modelStack.top());																								// Health corridor 1
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-54.05f, -1.0f, -2.3f));							
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Ammo corridor 1
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-50.05f, -1.0f, -2.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Health corridor 2
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-55.05f, -1.0f, -20.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
 
 
+	modelStack.push(modelStack.top());																								// Ammo Room 2
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-44.05f, -1.0f, -32.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Ammo Room 4
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-0.3f, -1.0f, -33.2f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Health room 4
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(11.3f, -1.0f, -33.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(270 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Health corridor 5
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(10.3f, -1.0f, -17.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Ammo corridor 5
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(29.3f, -1.0f, -16.1f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(270 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Ammo corridor 6
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(2.7f, -1.0f, -3.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+
+	modelStack.push(modelStack.top());																								// Health room  9
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(4.7f, -1.0f, 9.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Ammo corridor 7
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-14.3f, -1.0f, 9.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+}
 
 
 SDL_Window* sceneManager::setupRC(SDL_GLContext& context)

@@ -33,15 +33,12 @@ private:
 	void loadShader();
 	void initMusic();
 	void initShaders();
-	
+	void spawnBeds();
 	void spawnDoors();
+	void spawnChargers();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
-	glm::vec4 toEyeCoords(glm::vec4 clipCoords, glm::mat4 proj);
-	glm::vec3 mouseRay(glm::mat4 proj, glm::mat4 modelView);
-	glm::vec2 getNormalisedCoords(float mouseX, float mouseY);
-	glm::vec3 toWorldCoords(glm::vec4 eyeCoords, glm::mat4 modelView);
-	glm::vec3 reverseMouse(glm::vec3 windowCoords, glm::mat4 model, glm::mat4 projection, glm::vec4 view);
+
 
 	int windowWidth;
 	int windowHeight;
@@ -51,7 +48,7 @@ public:
 	sceneManager(int windowWidth, int windowHeight); // constructor	
 	~sceneManager();
 	void draw();
-	void spawnBeds();
+	
 
 	void update();
 
@@ -67,9 +64,7 @@ public:
 	bool key1Found, key2Found = false;
 	shared_ptr<Shader> ourShader;
 	shared_ptr<Model> ourModel;
-	shared_ptr<Model> cubeTest;
-	shared_ptr<Model> floorRoofPlane;
-
+	
 	player thePlayer;
 	vector<Entity_OBB> environment;
 	vector<Supply_Point> doors;
@@ -79,8 +74,6 @@ public:
 	//vector<Node> nodesList;
 	collisionHandler theCollisionHandler;
 	vector<Model> gameObjects;
-	shared_ptr<Model> Gun;
-
 	shared_ptr<Shader> cubeShader;
 
 	shared_ptr<Model> skyboxModel;
@@ -127,31 +120,43 @@ public:
 	};
 
 	
-	glm::vec3 lightPosition[23] = {
-	   glm::vec3(6.0f, 2.6f, -5.0f),
-	   glm::vec3(5.2f, 2.6f, -12.5f),
-	   glm::vec3(5.2f, 2.6f, -22.5f),
-	   glm::vec3(-1.2f, 2.6f, -22.5f),
-	   glm::vec3(-5.0f, 2.6f, -12.0f),
-	   glm::vec3(-5.0f, 2.6f, -20.0f),
-	   glm::vec3(-5.0f, 2.6f, -25.0f),
-	   glm::vec3(-10.0f, 2.6f, -15.0f),
-	   glm::vec3(-10.0f, 2.6f, -25.0f),
-	   glm::vec3(-15.0f, 2.6f, 21.0f),
-	   glm::vec3(-15.0f, 2.6f, -31.0f),
-	   glm::vec3(-15.0f, 2.6f, -37.0f),
-	   glm::vec3(-7.0f, 2.6f, -37.5f),
-	   glm::vec3(-7.0f, 2.6f, -47.0f),
-	   glm::vec3(-2.0f, 2.6f, -48.0f),
-	   glm::vec3(-2.0f, 2.6f, -39.0f),
-	   glm::vec3(-2.0f, 2.6f, -29.0f),
-	   glm::vec3(9.0f, 2.6f, -30.0f),
-	   glm::vec3(3.0f, 2.6f, -30.0f),
-	   glm::vec3(9.0f, 2.6f, -37.5f),
-	   glm::vec3(3.0f, 2.6f, -37.5f),
-	   glm::vec3(2.0f, 2.6f, -47.5f),
-	   glm::vec3(6.0f, 2.6f, -47.0f)
+	glm::vec3 lightPosition[34] = {
+	   glm::vec3(-69.0f, 2.9f, -3.0f),
+	   glm::vec3(-55.0f, 2.9f, -1.0f),
+	   glm::vec3(-30.0f, 2.9f, -1.0f),
+	   glm::vec3(-34.0f, 2.9f, -10.0f),
+	   glm::vec3(-33.0f, 2.9f, -19.0f),
+	   glm::vec3(-52.0f, 2.9f, -19.0f),
+	   glm::vec3(-49.0f, 2.9f, -28.0f),
+	   glm::vec3(-34.0f, 2.9f, -28.0f),
+	   glm::vec3(-35.0f, 2.9f, -37.0f),
+	   glm::vec3(-8.0f, 2.9f, -37.0f),
+	   glm::vec3(5.0f, 2.9f, -37.0f),
+	   glm::vec3(4.0f, 2.9f, -25.0f),
+	   glm::vec3(-1.0f, 2.9f, -16.5f),
+	   glm::vec3(24.0f, 2.9f, -16.0f),
+	   glm::vec3(24.0f, 2.9f, -25.0f),
+	   glm::vec3(24.0f, 2.9f, -7.0f),
+	   glm::vec3(4.0f, 2.9f, -7.0f),
+	   glm::vec3(-13.0f, 2.9f, -16.0f),
+	   glm::vec3(-13.0f, 2.9f, -4.0f),
+	   glm::vec3(-10.0f, 2.9f, 7.0f),
+	   glm::vec3(6.0f, 2.9f, 5.0f),
+	   glm::vec3(21.0f, 2.9f, 8.0f),
+	   glm::vec3(21.0f, 2.9f, 47.0f),
+	   glm::vec3(50.0f, 2.9f, 21.0f),
+	   glm::vec3(50.0f, 2.9f, 32.0f),
+	   glm::vec3(21.0f, 2.9f, 41.0f),
+	   glm::vec3(10.0f, 2.9f, 38.0f),
+	   glm::vec3(-4.0f, 2.9f, 41.0f),
+	   glm::vec3(-31.0f, 2.9f, 41.0f),
+	   glm::vec3(-48.0f, 2.9f, 31.0f),
+	   glm::vec3(-32.0f, 2.9f, 29.0f),
+	   glm::vec3(-23.0f, 2.9f, 29.0f),
+	   glm::vec3(-10.0f, 2.9f, 29.0f),
+	   glm::vec3(-10.0f, 2.9f, 17.0f),
 	};
+
 
 	//glm::vec3 doorOneHeight;// = testDoorVectorDown;														//Will need one of these vars for each door
 	//glm::vec3 doorTwoHeight;

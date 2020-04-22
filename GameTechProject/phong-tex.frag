@@ -23,7 +23,7 @@ in vec3 vertexPosition;
 in vec3 norm;
 in vec2 ex_TexCoord;
 
-#define NR_POINT_LIGHTS 23
+#define NR_POINT_LIGHTS 34
 
 uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform Material material;
