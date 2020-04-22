@@ -668,10 +668,10 @@ void sceneManager::draw()
 	cubeShader->setMat4("projection", projection);
 	cubeShader->setMat4("view", view);			//Doesnt actually need to be passed it, will dfault itself.
 
-	for (int i = 0; i < 34; i++)
+	for (int i = 0; i < 34; i++)																									//Lights
 	{
 
-		modelStack.push(modelStack.top());																							//Ship Environment
+		modelStack.push(modelStack.top());																							
 		modelStack.top() = glm::translate(modelStack.top(), lightPosition[i]);
 		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05f, 0.05f, 0.05f));
 		cubeShader->setMat4("modelView", modelStack.top());
@@ -1028,8 +1028,7 @@ void sceneManager::spawnChargers()
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[2].modelDraw(*ourShader);
 	modelStack.pop();
-
-
+	
 	modelStack.push(modelStack.top());																								// Ammo Room 2
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-44.05f, -1.0f, -32.3f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
@@ -1089,6 +1088,104 @@ void sceneManager::spawnChargers()
 
 	modelStack.push(modelStack.top());																								// Ammo corridor 7
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-14.3f, -1.0f, 9.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Health room  16
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-15.3f, -1.0f, 20.8f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Health corriddor 12
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-33.0f, -1.0f, 27.7f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Ammo corridor 12
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-33.0f, -1.0f, 30.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Health corriddor 11
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-33.0f, -1.0f, 39.7f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Ammo corridor 11
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-33.0f, -1.0f, 42.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+
+	modelStack.push(modelStack.top());																								// Health docking
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-51.0f, -1.0f, 21.7f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Ammo docking
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-42.0f, -1.0f, 42.3f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Health room 13
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(8.0f, -1.0f, 33.7f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Ammo room 13
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(12.0f, -1.0f, 33.7f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Ammo Room 12
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(44.7f, -1.0f, 34.8f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[3].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																								// Health room 13
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(54.0f, -1.0f, 27.7f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[2].modelDraw(*ourShader);
+	modelStack.pop();
+
+
+	modelStack.push(modelStack.top());																								// Ammo corridor 7
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(30.7f, -1.0f, 18.3f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
