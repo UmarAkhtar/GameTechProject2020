@@ -1184,7 +1184,7 @@ void sceneManager::spawnChargers()
 	modelStack.pop();
 
 
-	modelStack.push(modelStack.top());																								// Ammo corridor 7
+	modelStack.push(modelStack.top());																								// Ammo corridor 9
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(30.7f, -1.0f, 18.3f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
