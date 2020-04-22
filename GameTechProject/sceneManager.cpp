@@ -39,7 +39,7 @@ void sceneManager::loadModel()
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 
 
-	gameObjects.push_back(Model("../GameTechProject/models/Wall/Ship.obj"));										// [0] Ship Environment
+	gameObjects.push_back(Model("../GameTechProject/models/Wall/Ship.obj"));											// [0] Ship Environment
 	gameObjects.push_back(Model("../GameTechProject/models/Wall/Door.obj"));											// [1] Doors
 	gameObjects.push_back(Model("../GameTechProject/models/chargers/health/SciFi_Health.obj"));							// [2] Health charger
 	gameObjects.push_back(Model("../GameTechProject/models/chargers/ammo/SciFi_Ammo.obj"));								// [3] Ammo charger
@@ -343,9 +343,12 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	};
 	doors =
 	{
-		Supply_Point(0.2, 5.0, doorOneHeight, -8.0, glm::vec3(0,90,0), true),
-		Supply_Point(1.0, 4.0, 0.0, -23.0, glm::vec3(0,90,0), true),
-		Supply_Point(1.0, 10.0, 0.0, -9.0, glm::vec3(0,90,0), true)
+		Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0,0,45)),				//Door bay
+		Entity_OBB(5.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0,0,45))
+		//Supply_Point(0.2, 5.0, doorOneHeight, -8.0, glm::vec3(0,90,0), true),
+		//Supply_Point(1.0, 4.0, 0.0, -23.0, glm::vec3(0,90,0), true),
+		//Supply_Point(1.0, 10.0, 0.0, -9.0, glm::vec3(0,90,0), true)
+		//-59.5f, 0.0f, -1.0f
 	};
 	supplyPoints =
 	{
@@ -398,21 +401,21 @@ void sceneManager::update()
 	//{
 		//cout << "eX: " << thePlayer.getX() << "    eY: " << thePlayer.getY() << "    eZ: " << thePlayer.getZ() << endl;
 		//cout << "pX: " << thePlayer.getX() << "    pY: " << thePlayer.getY() << "    pZ: " << thePlayer.getZ() << endl;
-		if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, doors[0])) /*players collides with environment[i]*/
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[0])) /*players collides with environment[i]*/
 		{
-			if (key1Found == true /*&& (keys[SDL_SCANCODE_E])*/)
+			if (key1Found == true && (keys[SDL_SCANCODE_E]))
 			{
-				cout << "Door open" << endl << endl;
+				cout << "Door test" << endl << endl;
 				//doorOneHeight = testDoorVectorUp;
-				doors[0] = Supply_Point(0.2, 5.0, doorOneHeight, -8.0, glm::vec3(0, 90, 0), true);
-				doorOneHeight = yAxisUp;
+				//doors[0] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
+				//doorOneHeight = yAxisUp;
 				eye.x = thePlayer.getX();
 				eye.y = thePlayer.getY();
 				eye.z = thePlayer.getZ();
 			}
 			else
 			{
-				cout << "Key not found" <<endl;			
+				cout << "Door " <<endl;			
 				thePlayer.setX(eye.x);
 				thePlayer.setY(eye.y);
 				thePlayer.setZ(eye.z);
@@ -420,13 +423,21 @@ void sceneManager::update()
 			
 		}
 
-		if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, doors[1])) /*players collides with environment[i]*/
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[1])) /*players collides with environment[i]*/
 		{
-			if (keys[SDL_SCANCODE_E])
+			if (key1Found == true && (keys[SDL_SCANCODE_E]))
 			{
-				cout << "Door collision" << endl << endl;
-				doorTwoHeight = yAxisUp;
-			}				
+				cout << "Door open" << endl << endl;
+				doorOneHeight = yAxisUp;
+				doors[1] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
+				doors[0] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
+				doorOneHeight = yAxisUp;		
+			}
+			else
+			{
+				cout << "Key not found" << endl;			
+			}
+
 		}
 
 
@@ -898,7 +909,7 @@ void sceneManager::spawnDoors()
 	modelStack.pop();
 
 	modelStack.push(modelStack.top());
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-59.5f, 0.0f, -1.0f));
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-59.5f, doorOneHeight, -1.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());

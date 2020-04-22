@@ -67,7 +67,8 @@ public:
 	
 	player thePlayer;
 	vector<Entity_OBB> environment;
-	vector<Supply_Point> doors;
+	//vector<Supply_Point> doors;
+	vector<Entity_OBB> doors;
 	vector<Supply_Point> supplyPoints;
 	vector<Entity_Sphere> testVec;
 	//vector<Enemy> enemies;
@@ -168,8 +169,8 @@ public:
 	float doorTwoHeight;
 
 	float yAxis;
-	float yAxisUp = 3.0f;
-	float yAxisDown = 1.0;
+	float yAxisUp = 2.8f;
+	float yAxisDown = 0.0;
 
 
 	glm::vec2 rayMouseTest;
