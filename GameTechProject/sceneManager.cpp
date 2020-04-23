@@ -351,6 +351,14 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	door20Height = yAxisDown;
 	door21Height = yAxisDown;
 	door22Height = yAxisDown;
+	door23Height = yAxisDown;
+	door24Height = yAxisDown;
+	door25Height = yAxisDown;
+	door26Height = yAxisDown;
+	door27Height = yAxisDown;
+	door28Height = yAxisDown;
+	door29Height = yAxisDown;
+	door30Height = yAxisDown;
 
 	//eye = {-67.0, 1.3, 3.3 };
 	eye = { -23.0, 1.3, 29.0 };
@@ -426,7 +434,6 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 		Entity_OBB(2.0f, 1.0f, 1.0f, -11.0f, door30Height, 11.5f, glm::vec3(0,0,45)),				// [57] C7 - R16 Door
 		Entity_OBB(1.0f, 5.0f, 1.0f, -11.0f, door30Height, 11.5f, glm::vec3(0,0,45)),				// [58] C7 - R16 Collider for door E press
 		
-		//-11.0f, door30Height, 11.5f
 	};
 	supplyPoints =
 	{
@@ -1402,7 +1409,7 @@ void sceneManager::update()
 			}
 
 		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R14 - C12 Key in R14 
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R16 - R15 Key in C9
 		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[54]))
 		{
 			if (key9Found == true && (keys[SDL_SCANCODE_E]))
@@ -1436,7 +1443,7 @@ void sceneManager::update()
 			}
 
 		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R16 - r15 Key in C9 
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C7 - R16
 		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[56]))
 		{
 			if (key9Found == true && (keys[SDL_SCANCODE_E]))
