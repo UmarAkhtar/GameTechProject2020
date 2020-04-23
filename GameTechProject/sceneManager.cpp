@@ -361,15 +361,16 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	door30Height = yAxisDown;
 
 	//eye = {-67.0, 1.3, 3.3 };
-	eye = { -23.0, 1.3, 29.0 };
+	eye = { -48.0, 1.3, 31.0 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
 	environment = 
 	{
-		Entity_OBB(-0.5,1.0,1,-14.5, 1.0, -3.6, glm::vec3(0,0,45)),
-		Entity_OBB(0.01,0.01,1,5, 1.0, -15, glm::vec3(0,0,0))
-		
+		Entity_OBB(170.0, 1.0, 2.0, 5.5, 0.0, 43.5, glm::vec3(0,0,45)),									// The docking south wall
+		Entity_OBB(1.0, 70.0, 2.0, -58.5, 0.0, 32.0, glm::vec3(0,0,45)),									// Docking West wall
+		Entity_OBB(60.0, 1.0, 2.0, -47.0, 0.0, 20.8, glm::vec3(0,0,45)),									// Docking North wall
+		Entity_OBB(1.0, 3.7, 2.0, -35.5, 0.0, 25.0, glm::vec3(0,0,45)),									// Docking East wall North of door
 	};
 	doors =
 	{
@@ -1528,13 +1529,27 @@ void sceneManager::update()
 				thePlayer.setY(eye.y);
 				thePlayer.setZ(eye.z);
 			}
-			else
+			/*else 
 			{
 				eye.x = thePlayer.getX();
 				eye.y = thePlayer.getY();
 				eye.z = thePlayer.getZ();
-			}
+			}*/
 		}
+		eye.x = thePlayer.getX();
+		eye.y = thePlayer.getY();
+		eye.z = thePlayer.getZ();
+
+
+
+
+
+
+
+
+
+
+
 
 		//if (theCollisionHandler.checkCollisionSphere((testVec[0]), rayMouseTest)) /*players collides with environment[i]*/
 		//{
