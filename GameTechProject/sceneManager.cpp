@@ -368,9 +368,16 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	environment = 
 	{
 		Entity_OBB(170.0, 1.0, 2.0, 5.5, 0.0, 43.5, glm::vec3(0,0,45)),									// The docking south wall
-		Entity_OBB(1.0, 70.0, 2.0, -58.5, 0.0, 32.0, glm::vec3(0,0,45)),									// Docking West wall
-		Entity_OBB(60.0, 1.0, 2.0, -47.0, 0.0, 20.8, glm::vec3(0,0,45)),									// Docking North wall
+		Entity_OBB(1.0, 70.0, 2.0, -58.5, 0.0, 32.0, glm::vec3(0,0,45)),								// Docking West wall
+		Entity_OBB(60.0, 1.0, 2.0, -47.0, 0.0, 20.8, glm::vec3(0,0,45)),								// Docking North wall
 		Entity_OBB(1.0, 3.7, 2.0, -35.5, 0.0, 25.0, glm::vec3(0,0,45)),									// Docking East wall North of door
+		Entity_OBB(1.0, 7.0, 2.0, -35.5, 0.0, 35.0, glm::vec3(0,0,45)),									// Docking East between walls
+
+
+		Entity_OBB(7.0, 1.0, 2.0, -32.0, 0.0, 26.5, glm::vec3(0,0,45)),									//C12 North wall
+		Entity_OBB(7.0, 1.0, 2.0, -32.0, 0.0, 31.5, glm::vec3(0,0,45)),									//C12 South wall
+
+		Entity_OBB(7.0, 1.0, 2.0, -23.0, 0.0, 23.8, glm::vec3(0,0,45)),									// C12 North wall
 	};
 	doors =
 	{
