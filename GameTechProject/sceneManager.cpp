@@ -360,8 +360,8 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	door29Height = yAxisDown;
 	door30Height = yAxisDown;
 
-	//eye = {-67.0, 1.3, 3.3 };
-	eye = { -48.0, 1.3, 31.0 };
+	eye = {-67.0, 1.3, -3.3 };
+	//eye = { -48.0, 1.3, 31.0 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
@@ -372,12 +372,19 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 		Entity_OBB(60.0, 1.0, 2.0, -47.0, 0.0, 20.8, glm::vec3(0,0,45)),								// Docking North wall
 		Entity_OBB(1.0, 3.7, 2.0, -35.5, 0.0, 25.0, glm::vec3(0,0,45)),									// Docking East wall North of door
 		Entity_OBB(1.0, 7.0, 2.0, -35.5, 0.0, 35.0, glm::vec3(0,0,45)),									// Docking East between walls
-
-
 		Entity_OBB(7.0, 1.0, 2.0, -32.0, 0.0, 26.5, glm::vec3(0,0,45)),									//C12 North wall
 		Entity_OBB(7.0, 1.0, 2.0, -32.0, 0.0, 31.5, glm::vec3(0,0,45)),									//C12 South wall
+		Entity_OBB(7.0, 1.0, 2.0, -23.0, 0.0, 23.8, glm::vec3(0,0,45)),	// C12 North wall
 
-		Entity_OBB(7.0, 1.0, 2.0, -23.0, 0.0, 23.8, glm::vec3(0,0,45)),									// C12 North wall
+
+		Entity_OBB(13, 1.0, 1.0, -66.0, 1.0, -9.7, glm::vec3(0,0,45)),
+		Entity_OBB(1, 13, 1.0, -73.5, 1.0, -4, glm::vec3(0,0,45)),
+				Entity_OBB(13, 1, 1.0, -66.0, 1.0, 4.5, glm::vec3(0,0,45)),
+				Entity_OBB(1, 5, 1.0, -59.5, 1.0, -6, glm::vec3(0,0,45)),
+				Entity_OBB(1, 1, 1.0, -59.5, 1.0, 2, glm::vec3(0,0,45)),
+				Entity_OBB(58, 1.5, 2.0, -30, 1.0, 2, glm::vec3(0,0,45)),
+				Entity_OBB(22, 1.5, 2.0, -48, 1.0, -4, glm::vec3(0,0,45)),
+				Entity_OBB(14, 1.5, 2.0, -25, 1.0, -4, glm::vec3(0,0,45)),
 	};
 	doors =
 	{
@@ -490,1035 +497,7 @@ void sceneManager::update()
 		}
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// For first door in bay Both colliders allow for uses of E to open door when key is collected
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[0])) 
-		{
-			if (key1Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door test" << endl << endl;
-				//doorOneHeight = testDoorVectorUp;
-				//doors[0] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
-				//doorOneHeight = yAxisUp;
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " <<endl;			
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-			
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[1])) 
-		{
-			if (key1Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door open" << endl << endl;
-				doorOneHeight = yAxisUp;
-				doors[1] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
-				doors[0] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
-				doorOneHeight = yAxisUp;
-			}
-			else
-			{
-				cout << "Key not found" << endl;			
-			}
-
-		}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		C1 - R1
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[2]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[3]))
-		{	
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				doorTwoHeight = yAxisUp;
-				doors[2] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0, 0, 45));
-				doors[3] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0, 0, 45));				
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-			
-		}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		C1 - R8
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[4]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[5]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				doorThreeHeight = yAxisUp;
-				doors[4] = Entity_OBB(1.0f, 5.0f, 1.0f, -19.5, doorThreeHeight, -3.5, glm::vec3(0, 0, 45));				
-				doors[5] = Entity_OBB(5.0f, 5.0f, 1.0f, -19.5, doorThreeHeight, -3.5, glm::vec3(0, 0, 45));				
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	R1 - C2
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[6]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[7]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				doorFourHeight = yAxisUp;
-				doors[6] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorFourHeight, -15.5, glm::vec3(0, 0, 45));
-				doors[7] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorFourHeight, -15.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		C2 - R3
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[8]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[9]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				doorFiveHeight = yAxisUp;
-				doors[8] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorFiveHeight, -21.5, glm::vec3(0, 0, 45));
-				doors[9] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorFiveHeight, -21.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	C2 - R2
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[10]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[11]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				doorSixHeight = yAxisUp;
-				doors[10] = Entity_OBB(1.5f, 1.0f, 1.0f, -50.0, doorSixHeight, -21.5, glm::vec3(0, 0, 45));
-				doors[11] = Entity_OBB(1.0f, 5.0f, 1.0f, -50.0, doorSixHeight, -21.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	R3 - C3
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[12]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[13]))
-		{
-			if ((keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				doorSevenHeight = yAxisUp;
-				doors[12] = Entity_OBB(1.5f, 1.0f, 1.0f, -50.0, doorSevenHeight, -21.5, glm::vec3(0, 0, 45));
-				doors[13] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorSevenHeight, -33.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	C3 - R4 Key from R3
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[14]))
-		{
-			if (key2Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[15]))
-		{
-			if (key2Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				doorEightHeight = yAxisUp;
-				doors[14] = Entity_OBB(1.5f, 1.0f, 1.0f, -1.5, doorEightHeight, -37.5, glm::vec3(0, 0, 45));
-				doors[15] = Entity_OBB(1.0f, 5.0f, 1.0f, -1.5, doorEightHeight, -37.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	R4 - C4
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[16]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[17]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door collision" << endl << endl;
-				doorNineHeight = yAxisUp;
-				doors[16] = Entity_OBB(1.0f, 1.0f, 1.0f, 4.0, doorNineHeight, -31.5, glm::vec3(0, 0, 45));
-				doors[17] = Entity_OBB(5.0f, 1.0f, 1.0f, 4.0, doorNineHeight, -31.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C4 - C5 Key from R4
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[18]))
-		{
-			if (key3Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[19]))
-		{
-			if (key3Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				doorTenHeight = yAxisUp;
-				doors[18] = Entity_OBB(1.5f, 1.0f, 1.0f, 4.0, doorTenHeight, -18.5, glm::vec3(0, 0, 45));
-				doors[19] = Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, doorTenHeight, -18.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C5 - C6 Key from R6 
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[20]))
-		{
-			if (key4Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[21]))
-		{
-			if (key4Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				door11Height = yAxisUp;
-				doors[20] = Entity_OBB(1.5f, 1.0f, 1.0f, 4.0, door11Height, -13.5, glm::vec3(0, 0, 45));
-				doors[21] = Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, door11Height, -13.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C5 - R5
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[22]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[23]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door collision" << endl << endl;
-				door12Height = yAxisUp;
-				doors[22] = Entity_OBB(1.5f, 1.0f, 1.0f, 25.0, door12Height, -18.5, glm::vec3(0, 0, 45));
-				doors[23] = Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door12Height, -18.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C5 - R6
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[24]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[25]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door collision" << endl << endl;
-				door13Height = yAxisUp;
-				doors[24] = Entity_OBB(1.5f, 1.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0, 0, 45));
-				doors[25] = Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  C5 - R7  Key from R7
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[26]))
-		{
-			if (key5Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door test" << endl << endl;
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[27]))
-		{
-			if (key5Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door open" << endl << endl;
-				door14Height = yAxisUp;
-				doors[26] = Entity_OBB(1.0f, 1.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0, 0, 45));
-				doors[27] = Entity_OBB(5.0f, 1.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Key not found" << endl;
-			}
-
-		}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  R8 - R7
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[28]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door test" << endl << endl;
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[29]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door open" << endl << endl;
-				door15Height = yAxisUp;
-				doors[28] = Entity_OBB(2.0f, 1.0f, 1.0f, -35.0, door15Height, -3.5, glm::vec3(0, 0, 45));
-				doors[29] = Entity_OBB(2.0f, 5.0f, 1.0f, -14.0, door15Height, -9.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Key not found" << endl;
-			}
-
-		}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  C6 - R9
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[30]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door test" << endl << endl;
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[31]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door open" << endl << endl;
-				door16Height = yAxisUp;
-				doors[30] = Entity_OBB(2.0f, 1.0f, 1.0f, 4.0, door16Height, -0.5, glm::vec3(0, 0, 45));
-				doors[31] = Entity_OBB(2.0f, 5.0f, 1.0f, 4.0, door16Height, -0.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Key not found" << endl;
-			}
-
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  C7 - R9
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[32]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door test" << endl << endl;
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[33]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door open" << endl << endl;
-				door17Height = yAxisUp;
-				doors[32] = Entity_OBB(1.0f, 2.0f, 1.0f, -1.5, door17Height, 8.0, glm::vec3(0, 0, 45));
-				doors[33] = Entity_OBB(5.0f, 2.0f, 1.0f, -1.5, door17Height, 8.0, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Key not found" << endl;
-			}
-
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  C7 - R9
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[34]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door test" << endl << endl;
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[35]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door open" << endl << endl;
-				door18Height = yAxisUp;
-				doors[34] = Entity_OBB(1.0f, 2.0f, 1.0f, 12.5, door18Height, 8.0, glm::vec3(0, 0, 45));
-				doors[35] = Entity_OBB(5.0f, 2.0f, 1.0f, 12.5, door18Height, 8.0, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Key not found" << endl;
-			}
-
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  R10 - C8
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[36]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door test" << endl << endl;
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[37]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door open" << endl << endl;
-				door19Height = yAxisUp;
-				doors[36] = Entity_OBB(2.0f, 1.0f, 1.0f, 22.0, door19Height, 11.5, glm::vec3(0, 0, 45));
-				doors[37] = Entity_OBB(1.0f, 5.0f, 1.0f, 22.0, door19Height, 11.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Key not found" << endl;
-			}
-
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  R10 - C9
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[38]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door test" << endl << endl;
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-
-		}
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[39]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door open" << endl << endl;
-				door20Height = yAxisUp;
-				doors[38] = Entity_OBB(1.0f, 2.0f, 1.0f, 27.5, door20Height, 17.0, glm::vec3(0, 0, 45));
-				doors[39] = Entity_OBB(5.0f, 2.0f, 1.0f, 27.5, door20Height, 17.0, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Key not found" << endl;
-			}
-
-		}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R11 - R12 Key from R11
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[40]))
-		{
-			if (key6Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[41]))
-		{
-			if (key6Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				door21Height = yAxisUp;
-				doors[40] = Entity_OBB(2.0f, 1.0f, 1.0f, 49.0, door21Height, 26.5, glm::vec3(0, 0, 45));
-				doors[41] = Entity_OBB(1.0f, 5.0f, 1.0f, 49.0, door21Height, 26.5, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R12 - C10
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[42]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[43]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door collision" << endl << endl;
-				door22Height = yAxisUp;
-				doors[42] = Entity_OBB(2.0f, 1.0f, 1.0f, 49.0f, door22Height, 38.5f, glm::vec3(0, 0, 45));
-				doors[43] = Entity_OBB(1.0f, 5.0f, 1.0f, 49.0f, door22Height, 38.5f, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C10 - R13 , C10 - Key for R13- C11
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[44]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[45]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door collision" << endl << endl;
-				door23Height = yAxisUp;
-				doors[44] = Entity_OBB(1.0f, 2.0f, 1.0f, 15.0f, door23Height, 41.0f, glm::vec3(0, 0, 45));
-				doors[45] = Entity_OBB(5.0f, 2.0f, 1.0f, 15.0f, door23Height, 41.0f, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R13 - C11 Door
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[46]))
-		{
-			if (key7Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[47]))
-		{
-			if (key7Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				door24Height = yAxisUp;
-				doors[46] = Entity_OBB(1.0f, 2.0f, 1.0f, 4.5f, door24Height, 41.0f, glm::vec3(0, 0, 45));
-				doors[47] = Entity_OBB(5.0f, 2.0f, 1.0f, 4.5f, door24Height, 41.0f, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C11 - Docking, Key in c11 for C11
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[48]))
-		{
-			if (key8Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[49]))
-		{
-			if (key8Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				door25Height = yAxisUp;
-				doors[48] = Entity_OBB(1.0f, 2.0f, 1.0f, -35.5f, door25Height, 41.0f, glm::vec3(0, 0, 45));
-				doors[49] = Entity_OBB(5.0f, 2.0f, 1.0f, -35.5f, door25Height, 41.0f, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C12 - Docking
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[50]))
-		{
-			if (key9Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[51]))
-		{
-			if (key9Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				door26Height = yAxisUp;
-				doors[50] = Entity_OBB(1.0f, 2.0f, 1.0f, -35.5f, door26Height, 29.0f, glm::vec3(0, 0, 45));
-				doors[51] = Entity_OBB(5.0f, 2.0f, 1.0f, -35.5f, door26Height, 29.0f, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R14 - C12 Key in R14 
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[52]))
-		{
-			if (key9Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[53]))
-		{
-			if (key10Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				door27Height = yAxisUp;
-				doors[52] = Entity_OBB(1.0f, 2.0f, 1.0f, -28.5f, door27Height, 29.0f, glm::vec3(0, 0, 45));
-				doors[53] = Entity_OBB(5.0f, 2.0f, 1.0f, -28.5f, door27Height, 29.0f, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R16 - R15 Key in C9
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[54]))
-		{
-			if (key9Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[55]))
-		{
-			if (key11Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				door28Height = yAxisUp;
-				doors[54] = Entity_OBB(1.0f, 2.0f, 1.0f, -16.5f, door28Height, 29.0f, glm::vec3(0, 0, 45));
-				doors[55] = Entity_OBB(5.0f, 2.0f, 1.0f, -16.5f, door28Height, 29.0f, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C7 - R16
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[56]))
-		{
-			if (key9Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[57]))
-		{
-			if (key12Found == true && (keys[SDL_SCANCODE_E]))
-			{
-				cout << "Door collision" << endl << endl;
-				door29Height = yAxisUp;
-				doors[56] = Entity_OBB(2.0f, 1.0f, 1.0f, -11.0f, door29Height, 23.5f, glm::vec3(0, 0, 45));
-				doors[57] = Entity_OBB(1.0f, 5.0f, 1.0f, -11.0f, door29Height, 23.5f, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C7 - R16
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[58]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				eye.x = thePlayer.getX();
-				eye.y = thePlayer.getY();
-				eye.z = thePlayer.getZ();
-			}
-			else
-			{
-				cout << "Door " << endl;
-				thePlayer.setX(eye.x);
-				thePlayer.setY(eye.y);
-				thePlayer.setZ(eye.z);
-			}
-		}
-
-
-		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[59]))
-		{
-			if (keys[SDL_SCANCODE_E])
-			{
-				cout << "Door collision" << endl << endl;
-				door30Height = yAxisUp;
-				doors[58] = Entity_OBB(2.0f, 1.0f, 1.0f, -11.0f, door30Height, 11.5f, glm::vec3(0, 0, 45));
-				doors[59] = Entity_OBB(1.0f, 5.0f, 1.0f, -11.0f, door30Height, 11.5f, glm::vec3(0, 0, 45));
-			}
-			else
-			{
-				cout << "Door collision" << endl;
-			}
-
-		}
+	doorCollision(keys);
 
 
 		
@@ -1747,6 +726,1038 @@ void sceneManager::update()
 
 	
 
+}
+void sceneManager::doorCollision(const Uint8* keys)
+{
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// For first door in bay Both colliders allow for uses of E to open door when key is collected
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[0]))
+	{
+		if (key1Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door test" << endl << endl;
+			//doorOneHeight = testDoorVectorUp;
+			//doors[0] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
+			//doorOneHeight = yAxisUp;
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[1]))
+	{
+		if (key1Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door open" << endl << endl;
+			doorOneHeight = yAxisUp;
+			doors[1] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
+			doors[0] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
+			doorOneHeight = yAxisUp;
+		}
+		else
+		{
+			cout << "Key not found" << endl;
+		}
+
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		C1 - R1
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[2]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[3]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			doorTwoHeight = yAxisUp;
+			doors[2] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0, 0, 45));
+			doors[3] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		C1 - R8
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[4]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[5]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			doorThreeHeight = yAxisUp;
+			doors[4] = Entity_OBB(1.0f, 5.0f, 1.0f, -19.5, doorThreeHeight, -3.5, glm::vec3(0, 0, 45));
+			doors[5] = Entity_OBB(5.0f, 5.0f, 1.0f, -19.5, doorThreeHeight, -3.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	R1 - C2
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[6]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[7]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			doorFourHeight = yAxisUp;
+			doors[6] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorFourHeight, -15.5, glm::vec3(0, 0, 45));
+			doors[7] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorFourHeight, -15.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		C2 - R3
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[8]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[9]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			doorFiveHeight = yAxisUp;
+			doors[8] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorFiveHeight, -21.5, glm::vec3(0, 0, 45));
+			doors[9] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorFiveHeight, -21.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	C2 - R2
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[10]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[11]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			doorSixHeight = yAxisUp;
+			doors[10] = Entity_OBB(1.5f, 1.0f, 1.0f, -50.0, doorSixHeight, -21.5, glm::vec3(0, 0, 45));
+			doors[11] = Entity_OBB(1.0f, 5.0f, 1.0f, -50.0, doorSixHeight, -21.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	R3 - C3
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[12]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[13]))
+	{
+		if ((keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			doorSevenHeight = yAxisUp;
+			doors[12] = Entity_OBB(1.5f, 1.0f, 1.0f, -50.0, doorSevenHeight, -21.5, glm::vec3(0, 0, 45));
+			doors[13] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorSevenHeight, -33.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	C3 - R4 Key from R3
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[14]))
+	{
+		if (key2Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[15]))
+	{
+		if (key2Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			doorEightHeight = yAxisUp;
+			doors[14] = Entity_OBB(1.5f, 1.0f, 1.0f, -1.5, doorEightHeight, -37.5, glm::vec3(0, 0, 45));
+			doors[15] = Entity_OBB(1.0f, 5.0f, 1.0f, -1.5, doorEightHeight, -37.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	R4 - C4
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[16]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[17]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door collision" << endl << endl;
+			doorNineHeight = yAxisUp;
+			doors[16] = Entity_OBB(1.0f, 1.0f, 1.0f, 4.0, doorNineHeight, -31.5, glm::vec3(0, 0, 45));
+			doors[17] = Entity_OBB(5.0f, 1.0f, 1.0f, 4.0, doorNineHeight, -31.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C4 - C5 Key from R4
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[18]))
+	{
+		if (key3Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[19]))
+	{
+		if (key3Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			doorTenHeight = yAxisUp;
+			doors[18] = Entity_OBB(1.5f, 1.0f, 1.0f, 4.0, doorTenHeight, -18.5, glm::vec3(0, 0, 45));
+			doors[19] = Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, doorTenHeight, -18.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C5 - C6 Key from R6 
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[20]))
+	{
+		if (key4Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[21]))
+	{
+		if (key4Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			door11Height = yAxisUp;
+			doors[20] = Entity_OBB(1.5f, 1.0f, 1.0f, 4.0, door11Height, -13.5, glm::vec3(0, 0, 45));
+			doors[21] = Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, door11Height, -13.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C5 - R5
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[22]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[23]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door collision" << endl << endl;
+			door12Height = yAxisUp;
+			doors[22] = Entity_OBB(1.5f, 1.0f, 1.0f, 25.0, door12Height, -18.5, glm::vec3(0, 0, 45));
+			doors[23] = Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door12Height, -18.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C5 - R6
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[24]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[25]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door collision" << endl << endl;
+			door13Height = yAxisUp;
+			doors[24] = Entity_OBB(1.5f, 1.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0, 0, 45));
+			doors[25] = Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  C5 - R7  Key from R7
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[26]))
+	{
+		if (key5Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door test" << endl << endl;
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[27]))
+	{
+		if (key5Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door open" << endl << endl;
+			door14Height = yAxisUp;
+			doors[26] = Entity_OBB(1.0f, 1.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0, 0, 45));
+			doors[27] = Entity_OBB(5.0f, 1.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Key not found" << endl;
+		}
+
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  R8 - R7
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[28]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door test" << endl << endl;
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[29]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door open" << endl << endl;
+			door15Height = yAxisUp;
+			doors[28] = Entity_OBB(2.0f, 1.0f, 1.0f, -35.0, door15Height, -3.5, glm::vec3(0, 0, 45));
+			doors[29] = Entity_OBB(2.0f, 5.0f, 1.0f, -14.0, door15Height, -9.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Key not found" << endl;
+		}
+
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  C6 - R9
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[30]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door test" << endl << endl;
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[31]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door open" << endl << endl;
+			door16Height = yAxisUp;
+			doors[30] = Entity_OBB(2.0f, 1.0f, 1.0f, 4.0, door16Height, -0.5, glm::vec3(0, 0, 45));
+			doors[31] = Entity_OBB(2.0f, 5.0f, 1.0f, 4.0, door16Height, -0.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Key not found" << endl;
+		}
+
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  C7 - R9
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[32]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door test" << endl << endl;
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[33]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door open" << endl << endl;
+			door17Height = yAxisUp;
+			doors[32] = Entity_OBB(1.0f, 2.0f, 1.0f, -1.5, door17Height, 8.0, glm::vec3(0, 0, 45));
+			doors[33] = Entity_OBB(5.0f, 2.0f, 1.0f, -1.5, door17Height, 8.0, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Key not found" << endl;
+		}
+
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  C7 - R9
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[34]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door test" << endl << endl;
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[35]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door open" << endl << endl;
+			door18Height = yAxisUp;
+			doors[34] = Entity_OBB(1.0f, 2.0f, 1.0f, 12.5, door18Height, 8.0, glm::vec3(0, 0, 45));
+			doors[35] = Entity_OBB(5.0f, 2.0f, 1.0f, 12.5, door18Height, 8.0, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Key not found" << endl;
+		}
+
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  R10 - C8
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[36]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door test" << endl << endl;
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[37]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door open" << endl << endl;
+			door19Height = yAxisUp;
+			doors[36] = Entity_OBB(2.0f, 1.0f, 1.0f, 22.0, door19Height, 11.5, glm::vec3(0, 0, 45));
+			doors[37] = Entity_OBB(1.0f, 5.0f, 1.0f, 22.0, door19Height, 11.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Key not found" << endl;
+		}
+
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  R10 - C9
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[38]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door test" << endl << endl;
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[39]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door open" << endl << endl;
+			door20Height = yAxisUp;
+			doors[38] = Entity_OBB(1.0f, 2.0f, 1.0f, 27.5, door20Height, 17.0, glm::vec3(0, 0, 45));
+			doors[39] = Entity_OBB(5.0f, 2.0f, 1.0f, 27.5, door20Height, 17.0, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Key not found" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R11 - R12 Key from R11
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[40]))
+	{
+		if (key6Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[41]))
+	{
+		if (key6Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			door21Height = yAxisUp;
+			doors[40] = Entity_OBB(2.0f, 1.0f, 1.0f, 49.0, door21Height, 26.5, glm::vec3(0, 0, 45));
+			doors[41] = Entity_OBB(1.0f, 5.0f, 1.0f, 49.0, door21Height, 26.5, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R12 - C10
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[42]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[43]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door collision" << endl << endl;
+			door22Height = yAxisUp;
+			doors[42] = Entity_OBB(2.0f, 1.0f, 1.0f, 49.0f, door22Height, 38.5f, glm::vec3(0, 0, 45));
+			doors[43] = Entity_OBB(1.0f, 5.0f, 1.0f, 49.0f, door22Height, 38.5f, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C10 - R13 , C10 - Key for R13- C11
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[44]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[45]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door collision" << endl << endl;
+			door23Height = yAxisUp;
+			doors[44] = Entity_OBB(1.0f, 2.0f, 1.0f, 15.0f, door23Height, 41.0f, glm::vec3(0, 0, 45));
+			doors[45] = Entity_OBB(5.0f, 2.0f, 1.0f, 15.0f, door23Height, 41.0f, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R13 - C11 Door
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[46]))
+	{
+		if (key7Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[47]))
+	{
+		if (key7Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			door24Height = yAxisUp;
+			doors[46] = Entity_OBB(1.0f, 2.0f, 1.0f, 4.5f, door24Height, 41.0f, glm::vec3(0, 0, 45));
+			doors[47] = Entity_OBB(5.0f, 2.0f, 1.0f, 4.5f, door24Height, 41.0f, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C11 - Docking, Key in c11 for C11
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[48]))
+	{
+		if (key8Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[49]))
+	{
+		if (key8Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			door25Height = yAxisUp;
+			doors[48] = Entity_OBB(1.0f, 2.0f, 1.0f, -35.5f, door25Height, 41.0f, glm::vec3(0, 0, 45));
+			doors[49] = Entity_OBB(5.0f, 2.0f, 1.0f, -35.5f, door25Height, 41.0f, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C12 - Docking
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[50]))
+	{
+		if (key9Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[51]))
+	{
+		if (key9Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			door26Height = yAxisUp;
+			doors[50] = Entity_OBB(1.0f, 2.0f, 1.0f, -35.5f, door26Height, 29.0f, glm::vec3(0, 0, 45));
+			doors[51] = Entity_OBB(5.0f, 2.0f, 1.0f, -35.5f, door26Height, 29.0f, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R14 - C12 Key in R14 
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[52]))
+	{
+		if (key9Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[53]))
+	{
+		if (key10Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			door27Height = yAxisUp;
+			doors[52] = Entity_OBB(1.0f, 2.0f, 1.0f, -28.5f, door27Height, 29.0f, glm::vec3(0, 0, 45));
+			doors[53] = Entity_OBB(5.0f, 2.0f, 1.0f, -28.5f, door27Height, 29.0f, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R16 - R15 Key in C9
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[54]))
+	{
+		if (key9Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[55]))
+	{
+		if (key11Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			door28Height = yAxisUp;
+			doors[54] = Entity_OBB(1.0f, 2.0f, 1.0f, -16.5f, door28Height, 29.0f, glm::vec3(0, 0, 45));
+			doors[55] = Entity_OBB(5.0f, 2.0f, 1.0f, -16.5f, door28Height, 29.0f, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C7 - R16
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[56]))
+	{
+		if (key9Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[57]))
+	{
+		if (key12Found == true && (keys[SDL_SCANCODE_E]))
+		{
+			cout << "Door collision" << endl << endl;
+			door29Height = yAxisUp;
+			doors[56] = Entity_OBB(2.0f, 1.0f, 1.0f, -11.0f, door29Height, 23.5f, glm::vec3(0, 0, 45));
+			doors[57] = Entity_OBB(1.0f, 5.0f, 1.0f, -11.0f, door29Height, 23.5f, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C7 - R16
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[58]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			eye.x = thePlayer.getX();
+			eye.y = thePlayer.getY();
+			eye.z = thePlayer.getZ();
+		}
+		else
+		{
+			cout << "Door " << endl;
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[59]))
+	{
+		if (keys[SDL_SCANCODE_E])
+		{
+			cout << "Door collision" << endl << endl;
+			door30Height = yAxisUp;
+			doors[58] = Entity_OBB(2.0f, 1.0f, 1.0f, -11.0f, door30Height, 11.5f, glm::vec3(0, 0, 45));
+			doors[59] = Entity_OBB(1.0f, 5.0f, 1.0f, -11.0f, door30Height, 11.5f, glm::vec3(0, 0, 45));
+		}
+		else
+		{
+			cout << "Door collision" << endl;
+		}
+
+	}
 }
 sceneManager::~sceneManager()
 {

@@ -52,6 +52,8 @@ public:
 
 	void update();
 
+	void doorCollision(const Uint8* keys);
+
 	SoundManager* sm;
 	HSAMPLE* samples = NULL;
 	
