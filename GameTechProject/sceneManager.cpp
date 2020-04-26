@@ -360,31 +360,43 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	door29Height = yAxisDown;
 	door30Height = yAxisDown;
 
-	eye = {-67.0, 1.3, -3.3 };
-	//eye = { -48.0, 1.3, 31.0 };
+	//eye = {-67.0, 1.3, -3.3 };
+	eye = { -10.0, 1.3, 29.0 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
 	environment = 
 	{
 		Entity_OBB(170.0, 1.0, 2.0, 5.5, 0.0, 43.5, glm::vec3(0,0,45)),									// The docking south wall
-		Entity_OBB(1.0, 70.0, 2.0, -58.5, 0.0, 32.0, glm::vec3(0,0,45)),								// Docking West wall
+		Entity_OBB(1.0, 50.0, 2.0, -58.5, 0.0, 32.0, glm::vec3(0,0,45)),								// Docking West wall
 		Entity_OBB(60.0, 1.0, 2.0, -47.0, 0.0, 20.8, glm::vec3(0,0,45)),								// Docking North wall
 		Entity_OBB(1.0, 3.7, 2.0, -35.5, 0.0, 25.0, glm::vec3(0,0,45)),									// Docking East wall North of door
 		Entity_OBB(1.0, 7.0, 2.0, -35.5, 0.0, 35.0, glm::vec3(0,0,45)),									// Docking East between walls
-		Entity_OBB(7.0, 1.0, 2.0, -32.0, 0.0, 26.5, glm::vec3(0,0,45)),									//C12 North wall
-		Entity_OBB(7.0, 1.0, 2.0, -32.0, 0.0, 31.5, glm::vec3(0,0,45)),									//C12 South wall
-		Entity_OBB(7.0, 1.0, 2.0, -23.0, 0.0, 23.8, glm::vec3(0,0,45)),	// C12 North wall
+
+		Entity_OBB(7.0, 1.0, 2.0, -32.0, 0.0, 26.5, glm::vec3(0,0,45)),									// C12 North wall
+		Entity_OBB(7.0, 1.0, 2.0, -32.0, 0.0, 31.5, glm::vec3(0,0,45)),									// C12 South wall
+
+		Entity_OBB(7.0, 1.0, 2.0, -23.0, 0.0, 23.8, glm::vec3(0,0,45)),									// R14 North wall
+		Entity_OBB(1.0, 3.7, 2.0, -28.5, 0.0, 25.0, glm::vec3(0,0,45)),									// R14 West wall North of door
+		Entity_OBB(2.0, 22.0, 2.0, -17.0, 0.0, 15.5, glm::vec3(0,0,45)),								// R14 East wall North of door & R16 West wall, C7 West wall
+		Entity_OBB(1.0, 3.7, 2.0, -28.5, 0.0, 33.1, glm::vec3(0,0,45)),									// R14 West wall South of door
+		Entity_OBB(2.0, 3.7, 2.0, -17.0, 0.0, 33.1, glm::vec3(0,0,45)),									// R14 East wall South of door
+
+		Entity_OBB(25.5, 1.0, 2.0, -17.0, 0.0, 34.8, glm::vec3(0,0,45)),								// R14 & R15 South wall
+		Entity_OBB(1.0, 22.0, 2.0, -2.5, 0.0, 24.0, glm::vec3(0,0,45)),									// R15 & R16 East 
+
+		Entity_OBB(1.0, 2.7, 2.0, -13.7, 0.0, 23.0, glm::vec3(0,0,45)),									// R15 & R16 North Wall West of door
+		Entity_OBB(5.0, 2.7, 2.0, -6.3, 0.0, 23.0, glm::vec3(0,0,45)),									// R15 & R16 North Wall East of door
 
 
 		Entity_OBB(13, 1.0, 1.0, -66.0, 1.0, -9.7, glm::vec3(0,0,45)),
 		Entity_OBB(1, 13, 1.0, -73.5, 1.0, -4, glm::vec3(0,0,45)),
-				Entity_OBB(13, 1, 1.0, -66.0, 1.0, 4.5, glm::vec3(0,0,45)),
-				Entity_OBB(1, 5, 1.0, -59.5, 1.0, -6, glm::vec3(0,0,45)),
-				Entity_OBB(1, 1, 1.0, -59.5, 1.0, 2, glm::vec3(0,0,45)),
-				Entity_OBB(58, 1.5, 2.0, -30, 1.0, 2, glm::vec3(0,0,45)),
-				Entity_OBB(22, 1.5, 2.0, -48, 1.0, -4, glm::vec3(0,0,45)),
-				Entity_OBB(14, 1.5, 2.0, -25, 1.0, -4, glm::vec3(0,0,45)),
+		Entity_OBB(13, 1, 1.0, -66.0, 1.0, 4.5, glm::vec3(0,0,45)),
+		Entity_OBB(1, 5, 1.0, -59.5, 1.0, -6, glm::vec3(0,0,45)),
+		Entity_OBB(1, 1, 1.0, -59.5, 1.0, 2, glm::vec3(0,0,45)),
+		Entity_OBB(58, 1.5, 2.0, -30, 1.0, 2, glm::vec3(0,0,45)),
+		Entity_OBB(22, 1.5, 2.0, -48, 1.0, -4, glm::vec3(0,0,45)),
+		Entity_OBB(14, 1.5, 2.0, -25, 1.0, -4, glm::vec3(0,0,45)),
 	};
 	doors =
 	{
