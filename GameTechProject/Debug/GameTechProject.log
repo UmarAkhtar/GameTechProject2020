@@ -78,8 +78,28 @@ E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\Game
 E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(385,65): warning C4305: 'argument': truncation from 'double' to 'float'
 E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(388,64): warning C4305: 'argument': truncation from 'double' to 'float'
 E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(389,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(391,64): warning C4305: 'argument': truncation from 'double' to 'float'
 E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(392,63): warning C4305: 'argument': truncation from 'double' to 'float'
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(468,62): warning C4305: 'argument': truncation from 'double' to 'float'
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(494,20): warning C4018: '<': signed/unsigned mismatch
-E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(519,21): warning C4018: '<': signed/unsigned mismatch
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(394,62): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(396,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(398,62): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(399,64): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(401,62): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(402,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(404,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(405,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(407,65): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(408,62): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(410,64): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(412,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(413,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(415,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(417,64): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(419,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(420,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(421,62): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(428,63): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(504,62): warning C4305: 'argument': truncation from 'double' to 'float'
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(530,20): warning C4018: '<': signed/unsigned mismatch
+E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\GameTechProject\sceneManager.cpp(555,21): warning C4018: '<': signed/unsigned mismatch
   GameTechProject.vcxproj -> E:\users\k_mce\Uni\3rd year\GamesTechnologyGroupProject\GameTechProject2020\Debug\GameTechProject.exe

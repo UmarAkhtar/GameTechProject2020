@@ -361,7 +361,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	door30Height = yAxisDown;
 
 	//eye = {-67.0, 1.3, -3.3 };
-	eye = { -10.0, 1.3, 29.0 };
+	eye = { -4.0, 1.3, 41.0 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
@@ -387,6 +387,42 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 
 		Entity_OBB(1.0, 2.7, 2.0, -13.7, 0.0, 23.0, glm::vec3(0,0,45)),									// R15 & R16 North Wall West of door
 		Entity_OBB(5.0, 2.7, 2.0, -6.3, 0.0, 23.0, glm::vec3(0,0,45)),									// R15 & R16 North Wall East of door
+
+		Entity_OBB(1.0, 2.7, 2.0, -13.7, 0.0, 11.0, glm::vec3(0,0,45)),									// R16 North Wall West of door & C7 South wall West of door
+		Entity_OBB(28.7, 2.7, 2.0, 5.4, 0.0, 11.0, glm::vec3(0,0,45)),									// R16 North wall West of door & C7 South wall East of door, R9 South, C8 South West of door
+
+		Entity_OBB(2.7, 5.3, 2.0, -2.0, 0.0, 3.0, glm::vec3(0,0,45)),									// C7 East Wall North of door & R9 West Wall North of door
+
+		Entity_OBB(14.7, 5.3, 2.0, 19.5, 0.0, 3.0, glm::vec3(0,0,45)),									// R9 East Wall North of Door & C8 North Wall
+
+		Entity_OBB(1.7, 2.7, 2.0, 1.0, 0.0, -1.0, glm::vec3(0,0,45)),									// R9 North wall West of Door
+		Entity_OBB(25.7, 2.7, 2.0, 19.0, 0.0, -1.0, glm::vec3(0,0,45)),									// R9 North wall East of Door & R6 South wall
+
+		Entity_OBB(1.0, 2.7, 2.0, 27.5, 0.0, 8.0, glm::vec3(0,0,45)),									// C8 East Wall
+		Entity_OBB(1.0, 2.7, 2.0, 24.7, 0.0, 11.0, glm::vec3(0,0,45)),									// C8 South Wall East of door
+
+		Entity_OBB(1.0, 8.7, 2.0, 13.7, 0.0, 18.0, glm::vec3(0,0,45)),									// R10 West wall
+		Entity_OBB(9.7, 1.0, 2.0, 20.7, 0.0, 22.3, glm::vec3(0,0,45)),									// R10 South wall
+
+		Entity_OBB(16.7, 16.7, 2.0, 35.7, 0.0, 27.3, glm::vec3(0,0,45)),								// R10 East Wall South of Door & C9 South, & R11 East & R12 East
+		Entity_OBB(30, 2.7, 2.0, 42.0, 0.0, 13.7, glm::vec3(0,0,45)),									// R10 East Wall North of Door & C9 & R11 North
+
+		Entity_OBB(2.7, 30.0, 2.0, 58.3, 0.0, 29.7, glm::vec3(0,0,45)),									// R11 East, R12 East, C10 East
+
+		Entity_OBB(6.0, 2.3, 2.0, 54.3, 0.0, 26.0, glm::vec3(0,0,45)),									// R11 South Wall West of Door
+		Entity_OBB(5.5, 2.3, 2.0, 44.3, 0.0, 26.0, glm::vec3(0,0,45)),									// R11 South Wall East of Door
+
+		Entity_OBB(6.0, 2.3, 2.0, 54.3, 0.0, 38.0, glm::vec3(0,0,45)),									// R12 South Wall East of door
+
+		Entity_OBB(32.0, 2.3, 2.0, 30.7, 0.0, 38.0, glm::vec3(0,0,45)),									// R12 South Wall West of Door & C10 North Wall
+		
+		Entity_OBB(9.7, 2.3, 2.0, 10.7, 0.0, 32.0, glm::vec3(0,0,45)),									// R13 North Wall
+		Entity_OBB(1.0, 2.7, 2.0, 15.3, 0.0, 35.0, glm::vec3(0,0,45)),									// R13 East
+		Entity_OBB(1.0, 5.7, 2.0, 4.3, 0.0, 36.0, glm::vec3(0,0,45)),									// R13 West 
+
+		Entity_OBB(40.0, 2.0, 2.0, -16.0, 0.0, 38.0, glm::vec3(0,0,45)),								// C11 North
+
+
 
 
 		Entity_OBB(13, 1.0, 1.0, -66.0, 1.0, -9.7, glm::vec3(0,0,45)),
@@ -2004,14 +2040,6 @@ void sceneManager::spawnDoors()																												// Blender x= x, y = 
 	gameObjects[1].modelDraw(*ourShader);
 	modelStack.pop();
 
-	//modelStack.push(modelStack.top());
-	//modelStack.top() = glm::translate(modelStack.top(), glm::vec3(11.0f, 0.0f, -23.5f));
-	//modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	//modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
-	//ourShader->setMat4("modelView", modelStack.top());
-	//gameObjects[1].modelDraw(*ourShader);
-	//modelStack.pop();
-
 	modelStack.push(modelStack.top());																												//C7 - R16 
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-11.0f, door30Height, 11.5f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
@@ -2378,20 +2406,20 @@ void sceneManager::spawnChargers()
 	gameObjects[3].modelDraw(*ourShader);
 	modelStack.pop();
 
-	modelStack.push(modelStack.top());																								// Ammo Room 12
+	modelStack.push(modelStack.top());																								// Health Room 12
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(44.7f, -1.0f, 34.8f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
 	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[3].modelDraw(*ourShader);
+	gameObjects[2].modelDraw(*ourShader);
 	modelStack.pop();
 
-	modelStack.push(modelStack.top());																								// Health room 12
+	modelStack.push(modelStack.top());																								// Ammo room 12 
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(54.0f, -1.0f, 27.7f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(2.0, 2.0, 2.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(90 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[2].modelDraw(*ourShader);
+	gameObjects[3].modelDraw(*ourShader);
 	modelStack.pop();
 
 

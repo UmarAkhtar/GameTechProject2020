@@ -63,7 +63,7 @@ public:
 	SDL_Window* window;
 	SDL_Window* setupRC(SDL_GLContext& context);
 	int health = 100;
-	bool key1Found, key2Found, key3Found, key4Found, key5Found, key6Found, key7Found, key8Found, key9Found, key10Found, key11Found, key12Found = true;
+	bool key1Found, key2Found, key3Found, key4Found, key5Found, key6Found, key7Found, key8Found, key9Found, key10Found, key11Found, key12Found = false;
 	shared_ptr<Shader> ourShader;
 	shared_ptr<Model> ourModel;
 	
