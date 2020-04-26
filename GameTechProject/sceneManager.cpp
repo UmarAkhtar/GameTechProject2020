@@ -15,14 +15,15 @@ void sceneManager::glewInitilisation()
 
 void sceneManager::initMusic()
 {
-	sm = new SoundManager(2);
+	sm = new SoundManager(3);
 	sm->init();
-	samples = new HSAMPLE[2];
+	samples = new HSAMPLE[3];
 	// Following comment is from source basstest file!
 	/* Load a sample from "file" and give it a max of 3 simultaneous
 	playings using playback position as override decider */
-	samples[0] = sm->loadSample("Trot.wav");
-	samples[1] = sm->loadSample("space.mp3");
+	samples[0] = sm->loadSample("../GameTechProject/audio/Trot.wav");
+	samples[1] = sm->loadSample("../GameTechProject/audio/space.mp3");
+	samples[2] = sm->loadSample("../GameTechProject/audio/Door.mp3");
 
 	HCHANNEL ch = BASS_SampleGetChannel(samples[1], FALSE);
 	sm->setAttributes(0, &ch, 0, 0.01, 0);
@@ -361,7 +362,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	door30Height = yAxisDown;
 
 	//eye = {-67.0, 1.3, -3.3 };
-	eye = { -4.0, 1.3, 41.0 };
+	eye = { 50.0, 1.3, 32.0 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
@@ -808,7 +809,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			doorOneHeight = yAxisUp;
 			doors[1] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
 			doors[0] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
-			doorOneHeight = yAxisUp;
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -843,6 +848,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			doorTwoHeight = yAxisUp;
 			doors[2] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0, 0, 45));
 			doors[3] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -876,6 +886,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			doorThreeHeight = yAxisUp;
 			doors[4] = Entity_OBB(1.0f, 5.0f, 1.0f, -19.5, doorThreeHeight, -3.5, glm::vec3(0, 0, 45));
 			doors[5] = Entity_OBB(5.0f, 5.0f, 1.0f, -19.5, doorThreeHeight, -3.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -909,6 +924,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			doorFourHeight = yAxisUp;
 			doors[6] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorFourHeight, -15.5, glm::vec3(0, 0, 45));
 			doors[7] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorFourHeight, -15.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -942,6 +962,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			doorFiveHeight = yAxisUp;
 			doors[8] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorFiveHeight, -21.5, glm::vec3(0, 0, 45));
 			doors[9] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorFiveHeight, -21.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -976,6 +1001,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			doorSixHeight = yAxisUp;
 			doors[10] = Entity_OBB(1.5f, 1.0f, 1.0f, -50.0, doorSixHeight, -21.5, glm::vec3(0, 0, 45));
 			doors[11] = Entity_OBB(1.0f, 5.0f, 1.0f, -50.0, doorSixHeight, -21.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1010,6 +1040,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			doorSevenHeight = yAxisUp;
 			doors[12] = Entity_OBB(1.5f, 1.0f, 1.0f, -50.0, doorSevenHeight, -21.5, glm::vec3(0, 0, 45));
 			doors[13] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorSevenHeight, -33.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1044,6 +1079,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			doorEightHeight = yAxisUp;
 			doors[14] = Entity_OBB(1.5f, 1.0f, 1.0f, -1.5, doorEightHeight, -37.5, glm::vec3(0, 0, 45));
 			doors[15] = Entity_OBB(1.0f, 5.0f, 1.0f, -1.5, doorEightHeight, -37.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1078,6 +1118,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			doorNineHeight = yAxisUp;
 			doors[16] = Entity_OBB(1.0f, 1.0f, 1.0f, 4.0, doorNineHeight, -31.5, glm::vec3(0, 0, 45));
 			doors[17] = Entity_OBB(5.0f, 1.0f, 1.0f, 4.0, doorNineHeight, -31.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1112,6 +1157,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			doorTenHeight = yAxisUp;
 			doors[18] = Entity_OBB(1.5f, 1.0f, 1.0f, 4.0, doorTenHeight, -18.5, glm::vec3(0, 0, 45));
 			doors[19] = Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, doorTenHeight, -18.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1146,6 +1196,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door11Height = yAxisUp;
 			doors[20] = Entity_OBB(1.5f, 1.0f, 1.0f, 4.0, door11Height, -13.5, glm::vec3(0, 0, 45));
 			doors[21] = Entity_OBB(1.0f, 5.0f, 1.0f, 4.0, door11Height, -13.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1180,6 +1235,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door12Height = yAxisUp;
 			doors[22] = Entity_OBB(1.5f, 1.0f, 1.0f, 25.0, door12Height, -18.5, glm::vec3(0, 0, 45));
 			doors[23] = Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door12Height, -18.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1214,6 +1274,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door13Height = yAxisUp;
 			doors[24] = Entity_OBB(1.5f, 1.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0, 0, 45));
 			doors[25] = Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1249,6 +1314,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door14Height = yAxisUp;
 			doors[26] = Entity_OBB(1.0f, 1.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0, 0, 45));
 			doors[27] = Entity_OBB(5.0f, 1.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1284,6 +1354,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door15Height = yAxisUp;
 			doors[28] = Entity_OBB(2.0f, 1.0f, 1.0f, -35.0, door15Height, -3.5, glm::vec3(0, 0, 45));
 			doors[29] = Entity_OBB(2.0f, 5.0f, 1.0f, -14.0, door15Height, -9.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1319,6 +1394,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door16Height = yAxisUp;
 			doors[30] = Entity_OBB(2.0f, 1.0f, 1.0f, 4.0, door16Height, -0.5, glm::vec3(0, 0, 45));
 			doors[31] = Entity_OBB(2.0f, 5.0f, 1.0f, 4.0, door16Height, -0.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1354,6 +1434,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door17Height = yAxisUp;
 			doors[32] = Entity_OBB(1.0f, 2.0f, 1.0f, -1.5, door17Height, 8.0, glm::vec3(0, 0, 45));
 			doors[33] = Entity_OBB(5.0f, 2.0f, 1.0f, -1.5, door17Height, 8.0, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1389,6 +1474,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door18Height = yAxisUp;
 			doors[34] = Entity_OBB(1.0f, 2.0f, 1.0f, 12.5, door18Height, 8.0, glm::vec3(0, 0, 45));
 			doors[35] = Entity_OBB(5.0f, 2.0f, 1.0f, 12.5, door18Height, 8.0, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1424,6 +1514,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door19Height = yAxisUp;
 			doors[36] = Entity_OBB(2.0f, 1.0f, 1.0f, 22.0, door19Height, 11.5, glm::vec3(0, 0, 45));
 			doors[37] = Entity_OBB(1.0f, 5.0f, 1.0f, 22.0, door19Height, 11.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1459,6 +1554,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door20Height = yAxisUp;
 			doors[38] = Entity_OBB(1.0f, 2.0f, 1.0f, 27.5, door20Height, 17.0, glm::vec3(0, 0, 45));
 			doors[39] = Entity_OBB(5.0f, 2.0f, 1.0f, 27.5, door20Height, 17.0, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1493,6 +1593,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door21Height = yAxisUp;
 			doors[40] = Entity_OBB(2.0f, 1.0f, 1.0f, 49.0, door21Height, 26.5, glm::vec3(0, 0, 45));
 			doors[41] = Entity_OBB(1.0f, 5.0f, 1.0f, 49.0, door21Height, 26.5, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1527,6 +1632,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door22Height = yAxisUp;
 			doors[42] = Entity_OBB(2.0f, 1.0f, 1.0f, 49.0f, door22Height, 38.5f, glm::vec3(0, 0, 45));
 			doors[43] = Entity_OBB(1.0f, 5.0f, 1.0f, 49.0f, door22Height, 38.5f, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1561,6 +1671,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door23Height = yAxisUp;
 			doors[44] = Entity_OBB(1.0f, 2.0f, 1.0f, 15.0f, door23Height, 41.0f, glm::vec3(0, 0, 45));
 			doors[45] = Entity_OBB(5.0f, 2.0f, 1.0f, 15.0f, door23Height, 41.0f, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1595,6 +1710,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door24Height = yAxisUp;
 			doors[46] = Entity_OBB(1.0f, 2.0f, 1.0f, 4.5f, door24Height, 41.0f, glm::vec3(0, 0, 45));
 			doors[47] = Entity_OBB(5.0f, 2.0f, 1.0f, 4.5f, door24Height, 41.0f, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1629,6 +1749,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door25Height = yAxisUp;
 			doors[48] = Entity_OBB(1.0f, 2.0f, 1.0f, -35.5f, door25Height, 41.0f, glm::vec3(0, 0, 45));
 			doors[49] = Entity_OBB(5.0f, 2.0f, 1.0f, -35.5f, door25Height, 41.0f, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1663,6 +1788,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door26Height = yAxisUp;
 			doors[50] = Entity_OBB(1.0f, 2.0f, 1.0f, -35.5f, door26Height, 29.0f, glm::vec3(0, 0, 45));
 			doors[51] = Entity_OBB(5.0f, 2.0f, 1.0f, -35.5f, door26Height, 29.0f, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1697,6 +1827,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door27Height = yAxisUp;
 			doors[52] = Entity_OBB(1.0f, 2.0f, 1.0f, -28.5f, door27Height, 29.0f, glm::vec3(0, 0, 45));
 			doors[53] = Entity_OBB(5.0f, 2.0f, 1.0f, -28.5f, door27Height, 29.0f, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1731,6 +1866,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door28Height = yAxisUp;
 			doors[54] = Entity_OBB(1.0f, 2.0f, 1.0f, -16.5f, door28Height, 29.0f, glm::vec3(0, 0, 45));
 			doors[55] = Entity_OBB(5.0f, 2.0f, 1.0f, -16.5f, door28Height, 29.0f, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1765,6 +1905,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door29Height = yAxisUp;
 			doors[56] = Entity_OBB(2.0f, 1.0f, 1.0f, -11.0f, door29Height, 23.5f, glm::vec3(0, 0, 45));
 			doors[57] = Entity_OBB(1.0f, 5.0f, 1.0f, -11.0f, door29Height, 23.5f, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{
@@ -1799,6 +1944,11 @@ void sceneManager::doorCollision(const Uint8* keys)
 			door30Height = yAxisUp;
 			doors[58] = Entity_OBB(2.0f, 1.0f, 1.0f, -11.0f, door30Height, 11.5f, glm::vec3(0, 0, 45));
 			doors[59] = Entity_OBB(1.0f, 5.0f, 1.0f, -11.0f, door30Height, 11.5f, glm::vec3(0, 0, 45));
+
+			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.05, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 		else
 		{

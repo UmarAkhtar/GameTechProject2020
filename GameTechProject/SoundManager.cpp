@@ -27,7 +27,7 @@ HSAMPLE SoundManager::loadSample(char* filename)
 	}
 	return m_sample[0];
 
-	// Dont know if this will work for later will need to consult peter - UA
+	
 }
 
 
