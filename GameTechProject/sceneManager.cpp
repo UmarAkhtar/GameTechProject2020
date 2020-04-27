@@ -49,6 +49,8 @@ void sceneManager::loadModel()
 	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Spaceship.obj"));									// [6] Small ship
 	gameObjects.push_back(Model("../GameTechProject/models/dockingBay/Luminaris_OBJ.obj"));								// [7] Big ship
 	gameObjects.push_back(Model("../GameTechProject/cube.obj"));														// [8] Cube for light
+	gameObjects.push_back(Model("../GameTechProject/models/alien/alien.obj"));											// [9] Alien
+	gameObjects.push_back(Model("../GameTechProject/models/keycard/Card.obj"));											// [10] Keycard
 }
 
 void sceneManager::loadShader()
@@ -2055,6 +2057,22 @@ void sceneManager::draw()
 	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[0].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																							// Alien
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(50.0f, 0.0f, 32.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(270 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[9].modelDraw(*ourShader);
+	modelStack.pop();
+
+	modelStack.push(modelStack.top());																							// Keycard
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(50.0f, 0.0f, 32.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[10].modelDraw(*ourShader);
 	modelStack.pop();
 
 	spawnBeds();

@@ -1,0 +1,29 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl uv_1
+Ns 18.000005
+Ka 1.000000 1.000000 1.000000
+Kd 0.764706 0.000000 0.792157
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+
+map_kd T_Biomech_Mutant_Skin_2_Top_Bloody_a.png
+bump T_Biomech_Mutant_Skin_2_Top_Bloody_n.png
+map_bump T_Biomech_Mutant_Skin_2_Top_Bloody_n.png
+
+newmtl uv_2
+Ns 18.000005
+Ka 1.000000 1.000000 1.000000
+Kd 0.035294 0.717647 0.662745
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_kd T_Biomech_Mutant_Skin_2_Bottom_Bloody_a.png
+bump T_Biomech_Mutant_Skin_2_Bottom_Bloody_n.png
+map_bump T_Biomech_Mutant_Skin_2_Bottom_Bloody_n.png
