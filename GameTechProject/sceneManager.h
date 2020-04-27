@@ -36,8 +36,11 @@ private:
 	void spawnBeds();
 	void spawnDoors();
 	void spawnChargers();
+	void spawnKeys();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
+	void doorCollision(const Uint8* keys);
+	void keyCollision(const Uint8* keys);
 
 
 	int windowWidth;
@@ -48,11 +51,8 @@ public:
 	sceneManager(int windowWidth, int windowHeight); // constructor	
 	~sceneManager();
 	void draw();
-	
-
 	void update();
 
-	void doorCollision(const Uint8* keys);
 
 	SoundManager* sm;
 	HSAMPLE* samples = NULL;
@@ -72,7 +72,7 @@ public:
 	//vector<Supply_Point> doors;
 	vector<Entity_OBB> doors;
 	vector<Supply_Point> supplyPoints;
-	vector<Entity_Sphere> testVec;
+	vector<Entity_Sphere> keyCards;
 	//vector<Enemy> enemies;
 	//vector<Node> nodesList;
 	collisionHandler theCollisionHandler;
@@ -158,6 +158,21 @@ public:
 	   glm::vec3(-23.0f, 2.9f, 29.0f),
 	   glm::vec3(-10.0f, 2.9f, 29.0f),
 	   glm::vec3(-10.0f, 2.9f, 17.0f),
+	};
+
+	glm::vec3 keyPosition[11] =
+	{
+		glm::vec3(-63.0f, 0.0f, -1.0f),
+		glm::vec3(-44.0f, 0.0f, -28.0f),
+		glm::vec3(7.0f, 0.0f, -36.0f),
+		glm::vec3(-10.0f, 0.0f, -14.0f),
+		glm::vec3(28.0f, 0.0f, -6.0f),
+		glm::vec3(40.0f, 0.0f, 17.0f),
+		glm::vec3(54.0f, 0.0f, 20.0f),
+		glm::vec3(55.0f, 0.0f, 41.0f),
+		glm::vec3(2.0f, 0.0f, 41.0f),
+		glm::vec3(6.0f, 0.0f, 32.0f),
+		glm::vec3(-21.0f, 0.0f, 26.0f),
 	};
 
 

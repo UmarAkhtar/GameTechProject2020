@@ -15,15 +15,18 @@ void sceneManager::glewInitilisation()
 
 void sceneManager::initMusic()
 {
-	sm = new SoundManager(3);
+	sm = new SoundManager(5);
 	sm->init();
-	samples = new HSAMPLE[3];
+	samples = new HSAMPLE[5];
 	// Following comment is from source basstest file!
 	/* Load a sample from "file" and give it a max of 3 simultaneous
 	playings using playback position as override decider */
 	samples[0] = sm->loadSample("../GameTechProject/audio/Trot.wav");
 	samples[1] = sm->loadSample("../GameTechProject/audio/space.mp3");
 	samples[2] = sm->loadSample("../GameTechProject/audio/Door.mp3");
+	samples[3] = sm->loadSample("../GameTechProject/audio/incorrectDoor.mp3");
+	samples[4] = sm->loadSample("../GameTechProject/audio/keyPickup.mp3");
+
 
 	HCHANNEL ch = BASS_SampleGetChannel(samples[1], FALSE);
 	sm->setAttributes(0, &ch, 0, 0.01, 0);
@@ -364,7 +367,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	door30Height = yAxisDown;
 
 	//eye = {-67.0, 1.3, -3.3 };
-	eye = { 50.0, 1.3, 32.0 };
+	eye = { -67.0, 1.3, -3.0 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
@@ -424,20 +427,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 		Entity_OBB(1.0, 5.7, 2.0, 4.3, 0.0, 36.0, glm::vec3(0,0,45)),									// R13 West 
 
 		Entity_OBB(40.0, 2.0, 2.0, -16.0, 0.0, 38.0, glm::vec3(0,0,45)),								// C11 North
-
-
-
-
-		Entity_OBB(13, 1.0, 1.0, -66.0, 1.0, -9.7, glm::vec3(0,0,45)),
-		Entity_OBB(1, 13, 1.0, -73.5, 1.0, -4, glm::vec3(0,0,45)),
-		Entity_OBB(13, 1, 1.0, -66.0, 1.0, 4.5, glm::vec3(0,0,45)),
-		Entity_OBB(1, 5, 1.0, -59.5, 1.0, -6, glm::vec3(0,0,45)),
-		Entity_OBB(1, 1, 1.0, -59.5, 1.0, 2, glm::vec3(0,0,45)),
-		Entity_OBB(58, 1.5, 2.0, -30, 1.0, 2, glm::vec3(0,0,45)),
-		Entity_OBB(22, 1.5, 2.0, -48, 1.0, -4, glm::vec3(0,0,45)),
-		Entity_OBB(14, 1.5, 2.0, -25, 1.0, -4, glm::vec3(0,0,45)),
-		
-		
+			   		 	
 		///////////////// TOP HALF OF MAP ABOVE ROOM 9////////////////////////////
 		Entity_OBB(13, 1.0, 1.0, -66.0, 1.0, -9.7, glm::vec3(0,0,45)),
 		Entity_OBB(1, 13, 1.0, -73.5, 1.0, -4, glm::vec3(0,0,45)),
@@ -519,7 +509,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 		Entity_OBB(1.0f, 5.0f, 1.0f, 25.0, door13Height, -13.5, glm::vec3(0,0,45)),					// [25] C5 - R6 Collider for door E press
 		Entity_OBB(1.0f, 2.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0,0,45)),					// [26] C5 - R7 Door
 		Entity_OBB(5.0f, 1.0f, 1.0f, -5.5, door14Height, -16.0, glm::vec3(0,0,45)),					// [27] C5 - R7 Collider for door E press
-		Entity_OBB(2.0f, 1.0f, 1.0f, -35.0, door15Height, -3.5, glm::vec3(0,0,45)),					// [27] R8 - R7 Door
+		Entity_OBB(2.0f, 1.0f, 1.0f, -14.0, door15Height, -9.5, glm::vec3(0,0,45)),					// [28] R8 - R7 Door
 		Entity_OBB(2.0f, 5.0f, 1.0f, -14.0, door15Height, -9.5, glm::vec3(0,0,45)),					// [29] R8 - R7 Collider for door E press
 		Entity_OBB(2.0f, 1.0f, 1.0f, 4.0, door16Height, -0.5, glm::vec3(0,0,45)),					// [30] C6 - R9 Door
 		Entity_OBB(2.0f, 5.0f, 1.0f, 4.0, door16Height, -0.5, glm::vec3(0,0,45)),					// [31] C6 - R9 Collider for door E press
@@ -558,9 +548,20 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 		//glm::vec3(4.2f, -1.0f, -11.0f)
 		Supply_Point(0.02,4.2f, 1.0f, -11.6f,glm::vec3(0,90,0),true)
 	};
-	testVec =
+	keyCards =
 	{
-		Entity_Sphere(0.5, 5.0, 0.0, -8.0, glm::vec3(0, 90, 0))
+		Entity_Sphere(0.2, -63.0f, 1.0f, -1.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, -44.0f, 1.0f, -28.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, 7.0f, 1.0f, -36.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, -10.0f, 1.0f, -14.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, 28.0f, 1.0f, -6.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, 40.0f, 1.0f, 17.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, 54.0f, 1.0f, 20.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, 55.0f, 1.0f, 41.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, 2.0f, 1.0f, 41.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, 6.0f, 1.0f, 32.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, -21.0f, 1.0f, 26.0f, glm::vec3(0, 90, 0)),
+
 	};
 
 	collisionHandler theCollisionHandler;
@@ -600,11 +601,8 @@ void sceneManager::update()
 		}
 	}
 
-	doorCollision(keys);
-
-
-		
-
+	doorCollision(keys);	
+	keyCollision(keys);
 
 
 		for (int i = 0; i < environment.size(); i++)
@@ -628,26 +626,6 @@ void sceneManager::update()
 		eye.x = thePlayer.getX();
 		eye.y = thePlayer.getY();
 		eye.z = thePlayer.getZ();
-
-
-
-
-
-
-
-
-
-
-
-
-		//if (theCollisionHandler.checkCollisionSphere((testVec[0]), rayMouseTest)) /*players collides with environment[i]*/
-		//{
-		//	cout << "sphere ray test" << endl;
-		//}
-		
-	//}
-
-
 
 	
 	thePlayer.setHealth(health);
@@ -730,106 +708,9 @@ void sceneManager::update()
 	{
 		rotation += 1.0f;
 	}
-
-
-	if (keys[SDL_SCANCODE_2])
-	{
-		key1Found = true;
-		Sleep(300);
-		cout << "Key 1 Found, Open the door infront of you1" << endl;
-		Sleep(300);
-	}
-
-	if (keys[SDL_SCANCODE_3])
-	{
-		key2Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-
-	if (keys[SDL_SCANCODE_4])
-	{
-		key3Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-
-	if (keys[SDL_SCANCODE_5])
-	{
-		key4Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-
-	if (keys[SDL_SCANCODE_6])
-	{
-		key5Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-	if (keys[SDL_SCANCODE_7])
-	{
-		key6Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-
-	if (keys[SDL_SCANCODE_8])
-	{
-		key7Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-
-	if (keys[SDL_SCANCODE_9])
-	{
-		key8Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-
-	if (keys[SDL_SCANCODE_0])
-	{
-		key9Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-
-	if (keys[SDL_SCANCODE_P])
-	{
-		key10Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-
-	if (keys[SDL_SCANCODE_O])
-	{
-		key11Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-
-	if (keys[SDL_SCANCODE_M])
-	{
-		key12Found = true;
-		Sleep(300);
-		cout << "Key 2 Found, Open the door on your left" << endl;
-		Sleep(300);
-	}
-
-	
-
 }
+
+
 void sceneManager::doorCollision(const Uint8* keys)
 {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// For first door in bay Both colliders allow for uses of E to open door when key is collected
@@ -838,9 +719,6 @@ void sceneManager::doorCollision(const Uint8* keys)
 		if (key1Found == true && (keys[SDL_SCANCODE_E]))
 		{
 			cout << "Door test" << endl << endl;
-			//doorOneHeight = testDoorVectorUp;
-			//doors[0] = Entity_OBB(1.0f, 1.0f, 1.0f, -59.5, doorOneHeight, -1.0, glm::vec3(0, 0, 45));
-			//doorOneHeight = yAxisUp;
 			eye.x = thePlayer.getX();
 			eye.y = thePlayer.getY();
 			eye.z = thePlayer.getZ();
@@ -869,9 +747,13 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 
 	}
@@ -887,7 +769,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 		}
 		else
 		{
-			cout << "Door " << endl;
+			cout << "Door 2" << endl;
 			thePlayer.setX(eye.x);
 			thePlayer.setY(eye.y);
 			thePlayer.setZ(eye.z);
@@ -898,7 +780,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 	{
 		if ((keys[SDL_SCANCODE_E]))
 		{
-			cout << "Door collision" << endl << endl;
+			cout << "Door collision 2" << endl << endl;
 			doorTwoHeight = yAxisUp;
 			doors[2] = Entity_OBB(1.5f, 1.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0, 0, 45));
 			doors[3] = Entity_OBB(1.0f, 5.0f, 1.0f, -35.0, doorTwoHeight, -3.5, glm::vec3(0, 0, 45));
@@ -910,7 +792,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 		}
 		else
 		{
-			cout << "Door collision" << endl;
+			cout << "Door collision door 2" << endl;
 		}
 
 	}
@@ -925,7 +807,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 		}
 		else
 		{
-			cout << "Door " << endl;
+			cout << "Door 3" << endl;
 			thePlayer.setX(eye.x);
 			thePlayer.setY(eye.y);
 			thePlayer.setZ(eye.z);
@@ -948,7 +830,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 		}
 		else
 		{
-			cout << "Door collision" << endl;
+			cout << "Door collision 3" << endl;
 		}
 
 	}
@@ -1139,9 +1021,14 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Door collision" << endl;
+			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 
 	}
@@ -1217,9 +1104,14 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Door collision" << endl;
+			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 
 	}
@@ -1256,9 +1148,14 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else  if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Door collision" << endl;
+			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 
 	}
@@ -1374,9 +1271,14 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Key not found" << endl;
+			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 
 	}
@@ -1392,7 +1294,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 		}
 		else
 		{
-			cout << "Door " << endl;
+			cout << "Door R8 - R7" << endl;
 			thePlayer.setX(eye.x);
 			thePlayer.setY(eye.y);
 			thePlayer.setZ(eye.z);
@@ -1406,8 +1308,10 @@ void sceneManager::doorCollision(const Uint8* keys)
 		{
 			cout << "Door open" << endl << endl;
 			door15Height = yAxisUp;
-			doors[28] = Entity_OBB(2.0f, 1.0f, 1.0f, -35.0, door15Height, -3.5, glm::vec3(0, 0, 45));
+			doors[28] = Entity_OBB(2.0f, 1.0f, 1.0f, -14.0, door15Height, -9.5, glm::vec3(0, 0, 45));
 			doors[29] = Entity_OBB(2.0f, 5.0f, 1.0f, -14.0, door15Height, -9.5, glm::vec3(0, 0, 45));
+
+
 
 			HCHANNEL ch = BASS_SampleGetChannel(samples[2], FALSE);
 			sm->setAttributes(0, &ch, 0, 0.05, 0);
@@ -1653,10 +1557,16 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Door collision" << endl;
+			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
+		
 
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R12 - C10
@@ -1770,9 +1680,14 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Door collision" << endl;
+			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 
 	}
@@ -1809,16 +1724,21 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Door collision" << endl;
+			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 
 	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C12 - Docking
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C12 - Docking ------- FIX SHOULDNT NEED KEY
 	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[50]))
 	{
-		if (key9Found == true && (keys[SDL_SCANCODE_E]))
+		if (keys[SDL_SCANCODE_E])
 		{
 			eye.x = thePlayer.getX();
 			eye.y = thePlayer.getY();
@@ -1836,7 +1756,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 
 	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[51]))
 	{
-		if (key9Found == true && (keys[SDL_SCANCODE_E]))
+		if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Door collision" << endl << endl;
 			door26Height = yAxisUp;
@@ -1851,6 +1771,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 		else
 		{
 			cout << "Door collision" << endl;
+		
 		}
 
 	}
@@ -1875,7 +1796,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 
 	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[53]))
 	{
-		if (key10Found == true && (keys[SDL_SCANCODE_E]))
+		if (key9Found == true && (keys[SDL_SCANCODE_E]))
 		{
 			cout << "Door collision" << endl << endl;
 			door27Height = yAxisUp;
@@ -1887,16 +1808,21 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Door collision" << endl;
+			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 
 	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R16 - R15 Key in C9
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C15 - R14
 	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[54]))
 	{
-		if (key9Found == true && (keys[SDL_SCANCODE_E]))
+		if (key10Found == true && (keys[SDL_SCANCODE_E]))
 		{
 			eye.x = thePlayer.getX();
 			eye.y = thePlayer.getY();
@@ -1904,7 +1830,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 		}
 		else
 		{
-			cout << "Door " << endl;
+			cout << "Door" << endl;
 			thePlayer.setX(eye.x);
 			thePlayer.setY(eye.y);
 			thePlayer.setZ(eye.z);
@@ -1914,7 +1840,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 
 	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[55]))
 	{
-		if (key11Found == true && (keys[SDL_SCANCODE_E]))
+		if (key10Found == true && (keys[SDL_SCANCODE_E]))
 		{
 			cout << "Door collision" << endl << endl;
 			door28Height = yAxisUp;
@@ -1926,16 +1852,21 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Door collision" << endl;
+			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 
 	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C7 - R16
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// R16 - R15
 	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[56]))
 	{
-		if (key9Found == true && (keys[SDL_SCANCODE_E]))
+		if (key11Found == true && (keys[SDL_SCANCODE_E]))
 		{
 			eye.x = thePlayer.getX();
 			eye.y = thePlayer.getY();
@@ -1943,7 +1874,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 		}
 		else
 		{
-			cout << "Door " << endl;
+			cout << "Door R16 - C7" << endl;
 			thePlayer.setX(eye.x);
 			thePlayer.setY(eye.y);
 			thePlayer.setZ(eye.z);
@@ -1953,7 +1884,7 @@ void sceneManager::doorCollision(const Uint8* keys)
 
 	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, doors[57]))
 	{
-		if (key12Found == true && (keys[SDL_SCANCODE_E]))
+		if (key11Found == true && (keys[SDL_SCANCODE_E]))
 		{
 			cout << "Door collision" << endl << endl;
 			door29Height = yAxisUp;
@@ -1965,9 +1896,14 @@ void sceneManager::doorCollision(const Uint8* keys)
 			if (!BASS_ChannelPlay(ch, FALSE))
 				cout << "Can't play sample" << endl;
 		}
-		else
+		else if (keys[SDL_SCANCODE_E])
 		{
 			cout << "Door collision" << endl;
+			cout << "Key not found" << endl;
+			HCHANNEL ch = BASS_SampleGetChannel(samples[3], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
 		}
 
 	}
@@ -2011,6 +1947,143 @@ void sceneManager::doorCollision(const Uint8* keys)
 
 	}
 }
+
+void sceneManager::keyCollision(const Uint8* keys)
+{
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[0]))
+	{
+		key1Found = true;
+		cout << "Keycard" << endl;		
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[0] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[1]))
+	{
+		key2Found = true;
+		cout << "Keycard" << endl;
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[1] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[2]))
+	{
+		key3Found = true;
+		cout << "Keycard" << endl;
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[2] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[3]))
+	{
+		key5Found = true;
+		cout << "Keycard" << endl;
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[3] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[4]))
+	{
+		key4Found = true;
+		cout << "Keycard" << endl;
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[4] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[6]))
+	{
+		key6Found = true;
+		cout << "Keycard" << endl;
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[5] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[7]))
+	{
+		key7Found = true;
+		cout << "Keycard" << endl;
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[6] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[8]))
+	{
+		key8Found = true;
+		cout << "Keycard" << endl;
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[7] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[10]))
+	{
+		key9Found = true;
+		cout << "Keycard" << endl;
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[10] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[9]))
+	{
+		key10Found = true;
+		cout << "Keycard" << endl;
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[9] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[5]))
+	{
+		key11Found = true;
+		cout << "Keycard" << endl;
+		HCHANNEL ch = BASS_SampleGetChannel(samples[4], FALSE);
+		sm->setAttributes(0, &ch, 0, 0.1, 0);
+		if (!BASS_ChannelPlay(ch, FALSE))
+			cout << "Can't play sample" << endl;
+
+		keyCards[5] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+	}
+
+}
+
 sceneManager::~sceneManager()
 {
 	
@@ -2025,7 +2098,7 @@ void sceneManager::draw()
 
 
 	
-	cout << eye.x << " " << eye.y << " " << eye.z << endl;
+	//cout << eye.x << " " << eye.y << " " << eye.z << endl;
 
 	glm::mat4 projection(1.0);
 	projection = glm::perspective(float(60.0f * DEG_TO_RADIAN), 800.0f / 600.0f, 0.1f, 150.0f);
@@ -2130,6 +2203,7 @@ void sceneManager::draw()
 	spawnBeds();
 	spawnDoors();
 	spawnChargers();
+	spawnKeys();
 		
 	cubeShader->use();
 	cubeShader->setMat4("projection", projection);
@@ -2650,6 +2724,131 @@ void sceneManager::spawnChargers()
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[3].modelDraw(*ourShader);
 	modelStack.pop();
+}
+
+void sceneManager::spawnKeys()
+{
+	if (key1Found == false)																													//Key card 1 - Found in Bay, Used for Bay
+	{
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[0]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+
+	if (key2Found == false)																													//Key card 2 - Found in R3, Used for R4
+	{
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[1]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+
+	if (key3Found == false)																													//Key card 3 - Found in R4, Used for C5
+	{
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[2]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+
+	if (key4Found == false)																													//Key card 4 - Found in R6, Used for R6
+	{
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[4]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+	
+	if (key5Found == false)																													//Key card 5 - Found in R7, Used for R7
+	{		
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[3]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+
+	if (key6Found == false)																													//Key card 6 - Found in R11, Used for R12
+	{
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[6]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+
+	if (key7Found == false)																													//Key card 7 - Found in C10, Used for C13
+	{
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[7]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+
+	if (key8Found == false)																													//Key card 8 - Found in C11, Used for C11 - Docking
+	{
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[8]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+
+	if (key9Found == false)																													//Key card 92 - Found in R14, Used for R12
+	{
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[10]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+
+	if (key10Found == false)																												//Key card 10 - Found in R15, Used for R15
+	{	
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[9]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+
+	if (key11Found == false)																												//Key card 11 - Found in C9, Used for R15 - R16
+	{
+		modelStack.push(modelStack.top());																							
+		modelStack.top() = glm::translate(modelStack.top(), keyPosition[5]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[10].modelDraw(*ourShader);
+		modelStack.pop();
+	}
+	
 }
 
 
