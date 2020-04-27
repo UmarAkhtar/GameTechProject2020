@@ -332,9 +332,6 @@ glm::vec3 sceneManager::moveRight(glm::vec3 pos, GLfloat angle, GLfloat d)
 
 sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight)
 {
-	//doorOneHeight = testDoorVectorDown;
-	//doorTwoHeight = testDoorVectorDown;
-
 	doorOneHeight = yAxisDown;
 	doorTwoHeight = yAxisDown;
 	doorThreeHeight = yAxisDown;
@@ -367,7 +364,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	door30Height = yAxisDown;
 
 	//eye = {-67.0, 1.3, -3.3 };
-	eye = { -67.0, 1.3, -3.0 };
+	eye = { 50.0, 1.3, 41.0 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
@@ -550,17 +547,17 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	};
 	keyCards =
 	{
-		Entity_Sphere(0.2, -63.0f, 1.0f, -1.0f, glm::vec3(0, 90, 0)),
-		Entity_Sphere(0.2, -44.0f, 1.0f, -28.0f, glm::vec3(0, 90, 0)),
-		Entity_Sphere(0.2, 7.0f, 1.0f, -36.0f, glm::vec3(0, 90, 0)),
-		Entity_Sphere(0.2, -10.0f, 1.0f, -14.0f, glm::vec3(0, 90, 0)),
-		Entity_Sphere(0.2, 28.0f, 1.0f, -6.0f, glm::vec3(0, 90, 0)),
-		Entity_Sphere(0.2, 40.0f, 1.0f, 17.0f, glm::vec3(0, 90, 0)),
-		Entity_Sphere(0.2, 54.0f, 1.0f, 20.0f, glm::vec3(0, 90, 0)),
-		Entity_Sphere(0.2, 55.0f, 1.0f, 41.0f, glm::vec3(0, 90, 0)),
-		Entity_Sphere(0.2, 2.0f, 1.0f, 41.0f, glm::vec3(0, 90, 0)),
-		Entity_Sphere(0.2, 6.0f, 1.0f, 32.0f, glm::vec3(0, 90, 0)),
-		Entity_Sphere(0.2, -21.0f, 1.0f, 26.0f, glm::vec3(0, 90, 0)),
+		Entity_Sphere(0.2, -63.0f, 1.0f, -1.0f, glm::vec3(0, 90, 0)),				//[0]
+		Entity_Sphere(0.2, -44.0f, 1.0f, -28.0f, glm::vec3(0, 90, 0)),				//[1]
+		Entity_Sphere(0.2, 7.0f, 1.0f, -36.0f, glm::vec3(0, 90, 0)),				//[2]
+		Entity_Sphere(0.2, -10.0f, 1.0f, -14.0f, glm::vec3(0, 90, 0)),				//[3]
+		Entity_Sphere(0.2, 28.0f, 1.0f, -6.0f, glm::vec3(0, 90, 0)),				//[4]
+		Entity_Sphere(0.2, 40.0f, 1.0f, 17.0f, glm::vec3(0, 90, 0)),				//[5]
+		Entity_Sphere(0.2, 54.0f, 1.0f, 20.0f, glm::vec3(0, 90, 0)),				//[6]
+		Entity_Sphere(0.2, 55.0f, 1.0f, 41.0f, glm::vec3(0, 90, 0)),				//[7]
+		Entity_Sphere(0.2, 2.0f, 1.0f, 41.0f, glm::vec3(0, 90, 0)),					//[8]
+		Entity_Sphere(0.2, 6.0f, 1.0f, 32.0f, glm::vec3(0, 90, 0)),					//[9]
+		Entity_Sphere(0.2, -21.0f, 1.0f, 26.0f, glm::vec3(0, 90, 0)),				//[10]
 
 	};
 
@@ -2007,7 +2004,7 @@ void sceneManager::keyCollision(const Uint8* keys)
 		if (!BASS_ChannelPlay(ch, FALSE))
 			cout << "Can't play sample" << endl;
 
-		keyCards[4] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+		keyCards[4] = Entity_Sphere(0.2, 28.0f, 3.0f, -6.0f, glm::vec3(0, 90, 0));
 	}
 
 	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[6]))
@@ -2019,7 +2016,7 @@ void sceneManager::keyCollision(const Uint8* keys)
 		if (!BASS_ChannelPlay(ch, FALSE))
 			cout << "Can't play sample" << endl;
 
-		keyCards[5] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+		keyCards[6] = Entity_Sphere(0.2, 54.0f, 3.0f, 20.0f, glm::vec3(0, 90, 0));
 	}
 
 	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[7]))
@@ -2031,7 +2028,7 @@ void sceneManager::keyCollision(const Uint8* keys)
 		if (!BASS_ChannelPlay(ch, FALSE))
 			cout << "Can't play sample" << endl;
 
-		keyCards[6] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+		keyCards[7] = Entity_Sphere(0.2, 55.0f, 3.0f, 41.0f, glm::vec3(0, 90, 0));
 	}
 
 	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[8]))
@@ -2043,7 +2040,7 @@ void sceneManager::keyCollision(const Uint8* keys)
 		if (!BASS_ChannelPlay(ch, FALSE))
 			cout << "Can't play sample" << endl;
 
-		keyCards[7] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+		keyCards[8] = Entity_Sphere(0.2, 2.0f, 3.0f, 41.0f, glm::vec3(0, 90, 0));
 	}
 
 	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[10]))
@@ -2055,7 +2052,7 @@ void sceneManager::keyCollision(const Uint8* keys)
 		if (!BASS_ChannelPlay(ch, FALSE))
 			cout << "Can't play sample" << endl;
 
-		keyCards[10] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+		keyCards[10] = Entity_Sphere(0.2, -21.0f, 3.0f, 26.0f, glm::vec3(0, 90, 0));
 	}
 
 	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[9]))
@@ -2067,7 +2064,7 @@ void sceneManager::keyCollision(const Uint8* keys)
 		if (!BASS_ChannelPlay(ch, FALSE))
 			cout << "Can't play sample" << endl;
 
-		keyCards[9] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+		keyCards[9] = Entity_Sphere(0.2, 6.0f, 3.0f, 32.0f, glm::vec3(0, 90, 0));
 	}
 
 	if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, keyCards[5]))
@@ -2079,7 +2076,7 @@ void sceneManager::keyCollision(const Uint8* keys)
 		if (!BASS_ChannelPlay(ch, FALSE))
 			cout << "Can't play sample" << endl;
 
-		keyCards[5] = Entity_Sphere(0.2, -63.0f, 3.0f, -1.0f, glm::vec3(0, 90, 0));
+		keyCards[5] = Entity_Sphere(0.2, 40.0f, 3.0f, 17.0f, glm::vec3(0, 90, 0));
 	}
 
 }
