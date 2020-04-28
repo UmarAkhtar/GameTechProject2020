@@ -15,9 +15,9 @@ void sceneManager::glewInitilisation()
 
 void sceneManager::initMusic()
 {
-	sm = new SoundManager(5);
+	sm = new SoundManager(7);
 	sm->init();
-	samples = new HSAMPLE[5];
+	samples = new HSAMPLE[7];
 	// Following comment is from source basstest file!
 	/* Load a sample from "file" and give it a max of 3 simultaneous
 	playings using playback position as override decider */
@@ -26,9 +26,15 @@ void sceneManager::initMusic()
 	samples[2] = sm->loadSample("../GameTechProject/audio/Door.mp3");
 	samples[3] = sm->loadSample("../GameTechProject/audio/incorrectDoor.mp3");
 	samples[4] = sm->loadSample("../GameTechProject/audio/keyPickup.mp3");
-
+	samples[5] = sm->loadSample("../GameTechProject/audio/injured.mp3");
+	samples[6] = sm->loadSample("../GameTechProject/audio/puff.mp3");
 
 	HCHANNEL ch = BASS_SampleGetChannel(samples[1], FALSE);
+	sm->setAttributes(0, &ch, 0, 0.01, 0);
+	if (!BASS_ChannelPlay(ch, FALSE))
+		cout << "Can't play sample" << endl;
+
+	HCHANNEL ch2 = BASS_SampleGetChannel(samples[6], FALSE);
 	sm->setAttributes(0, &ch, 0, 0.01, 0);
 	if (!BASS_ChannelPlay(ch, FALSE))
 		cout << "Can't play sample" << endl;
@@ -54,6 +60,7 @@ void sceneManager::loadModel()
 	gameObjects.push_back(Model("../GameTechProject/cube.obj"));														// [8] Cube for light
 	gameObjects.push_back(Model("../GameTechProject/models/alien/alien.obj"));											// [9] Alien
 	gameObjects.push_back(Model("../GameTechProject/models/keycard/Card.obj"));											// [10] Keycard
+	gameObjects.push_back(Model("../GameTechProject/models/egg/egg.obj"));											// [11] egg
 }
 
 void sceneManager::loadShader()
@@ -364,7 +371,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	door30Height = yAxisDown;
 
 	//eye = {-67.0, 1.3, -3.3 };
-	eye = { 50.0, 1.3, 41.0 };
+	eye = { -67.0, 1.3, -3.0 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
@@ -560,6 +567,20 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 		Entity_Sphere(0.2, -21.0f, 1.0f, 26.0f, glm::vec3(0, 90, 0)),				//[10]
 
 	};
+	eggs =
+	{
+		Entity_Sphere(0.1, -62.0f, 1.0f, -4.0f, glm::vec3(0, 90, 0)),				//[0]
+		Entity_Sphere(0.2, -30.0f, 0.0f, -7.0f, glm::vec3(0, 90, 0)),				//[1]
+		Entity_Sphere(0.2, -52.0f, 0.0f, -25.0f, glm::vec3(0, 90, 0)),				//[2]
+		Entity_Sphere(0.2, 9.0f, 0.0f, -39.0f, glm::vec3(0, 90, 0)),				//[3]
+		Entity_Sphere(0.2, 25.0f, 0.0f, -22.0f, glm::vec3(0, 90, 0)),				//[4]
+		Entity_Sphere(0.2, 29.0f, 0.0f, -11.0f, glm::vec3(0, 90, 0)),				//[5]
+		Entity_Sphere(0.2, 0.0f, 0.0f, 7.0f, glm::vec3(0, 90, 0)),					//[6]
+		Entity_Sphere(0.2, 26.0f, 0.0f, 21.0f, glm::vec3(0, 90, 0)),				//[7]
+		Entity_Sphere(0.2, 14.0f, 0.0f, 34.0f, glm::vec3(0, 90, 0)),				//[8]
+		Entity_Sphere(0.2, -19.0f, 0.0f, 27.0f, glm::vec3(0, 90, 0)),				//[9]
+		Entity_Sphere(0.2, -40.0f, 0.0f, 42.0f, glm::vec3(0, 90, 0)),				//[10]
+	};
 
 	collisionHandler theCollisionHandler;
 	
@@ -600,6 +621,7 @@ void sceneManager::update()
 
 	doorCollision(keys);	
 	keyCollision(keys);
+	eggCollision();
 
 
 		for (int i = 0; i < environment.size(); i++)
@@ -2081,6 +2103,33 @@ void sceneManager::keyCollision(const Uint8* keys)
 
 }
 
+void sceneManager::eggCollision()
+{
+	for (int i = 0; i < eggs.size(); i++)
+	{
+		if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, eggs[i]))
+		{
+			HCHANNEL ch2 = BASS_SampleGetChannel(samples[6], FALSE);
+			sm->setAttributes(0, &ch2, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch2, FALSE))
+				cout << "Can't play sample" << endl;
+			health -= 1;		
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);			
+			HCHANNEL ch = BASS_SampleGetChannel(samples[5], FALSE);
+			sm->setAttributes(0, &ch, 0, 0.1, 0);
+			if (!BASS_ChannelPlay(ch, FALSE))
+				cout << "Can't play sample" << endl;
+
+			cout << "Egg collision\n";
+			cout << health << endl;
+		}
+	}
+	
+}
+
+
 sceneManager::~sceneManager()
 {
 	
@@ -2189,18 +2238,20 @@ void sceneManager::draw()
 	gameObjects[9].modelDraw(*ourShader);
 	modelStack.pop();
 
-	modelStack.push(modelStack.top());																							// Keycard
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(50.0f, 0.0f, 32.0f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
-	ourShader->setMat4("modelView", modelStack.top());
-	gameObjects[10].modelDraw(*ourShader);
-	modelStack.pop();
+
+	//modelStack.push(modelStack.top());																								// Egg
+	//modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-67.05f, 0.0f, -3.3f));
+	//modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	//modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
+	//ourShader->setMat4("modelView", modelStack.top());
+	//gameObjects[11].modelDraw(*ourShader);
+	//modelStack.pop();
 
 	spawnBeds();
 	spawnDoors();
 	spawnChargers();
 	spawnKeys();
+	spawnEggs();
 		
 	cubeShader->use();
 	cubeShader->setMat4("projection", projection);
@@ -2846,6 +2897,20 @@ void sceneManager::spawnKeys()
 		modelStack.pop();
 	}
 	
+}
+
+void sceneManager::spawnEggs()
+{
+	for (int i = 0; i < 11; i++)																									// Eggs
+	{
+
+		modelStack.push(modelStack.top());
+		modelStack.top() = glm::translate(modelStack.top(), eggPostion[i]);
+		modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+		ourShader->setMat4("modelView", modelStack.top());
+		gameObjects[11].modelDraw(*ourShader);
+		modelStack.pop();
+	}
 }
 
 

@@ -37,10 +37,13 @@ private:
 	void spawnDoors();
 	void spawnChargers();
 	void spawnKeys();
+	void spawnEggs();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
 	void doorCollision(const Uint8* keys);
 	void keyCollision(const Uint8* keys);
+	void eggCollision();
+
 
 
 	int windowWidth;
@@ -73,6 +76,7 @@ public:
 	vector<Entity_OBB> doors;
 	vector<Supply_Point> supplyPoints;
 	vector<Entity_Sphere> keyCards;
+	vector<Entity_Sphere> eggs;
 	//vector<Enemy> enemies;
 	//vector<Node> nodesList;
 	collisionHandler theCollisionHandler;
@@ -175,7 +179,20 @@ public:
 		glm::vec3(-21.0f, 0.0f, 26.0f),
 	};
 
-
+	glm::vec3 eggPostion[11] =
+	{
+		glm::vec3(-62.0f, 0.0f, -4.0f),
+		glm::vec3(-30.0f, 0.0f, -7.0f),
+		glm::vec3(-52.0f, 0.0f, -25.0f),
+		glm::vec3(9.0f, 0.0f, -39.0f),
+		glm::vec3(25.0f, 0.0f, -22.0f),
+		glm::vec3(29.0f, 0.0f, -11.0f),
+		glm::vec3(0.0f, 0.0f, 7.0f),
+		glm::vec3(26.0f, 0.0f, 21.0f),
+		glm::vec3(14.0f, 0.0f, 34.0f),
+		glm::vec3(-19.0f, 0.0f, 27.0f),
+		glm::vec3(-40.0f, 0.0f, 42.0f),
+	};
 	//glm::vec3 doorOneHeight;// = testDoorVectorDown;														//Will need one of these vars for each door
 	//glm::vec3 doorTwoHeight;
 	glm::vec3 testDoorVectorDown = { 5.3, 1, -10 };

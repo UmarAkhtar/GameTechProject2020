@@ -27,7 +27,7 @@ public:
 	float getRadius() { return radius; }
 	void setRadius(float myRadius) { radius = myRadius; }
 	int getHealth() { return health; }
-	void setHealth(int myHealth) { health= myHealth; }
+	void setHealth(int myHealth) { health = myHealth; }
 	int getAmmo() { return ammo; }
 	void setAmmo(int myAmmo) { ammo = myAmmo; }
 };

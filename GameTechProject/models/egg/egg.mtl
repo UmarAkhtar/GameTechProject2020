@@ -1,0 +1,52 @@
+# Blender MTL File: 'None'
+# Material Count: 4
+
+newmtl defaultMat
+Ns 71.999991
+Ka 1.000000 1.000000 1.000000
+Kd 0.550000 0.550000 0.550000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+
+map_Kd alienegg_baseColor.png
+bump alienegg_normal.png
+map_bump alienegg_normal.png
+
+newmtl defaultMat.001
+Ns 71.999991
+Ka 1.000000 1.000000 1.000000
+Kd 0.550000 0.550000 0.550000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+
+map_Kd baseegg_baseColor.png
+bump baseegg_normal.png
+map_bump baseegg_normal.png
+
+newmtl defaultMat.002
+Ns 71.999991
+Ka 1.000000 1.000000 1.000000
+Kd 0.550000 0.550000 0.550000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+//map_Kd C:\\Users\\k_mce\\Desktop\\egg\\source\\cobertura1.bmp
+
+newmtl defaultMat.003
+Ns 71.999991
+Ka 1.000000 1.000000 1.000000
+Kd 0.550000 0.550000 0.550000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+//map_Kd C:\\Users\\k_mce\\Desktop\\egg\\source\\cobertura2.bmp
