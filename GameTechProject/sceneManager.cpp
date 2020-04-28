@@ -549,8 +549,8 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	};
 	supplyPoints =
 	{
-		Supply_Point(0.02,-54.0f, 1.3f, -3.0f,glm::vec3(0,0,45),true), //C1
-			Supply_Point(0.02,-50.0f, 1.3f, -3.0f,glm::vec3(0,0,45),false),//C1
+		Supply_Point(0.02,-54.0f, 1.3f, -2.7f,glm::vec3(0,0,45),true), //C1
+			Supply_Point(0.02,-50.0f, 1.3f, -2.7f,glm::vec3(0,0,45),false),//C1
 				Supply_Point(0.02,-55.0f, 1.3f, -21.0f,glm::vec3(0,0,45),true), //C2
 					Supply_Point(0.02,-43.0f, 1.3f, -32.0f,glm::vec3(0,0,45),false), //R2
 					Supply_Point(0.02,11.0f, 1.3f, -34.0f,glm::vec3(0,0,45),true), //R4
@@ -627,15 +627,23 @@ void sceneManager::update()
 	{
 		if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, supplyPoints[i]))
 		{
-			if ((supplyPoints[i].getType() == true) && (thePlayer.getHealth() < 110/*health cap*/))
+			if ((keys[SDL_SCANCODE_E]) && (supplyPoints[i].getType() == true) && (thePlayer.getHealth() < 110/*health cap*/))
 			{
 				health += 1;
-	cout << "playerHealth: " << thePlayer.getHealth() << " test" << endl;
+				cout << "playerHealth: " << thePlayer.getHealth() << " test" << endl;
+				HCHANNEL ch2 = BASS_SampleGetChannel(samples[6], FALSE);
+				sm->setAttributes(0, &ch2, 0, 0.1, 0);
+				if (!BASS_ChannelPlay(ch2, FALSE))
+					cout << "Can't play sample" << endl;
 			}
-			else if ((supplyPoints[i].getType() == false) && (thePlayer.getAmmo() < 110/*ammo cap*/))
+			else if ((keys[SDL_SCANCODE_E]) && (supplyPoints[i].getType() == false) && (thePlayer.getAmmo() < 110/*ammo cap*/))
 			{
 				ammo += 1;
-	cout << "playerAmmo: " << thePlayer.getAmmo() << " test" << endl;
+				cout << "playerAmmo: " << thePlayer.getAmmo() << " test" << endl;
+				HCHANNEL ch2 = BASS_SampleGetChannel(samples[6], FALSE);
+				sm->setAttributes(0, &ch2, 0, 0.1, 0);
+				if (!BASS_ChannelPlay(ch2, FALSE))
+					cout << "Can't play sample" << endl;
 			}
 		
 		
