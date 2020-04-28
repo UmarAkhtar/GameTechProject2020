@@ -549,8 +549,30 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	};
 	supplyPoints =
 	{
-		//glm::vec3(4.2f, -1.0f, -11.0f)
-		Supply_Point(0.02,4.2f, 1.0f, -11.6f,glm::vec3(0,90,0),true)
+		Supply_Point(0.02,-54.0f, 1.3f, -3.0f,glm::vec3(0,0,45),true), //C1
+			Supply_Point(0.02,-50.0f, 1.3f, -3.0f,glm::vec3(0,0,45),false),//C1
+				Supply_Point(0.02,-55.0f, 1.3f, -21.0f,glm::vec3(0,0,45),true), //C2
+					Supply_Point(0.02,-43.0f, 1.3f, -32.0f,glm::vec3(0,0,45),false), //R2
+					Supply_Point(0.02,11.0f, 1.3f, -34.0f,glm::vec3(0,0,45),true), //R4
+					Supply_Point(0.02,0.0f, 1.3f, -33.0f,glm::vec3(0,0,45),false), //R4
+					Supply_Point(0.02,28.0f, 1.3f, -16.0f,glm::vec3(0,0,45),false), //C5
+					Supply_Point(0.02,10.0f, 1.3f, -17.0f,glm::vec3(0,0,45),true), //C5
+					Supply_Point(0.02,2.7f, 1.3f, -3.0f,glm::vec3(0,0,45),false), //C6
+					Supply_Point(0.02,4.0f, 1.3f, 8.0f,glm::vec3(0,0,45),true), //R9
+					Supply_Point(0.02,-14.0f, 1.3f, 8.0f,glm::vec3(0,0,45),false), //C7
+					Supply_Point(0.02,-15.0f, 1.3f, 20.0f,glm::vec3(0,0,45),true), //r16
+					Supply_Point(0.02,-33.0f, 1.3f, 29.0f,glm::vec3(0,0,45),false), //C12
+					Supply_Point(0.02,-33.0f, 1.3f, 28.0f,glm::vec3(0,0,45),true), //C12
+					Supply_Point(0.02,-42.0f, 1.3f, 42.0f,glm::vec3(0,0,45),true), //Dock
+					Supply_Point(0.02,-51.0f, 1.3f, 22.0f,glm::vec3(0,0,45),false), //Dock
+					Supply_Point(0.02,-33.0f, 1.3f, 42.0f,glm::vec3(0,0,45),false), //c11
+					Supply_Point(0.02,-33.0f, 1.3f, 40.0f,glm::vec3(0,0,45),true), //c11
+					Supply_Point(0.02,8.0f, 1.3f, 34.0f,glm::vec3(0,0,45),true), //r13
+					Supply_Point(0.02,12.0f, 1.3f, 34.0f,glm::vec3(0,0,45),false), //r13
+					Supply_Point(0.02,54.0f, 1.3f, 28.0f,glm::vec3(0,0,45),false), //r12
+					Supply_Point(0.02,45.0f, 1.3f, 34.7f,glm::vec3(0,0,45),true), //r12
+					Supply_Point(0.02,30.6f, 1.3f, 18.0f,glm::vec3(0,0,45),true), //C9
+
 	};
 	keyCards =
 	{
@@ -608,14 +630,15 @@ void sceneManager::update()
 			if ((supplyPoints[i].getType() == true) && (thePlayer.getHealth() < 110/*health cap*/))
 			{
 				health += 1;
-
+	cout << "playerHealth: " << thePlayer.getHealth() << " test" << endl;
 			}
 			else if ((supplyPoints[i].getType() == false) && (thePlayer.getAmmo() < 110/*ammo cap*/))
 			{
-				thePlayer.setAmmo(thePlayer.getAmmo() + 1);
+				ammo += 1;
+	cout << "playerAmmo: " << thePlayer.getAmmo() << " test" << endl;
 			}
-			cout << "playerHealth: " << thePlayer.getHealth() << " test" << endl;
-			cout << "playerAmmo: " << thePlayer.getAmmo() << " test" << endl;
+		
+		
 		}
 	}
 
@@ -648,6 +671,7 @@ void sceneManager::update()
 
 	
 	thePlayer.setHealth(health);
+	thePlayer.setAmmo(ammo);
 		
 	if (keys[SDL_SCANCODE_Q])
 	{
@@ -662,6 +686,13 @@ void sceneManager::update()
 		health -= 1;
 		Sleep(100);
 		cout << health << endl;
+	}
+	
+	if (keys[SDL_SCANCODE_DELETE])
+	{
+		ammo -= 1;
+		Sleep(100);
+		cout << ammo << endl;
 	}
 	   	 
 	if (keys[SDL_SCANCODE_W]) //forward
