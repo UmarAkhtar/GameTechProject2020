@@ -3020,6 +3020,14 @@ void sceneManager::spawnShips()
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[7].modelDraw(*ourShader);
 	modelStack.pop();
+
+	modelStack.push(modelStack.top());																							// Alien
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-150.0, 1.0f, 29.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05, 0.05, 0.05));
+	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[6].modelDraw(*ourShader);
+	modelStack.pop();
 }
 
 
