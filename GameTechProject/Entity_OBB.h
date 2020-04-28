@@ -17,6 +17,11 @@ public:
 		pos.z = myPosZ;
 		rot = myRot;
 	}
+	Entity_OBB()
+	{
+
+	}
+
 
 	float getWidth() { return width; }
 	float getLength() { return length; }

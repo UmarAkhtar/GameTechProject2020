@@ -60,7 +60,7 @@ void sceneManager::loadModel()
 	gameObjects.push_back(Model("../GameTechProject/cube.obj"));														// [8] Cube for light
 	gameObjects.push_back(Model("../GameTechProject/models/alien/alien.obj"));											// [9] Alien
 	gameObjects.push_back(Model("../GameTechProject/models/keycard/Card.obj"));											// [10] Keycard
-	gameObjects.push_back(Model("../GameTechProject/models/egg/egg.obj"));											// [11] egg
+	gameObjects.push_back(Model("../GameTechProject/models/egg/egg.obj"));												// [11] egg
 }
 
 void sceneManager::loadShader()
@@ -370,8 +370,7 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	door29Height = yAxisDown;
 	door30Height = yAxisDown;
 
-	//eye = {-67.0, 1.3, -3.3 };
-	eye = { -67.0, 1.3, -3.0 };
+	eye = { -71.0, 1.3, -3.0 };
 	at = { 0.0, 0.0, -1.0 };
 	up = { 0.0, 1.0, 0.0 };
 	thePlayer = player(1,eye.x, eye.y, eye.z, glm::vec3(0, 0, 0));
@@ -550,29 +549,54 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	supplyPoints =
 	{
 		Supply_Point(0.02,-54.0f, 1.3f, -2.7f,glm::vec3(0,0,45),true), //C1
-			Supply_Point(0.02,-50.0f, 1.3f, -2.7f,glm::vec3(0,0,45),false),//C1
-				Supply_Point(0.02,-55.0f, 1.3f, -21.0f,glm::vec3(0,0,45),true), //C2
-					Supply_Point(0.02,-43.0f, 1.3f, -32.0f,glm::vec3(0,0,45),false), //R2
-					Supply_Point(0.02,11.0f, 1.3f, -34.0f,glm::vec3(0,0,45),true), //R4
-					Supply_Point(0.02,0.0f, 1.3f, -33.0f,glm::vec3(0,0,45),false), //R4
-					Supply_Point(0.02,28.0f, 1.3f, -16.0f,glm::vec3(0,0,45),false), //C5
-					Supply_Point(0.02,10.0f, 1.3f, -17.0f,glm::vec3(0,0,45),true), //C5
-					Supply_Point(0.02,2.7f, 1.3f, -3.0f,glm::vec3(0,0,45),false), //C6
-					Supply_Point(0.02,4.0f, 1.3f, 8.0f,glm::vec3(0,0,45),true), //R9
-					Supply_Point(0.02,-14.0f, 1.3f, 8.0f,glm::vec3(0,0,45),false), //C7
-					Supply_Point(0.02,-15.0f, 1.3f, 20.0f,glm::vec3(0,0,45),true), //r16
-					Supply_Point(0.02,-33.0f, 1.3f, 29.0f,glm::vec3(0,0,45),false), //C12
-					Supply_Point(0.02,-33.0f, 1.3f, 28.0f,glm::vec3(0,0,45),true), //C12
-					Supply_Point(0.02,-42.0f, 1.3f, 42.0f,glm::vec3(0,0,45),true), //Dock
-					Supply_Point(0.02,-51.0f, 1.3f, 22.0f,glm::vec3(0,0,45),false), //Dock
-					Supply_Point(0.02,-33.0f, 1.3f, 42.0f,glm::vec3(0,0,45),false), //c11
-					Supply_Point(0.02,-33.0f, 1.3f, 40.0f,glm::vec3(0,0,45),true), //c11
-					Supply_Point(0.02,8.0f, 1.3f, 34.0f,glm::vec3(0,0,45),true), //r13
-					Supply_Point(0.02,12.0f, 1.3f, 34.0f,glm::vec3(0,0,45),false), //r13
-					Supply_Point(0.02,54.0f, 1.3f, 28.0f,glm::vec3(0,0,45),false), //r12
-					Supply_Point(0.02,45.0f, 1.3f, 34.7f,glm::vec3(0,0,45),true), //r12
-					Supply_Point(0.02,30.6f, 1.3f, 18.0f,glm::vec3(0,0,45),true), //C9
-
+		Supply_Point(0.02,-50.0f, 1.3f, -2.7f,glm::vec3(0,0,45),false),//C1
+		Supply_Point(0.02,-55.0f, 1.3f, -20.3f,glm::vec3(0,0,45),true), //C2
+		Supply_Point(0.02,-44.0f, 1.3f, -32.0f,glm::vec3(0,0,45),false), //R2
+		Supply_Point(0.02,11.0f, 1.3f, -34.0f,glm::vec3(0,0,45),true), //R4
+		Supply_Point(0.02,0.0f, 1.3f, -33.0f,glm::vec3(0,0,45),false), //R4
+		Supply_Point(0.02,28.0f, 1.3f, -16.0f,glm::vec3(0,0,45),false), //C5
+		Supply_Point(0.02,10.0f, 1.3f, -17.0f,glm::vec3(0,0,45),true), //C5
+		Supply_Point(0.02,2.7f, 1.3f, -3.0f,glm::vec3(0,0,45),false), //C6
+		Supply_Point(0.02,4.0f, 1.3f, 8.0f,glm::vec3(0,0,45),true), //R9
+		Supply_Point(0.02,-14.0f, 1.3f, 8.0f,glm::vec3(0,0,45),false), //C7
+		Supply_Point(0.02,-15.0f, 1.3f, 20.0f,glm::vec3(0,0,45),true), //r16
+		Supply_Point(0.02,-33.0f, 1.3f, 29.0f,glm::vec3(0,0,45),false), //C12
+		Supply_Point(0.02,-33.0f, 1.3f, 28.0f,glm::vec3(0,0,45),true), //C12
+		Supply_Point(0.02,-42.0f, 1.3f, 42.0f,glm::vec3(0,0,45),true), //Dock
+		Supply_Point(0.02,-51.0f, 1.3f, 22.0f,glm::vec3(0,0,45),false), //Dock
+		Supply_Point(0.02,-33.0f, 1.3f, 42.0f,glm::vec3(0,0,45),false), //c11
+		Supply_Point(0.02,-33.0f, 1.3f, 40.0f,glm::vec3(0,0,45),true), //c11
+		Supply_Point(0.02,8.0f, 1.3f, 34.0f,glm::vec3(0,0,45),true), //r13
+		Supply_Point(0.02,12.0f, 1.3f, 34.0f,glm::vec3(0,0,45),false), //r13
+		Supply_Point(0.02,54.0f, 1.3f, 28.0f,glm::vec3(0,0,45),false), //r12
+		Supply_Point(0.02,45.0f, 1.3f, 34.7f,glm::vec3(0,0,45),true), //r12
+		Supply_Point(0.02,30.6f, 1.3f, 18.0f,glm::vec3(0,0,45),true), //C9
+	};
+	chargers =																										// Collision for chargers
+	{
+		Supply_Point(0.01,-54.0f, 1.3f, -3.0f,glm::vec3(0,0,45),true), //C1
+		Supply_Point(0.01,-50.0f, 1.3f, -3.0f,glm::vec3(0,0,45),false),//C1
+		Supply_Point(0.01,-55.0f, 1.3f, -20.8f,glm::vec3(0,0,45),true), //C2
+		Supply_Point(0.01,-44.0f, 1.3f, -32.7f,glm::vec3(0,0,45),false), //R2
+		Supply_Point(0.01,11.8f, 1.3f, -33.0f,glm::vec3(0,0,45),true), //R4
+		Supply_Point(0.01, -0.80f, 1.3f, -33.0f,glm::vec3(0,0,45),false), //R4
+		Supply_Point(0.01,29.8f, 1.3f, -16.0f,glm::vec3(0,0,45),false), //C5
+		Supply_Point(0.01,10.0f, 1.3f, -17.6f,glm::vec3(0,0,45),true), //C5
+		Supply_Point(0.01,2.2f, 1.3f, -3.0f,glm::vec3(0,0,45),false), //C6
+		Supply_Point(0.01,4.0f, 1.3f, 9.7f,glm::vec3(0,0,45),true), //R9 
+		Supply_Point(0.01,-14.0f, 1.3f, 9.7f,glm::vec3(0,0,45),false), //C7
+		Supply_Point(0.01,-15.0f, 1.3f, 18.8f,glm::vec3(0,0,45),true), //r16
+		Supply_Point(0.01,-33.0f, 1.3f, 30.8f,glm::vec3(0,0,45),false), //C12
+		Supply_Point(0.01,-33.0f, 1.3f, 27.2f,glm::vec3(0,0,45),true), //C12
+		Supply_Point(0.01,-42.0f, 1.3f, 42.8f,glm::vec3(0,0,45),true), //Dock
+		Supply_Point(0.01,-51.0f, 1.3f, 21.0f,glm::vec3(0,0,45),false), //Dock
+		Supply_Point(0.01,-33.0f, 1.3f, 42.8f,glm::vec3(0,0,45),false), //c11
+		Supply_Point(0.01,-33.0f, 1.3f, 39.0f,glm::vec3(0,0,45),true), //c11 
+		Supply_Point(0.01,8.0f, 1.3f, 33.0f,glm::vec3(0,0,45),true), //r13
+		Supply_Point(0.01,12.0f, 1.3f, 33.0f,glm::vec3(0,0,45),false), //r13
+		Supply_Point(0.01,54.8f, 1.3f, 34.0f,glm::vec3(0,0,45),false), //r12
+		Supply_Point(0.01,44.0f, 1.3f, 34.7f,glm::vec3(0,0,45),true), //r12
+		Supply_Point(0.01,30.6f, 1.3f, 19.0f,glm::vec3(0,0,45),true), //C9
 	};
 	keyCards =
 	{
@@ -592,20 +616,33 @@ sceneManager::sceneManager(int windowWidth, int windowHeight) : windowWidth(wind
 	eggs =
 	{
 		Entity_Sphere(0.1, -62.0f, 1.0f, -4.0f, glm::vec3(0, 90, 0)),				//[0]
-		Entity_Sphere(0.2, -30.0f, 0.0f, -7.0f, glm::vec3(0, 90, 0)),				//[1]
-		Entity_Sphere(0.2, -52.0f, 0.0f, -25.0f, glm::vec3(0, 90, 0)),				//[2]
-		Entity_Sphere(0.2, 9.0f, 0.0f, -39.0f, glm::vec3(0, 90, 0)),				//[3]
-		Entity_Sphere(0.2, 25.0f, 0.0f, -22.0f, glm::vec3(0, 90, 0)),				//[4]
-		Entity_Sphere(0.2, 29.0f, 0.0f, -11.0f, glm::vec3(0, 90, 0)),				//[5]
-		Entity_Sphere(0.2, 0.0f, 0.0f, 7.0f, glm::vec3(0, 90, 0)),					//[6]
-		Entity_Sphere(0.2, 26.0f, 0.0f, 21.0f, glm::vec3(0, 90, 0)),				//[7]
-		Entity_Sphere(0.2, 14.0f, 0.0f, 34.0f, glm::vec3(0, 90, 0)),				//[8]
-		Entity_Sphere(0.2, -19.0f, 0.0f, 27.0f, glm::vec3(0, 90, 0)),				//[9]
-		Entity_Sphere(0.2, -40.0f, 0.0f, 42.0f, glm::vec3(0, 90, 0)),				//[10]
+		Entity_Sphere(0.2, -30.0f, 1.0f, -7.0f, glm::vec3(0, 90, 0)),				//[1]
+		Entity_Sphere(0.2, -52.0f, 1.0f, -25.0f, glm::vec3(0, 90, 0)),				//[2]
+		Entity_Sphere(0.2, 9.0f, 1.0f, -39.0f, glm::vec3(0, 90, 0)),				//[3]
+		Entity_Sphere(0.2, 25.0f, 1.0f, -22.0f, glm::vec3(0, 90, 0)),				//[4]
+		Entity_Sphere(0.2, 29.0f, 1.0f, -11.0f, glm::vec3(0, 90, 0)),				//[5]
+		Entity_Sphere(0.2, 0.0f, 1.0f, 7.0f, glm::vec3(0, 90, 0)),					//[6]
+		Entity_Sphere(0.2, 26.0f, 1.0f, 21.0f, glm::vec3(0, 90, 0)),				//[7]
+		Entity_Sphere(0.2, 14.0f, 1.0f, 34.0f, glm::vec3(0, 90, 0)),				//[8]
+		Entity_Sphere(0.2, -19.0f, 1.0f, 27.0f, glm::vec3(0, 90, 0)),				//[9]
+		Entity_Sphere(0.2, -40.0f, 1.0f, 42.0f, glm::vec3(0, 90, 0)),				//[10]
+	};
+
+	beds =
+	{
+		Entity_OBB(1.0f, 1.0f, 2.0, -70.0f, 0.0f, -7.0f, glm::vec3(0, 0, 45)),
+		Entity_OBB(1.0f, 1.0f, 2.0, -67.5f, 0.0f, -7.0f, glm::vec3(0, 0, 45)),
+		Entity_OBB(1.0f, 1.0f, 2.0, -65.0f, 0.0f, -7.0f, glm::vec3(0, 0, 45)),
+		Entity_OBB(1.0f, 1.0f, 2.0, -62.5f, 0.0f, -7.0f, glm::vec3(0, 0, 45)),
+		Entity_OBB(1.0f, 1.0f, 2.0, -70.0f, 0.0f, 2.0f, glm::vec3(0, 0, 45)),
+		Entity_OBB(1.0f, 1.0f, 2.0, -67.5f, 0.0f, 2.0f, glm::vec3(0, 0, 45)),
+		Entity_OBB(1.0f, 1.0f, 2.0, -65.0f, 0.0f, 2.0f, glm::vec3(0, 0, 45)),
+		Entity_OBB(1.0f, 1.0f, 2.0, -62.5f, 0.0f, 2.0f, glm::vec3(0, 0, 45)),
 	};
 
 	collisionHandler theCollisionHandler;
-	
+
+	shipCollision = Entity_OBB(9.0f, 6.0f, 2.0, -51.5f, 1.0f, 33.0f, glm::vec3(0, 0, 45));
 
 	window = setupRC(context);
 	glewInitilisation();
@@ -653,9 +690,19 @@ void sceneManager::update()
 	doorCollision(keys);	
 	keyCollision(keys);
 	eggCollision();
+	ChargerCollision();
+	bedCollision();
+
+	if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, shipCollision))
+	{
+		cout << "Escapez\n";
+		thePlayer.setX(eye.x);
+		thePlayer.setY(eye.y);
+		thePlayer.setZ(eye.z);
+	}
 
 
-		for (int i = 0; i < environment.size(); i++)
+	for (int i = 0; i < environment.size(); i++)
 		{
 			//cout << "eX: " << thePlayer.getX() << "    eY: " << thePlayer.getY() << "    eZ: " << thePlayer.getZ() << endl;
 			//cout << "pX: " << thePlayer.getX() << "    pY: " << thePlayer.getY() << "    pZ: " << thePlayer.getZ() << endl;
@@ -673,9 +720,9 @@ void sceneManager::update()
 				eye.z = thePlayer.getZ();
 			}*/
 		}
-		eye.x = thePlayer.getX();
-		eye.y = thePlayer.getY();
-		eye.z = thePlayer.getZ();
+	eye.x = thePlayer.getX();
+	eye.y = thePlayer.getY();
+	eye.z = thePlayer.getZ();
 
 	
 	thePlayer.setHealth(health);
@@ -730,27 +777,19 @@ void sceneManager::update()
 	{
 		rotation -= 1.0f;
 	}
-	if (keys[SDL_SCANCODE_E])
-	{
-		rotation += 1.0f;
-		
-	}
+
 	if (keys[SDL_SCANCODE_R])
 	{
 		thePlayer.pos.y += 0.1f;
 		//eye.y += 0.1;
 	}
 
-
-	
-
 	if (keys[SDL_SCANCODE_F])
 	{
 		thePlayer.pos.y -= 0.1f;
 		//eye.y -= 0.1;
 	}
-
-
+	
 	if (keys[SDL_SCANCODE_1])
 	{
 		health -= 1;
@@ -767,7 +806,6 @@ void sceneManager::update()
 		rotation += 1.0f;
 	}
 }
-
 
 void sceneManager::doorCollision(const Uint8* keys)
 {
@@ -2168,6 +2206,34 @@ void sceneManager::eggCollision()
 	
 }
 
+void sceneManager::ChargerCollision()
+{
+	for (int i = 0; i < chargers.size(); i++)
+	{
+		if (theCollisionHandler.checkCollisionSphereVsSphere(thePlayer, chargers[i]))
+		{
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+}
+
+void sceneManager::bedCollision()
+{ 
+	for (int i = 0; i < beds.size(); i++)
+	{
+		if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, beds[i]))
+		{		
+			thePlayer.setX(eye.x);
+			thePlayer.setY(eye.y);
+			thePlayer.setZ(eye.z);
+		}
+	}
+
+}
+
 
 sceneManager::~sceneManager()
 {
@@ -2270,27 +2336,20 @@ void sceneManager::draw()
 	modelStack.pop();
 
 	modelStack.push(modelStack.top());																							// Alien
-	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(50.0f, 0.0f, 32.0f));
-	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-59.0f, 0.0f, -1.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.2, 1.0, 1.2));
 	modelStack.top() = glm::rotate(modelStack.top(), float(270 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, 0.0f));
 	ourShader->setMat4("modelView", modelStack.top());
 	gameObjects[9].modelDraw(*ourShader);
 	modelStack.pop();
 
 
-	//modelStack.push(modelStack.top());																								// Egg
-	//modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-67.05f, 0.0f, -3.3f));
-	//modelStack.top() = glm::scale(modelStack.top(), glm::vec3(1.0, 1.0, 1.0));
-	//modelStack.top() = glm::rotate(modelStack.top(), float(0 * DEG_TO_RADIAN), glm::vec3(0.10f, 0.0f, -0.0f));
-	//ourShader->setMat4("modelView", modelStack.top());
-	//gameObjects[11].modelDraw(*ourShader);
-	//modelStack.pop();
-
 	spawnBeds();
 	spawnDoors();
 	spawnChargers();
 	spawnKeys();
 	spawnEggs();
+	spawnShips();
 		
 	cubeShader->use();
 	cubeShader->setMat4("projection", projection);
@@ -2950,6 +3009,17 @@ void sceneManager::spawnEggs()
 		gameObjects[11].modelDraw(*ourShader);
 		modelStack.pop();
 	}
+}
+
+void sceneManager::spawnShips()
+{
+	modelStack.push(modelStack.top());																							// Alien
+	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-51.0f, 1.0f, 33.0f));
+	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.15, 0.15, 0.15));
+	modelStack.top() = glm::rotate(modelStack.top(), float(270 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
+	ourShader->setMat4("modelView", modelStack.top());
+	gameObjects[7].modelDraw(*ourShader);
+	modelStack.pop();
 }
 
 

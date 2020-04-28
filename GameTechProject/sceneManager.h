@@ -38,14 +38,14 @@ private:
 	void spawnChargers();
 	void spawnKeys();
 	void spawnEggs();
+	void spawnShips();
 	glm::vec3 moveForward(glm::vec3 pos, GLfloat angle, GLfloat d);
 	glm::vec3 moveRight(glm::vec3 pos, GLfloat angle, GLfloat d);
 	void doorCollision(const Uint8* keys);
 	void keyCollision(const Uint8* keys);
 	void eggCollision();
-
-
-
+	void ChargerCollision();
+	void bedCollision();
 	int windowWidth;
 	int windowHeight;
 	TTF_Font* font = TTF_OpenFont("MavenPro-Regular.ttf", 25);
@@ -59,8 +59,6 @@ public:
 
 	SoundManager* sm;
 	HSAMPLE* samples = NULL;
-	
-	
 	stack<glm::mat4> modelStack;			// Stack
 	SDL_GLContext context;
 	SDL_Window* window;
@@ -69,17 +67,17 @@ public:
 	int ammo = 100;
 	bool key1Found, key2Found, key3Found, key4Found, key5Found, key6Found, key7Found, key8Found, key9Found, key10Found, key11Found, key12Found = false;
 	shared_ptr<Shader> ourShader;
-	shared_ptr<Model> ourModel;
-	
+	shared_ptr<Model> ourModel;	
 	player thePlayer;
+	Entity_OBB shipCollision;
 	vector<Entity_OBB> environment;
-	//vector<Supply_Point> doors;
 	vector<Entity_OBB> doors;
 	vector<Supply_Point> supplyPoints;
+	vector<Supply_Point> chargers;
 	vector<Entity_Sphere> keyCards;
 	vector<Entity_Sphere> eggs;
-	//vector<Enemy> enemies;
-	//vector<Node> nodesList;
+	vector<Entity_OBB> beds;
+
 	collisionHandler theCollisionHandler;
 	vector<Model> gameObjects;
 	shared_ptr<Shader> cubeShader;
@@ -90,13 +88,6 @@ public:
 	GLuint skybox;
 	GLuint loadSkybox(const char* fname[6], GLuint* texID);
 	const char* cubeTexFiles[6] = {
-			/*"../GameTechProject/skybox/blue/back.bmp",
-			"../GameTechProject/skybox/blue/front.bmp",
-			"../GameTechProject/skybox/blue/right.bmp",
-			"../GameTechProject/skybox/blue/left.bmp",
-			"../GameTechProject/skybox/blue/top.bmp",
-			"../GameTechProject/skybox/blue/bottom.bmp"*/
-
 			"../GameTechProject/skybox/lightblue/back.bmp",
 			"../GameTechProject/skybox/lightblue/front.bmp",
 			"../GameTechProject/skybox/lightblue/right.bmp",
@@ -194,6 +185,8 @@ public:
 		glm::vec3(-19.0f, 0.0f, 27.0f),
 		glm::vec3(-40.0f, 0.0f, 42.0f),
 	};
+
+
 	//glm::vec3 doorOneHeight;// = testDoorVectorDown;														//Will need one of these vars for each door
 	//glm::vec3 doorTwoHeight;
 	glm::vec3 testDoorVectorDown = { 5.3, 1, -10 };
