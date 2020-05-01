@@ -46,6 +46,7 @@ private:
 	void eggCollision();
 	void ChargerCollision();
 	void bedCollision();
+	void spawnCorpse();
 	int windowWidth;
 	int windowHeight;
 	TTF_Font* font = TTF_OpenFont("MavenPro-Regular.ttf", 25);
