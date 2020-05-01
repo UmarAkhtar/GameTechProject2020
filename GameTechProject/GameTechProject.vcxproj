@@ -30,7 +30,6 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="rt3d.h" />
-    <ClInclude Include="rt3dObjLoader.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SoundManager.h" />
@@ -43,8 +42,6 @@
     <None Include="cubeShader.vs" />
     <None Include="phong-tex.frag" />
     <None Include="phong-tex.vert" />
-    <None Include="reflect.frag" />
-    <None Include="reflect.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="collisionHandler.cpp" />
@@ -52,7 +49,6 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="rt3d.cpp" />
-    <ClCompile Include="rt3dObjLoader.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SoundManager.cpp" />

@@ -805,6 +805,20 @@ void sceneManager::update()
 	{
 		rotation += 1.0f;
 	}
+
+
+	  int mouseX, mouseY = 0;
+	  SDL_GetMouseState(&mouseX, &mouseY);
+
+	  if (mouseX > windowWidth / 2 + 100)
+	  {
+		  rotation += 1.0f;
+	  }
+	 
+	  if (mouseX < windowWidth / 2 - 100)
+	  {
+		  rotation -= 1.0f;
+	  }
 }
 
 void sceneManager::doorCollision(const Uint8* keys)
@@ -2190,7 +2204,11 @@ void sceneManager::eggCollision()
 			sm->setAttributes(0, &ch2, 0, 0.1, 0);
 			if (!BASS_ChannelPlay(ch2, FALSE))
 				cout << "Can't play sample" << endl;
-			health -= 1;		
+			health -= 1;	
+			if (health <= 0)
+			{
+				health = 0;
+			}
 			thePlayer.setX(eye.x);
 			thePlayer.setY(eye.y);
 			thePlayer.setZ(eye.z);			
@@ -3013,7 +3031,7 @@ void sceneManager::spawnEggs()
 
 void sceneManager::spawnShips()
 {
-	modelStack.push(modelStack.top());																							// Alien
+	modelStack.push(modelStack.top());																							
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-51.0f, 1.0f, 33.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.15, 0.15, 0.15));
 	modelStack.top() = glm::rotate(modelStack.top(), float(270 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
@@ -3021,7 +3039,7 @@ void sceneManager::spawnShips()
 	gameObjects[7].modelDraw(*ourShader);
 	modelStack.pop();
 
-	modelStack.push(modelStack.top());																							// Alien
+	modelStack.push(modelStack.top());																							
 	modelStack.top() = glm::translate(modelStack.top(), glm::vec3(-150.0, 1.0f, 29.0f));
 	modelStack.top() = glm::scale(modelStack.top(), glm::vec3(0.05, 0.05, 0.05));
 	modelStack.top() = glm::rotate(modelStack.top(), float(180 * DEG_TO_RADIAN), glm::vec3(0.0f, 0.10f, -0.0f));
