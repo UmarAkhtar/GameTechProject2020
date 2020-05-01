@@ -708,7 +708,7 @@ void sceneManager::update()
 			//cout << "pX: " << thePlayer.getX() << "    pY: " << thePlayer.getY() << "    pZ: " << thePlayer.getZ() << endl;
 			if (theCollisionHandler.checkCollisionSphereVsOBB(thePlayer, environment[i])) /*players collides with environment[i]*/
 			{
-				cout << "Environmental collision" << endl << endl;
+				//cout << "Environmental collision" << endl << endl;
 				thePlayer.setX(eye.x);
 				thePlayer.setY(eye.y);
 				thePlayer.setZ(eye.z);
@@ -728,14 +728,6 @@ void sceneManager::update()
 	thePlayer.setHealth(health);
 	thePlayer.setAmmo(ammo);
 		
-	if (keys[SDL_SCANCODE_Q])
-	{
-		rotation -= 1.0f;
-	}
-	if (keys[SDL_SCANCODE_E])
-	{
-		rotation += 1.0f;
-	}
 	if (keys[SDL_SCANCODE_1])
 	{
 		health -= 1;
@@ -773,22 +765,22 @@ void sceneManager::update()
 
 	
 
-	if (keys[SDL_SCANCODE_Q])
-	{
-		rotation -= 1.0f;
-	}
+	//if (keys[SDL_SCANCODE_Q])
+	//{
+	//	rotation -= 1.0f;
+	//}
 
-	if (keys[SDL_SCANCODE_R])
-	{
-		thePlayer.pos.y += 0.1f;
-		//eye.y += 0.1;
-	}
+	//if (keys[SDL_SCANCODE_R])
+	//{
+	//	thePlayer.pos.y += 0.1f;
+	//	//eye.y += 0.1;
+	//}
 
-	if (keys[SDL_SCANCODE_F])
-	{
-		thePlayer.pos.y -= 0.1f;
-		//eye.y -= 0.1;
-	}
+	//if (keys[SDL_SCANCODE_F])
+	//{
+	//	thePlayer.pos.y -= 0.1f;
+	//	//eye.y -= 0.1;
+	//}
 	
 	if (keys[SDL_SCANCODE_1])
 	{
@@ -2265,11 +2257,8 @@ void sceneManager::draw()
 	glEnable(GL_CULL_FACE);
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-
-
-	
-	cout << eye.x << " " << eye.y << " " << eye.z << endl;
+	glEnable(GL_DEPTH_TEST);	
+	//cout << eye.x << " " << eye.y << " " << eye.z << endl;
 
 	glm::mat4 projection(1.0);
 	projection = glm::perspective(float(60.0f * DEG_TO_RADIAN), 800.0f / 600.0f, 0.1f, 150.0f);
